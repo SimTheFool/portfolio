@@ -1,0 +1,13 @@
+{
+  "name": "binaireetpolychrome",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "webpack",
+    "prod": "webpack --env='prod'",
+    "help": "webpack --help"
+  },
+  "author": "",
+  "license": "ISC"
+}
