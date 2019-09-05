@@ -1,5 +1,47 @@
+/*
+
+@font-face{
+    font-family: "DistantStroke";
+    src: url('../fonts/distant_stroke/Distant_Stroke_Medium.otf') ;
+    font-weight: normal;
+}
+
+@font-face{
+    font-family: "DistantStroke";
+    src: url('../fonts/distant_stroke/Distant_Stroke.otf') ;
+    font-weight: lighter;
+}
+
 #logo {
     width: 90vw;
     height: 90vh;
     border: 3px solid black;
+}
+
+.polychrome{
+    font-family: "DistantStroke";
+    font-weight: lighter;
+}
+
+.binaire{
+    font-family: sans-serif;
+}
+
+#frame{
+    display: block;
+    position: relative;
+    width: 600px;
+    height: 600px;
+    border: 1px dotted grey;
+    margin: 0 auto 0 0;
+}
+*/
+
+#timeline{
+    display: block;
+    position: relative;
+    width: 30vw;
+    height: 70vh;
+    border: 1px dotted grey;
+    margin: 0 auto 0 0;
 }
