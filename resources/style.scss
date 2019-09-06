@@ -44,4 +44,10 @@
     height: 70vh;
     border: 1px dotted grey;
     margin: 0 auto 0 0;
+
+    .cursor{
+        position: absolute;
+        top: 0;
+        left: 0;
+    }
 }

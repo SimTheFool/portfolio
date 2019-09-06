@@ -3,7 +3,7 @@
                 baseProfile="full"
                 xmlns="http://www.w3.org/2000/svg"
                 width="100%" height="100%" viewBox="-10 -10 120 120">
-        <path v-bind:d="d" fill="transparent" stroke="black" stroke-width="2"/>              
+        <path ref="path" v-bind:d="d" fill="transparent" stroke="black"/>              
     </svg>
 </template>
 
@@ -17,6 +17,7 @@ export default {
     },
     methods:
     {
+        // Compute the path d attribute based on datas. Return an array of endpoints constituting the path.
         createPath: function(data, slope)
         {
             let sum = data.reduce((a, e) => {return a + e.duration}, 0);
@@ -39,8 +40,13 @@ export default {
                 this.d += ` l ${e.x} ${e.y}`;
             });
 
-            return endpoints;
+            return {
+                path: this.$refs.path,
+                endpoints: endpoints
+            };
         },
+
+        // Clamp all values in array and share the extra or the lack with all the other values.
         clampAndBalance: function(arr, min, max)
         {
             // isClamped array keep an eye on which values was clamped, so they can't be altered after that.

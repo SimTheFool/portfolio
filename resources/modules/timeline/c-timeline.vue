@@ -2,6 +2,8 @@
     <div id="timeline">
 
         <c-path ref="path"></c-path>
+        <c-cursor ref="cursor" v-bind:path="path" v-bind:endpoints="endpoints"></c-cursor>
+        
 
     </div>
 </template>
@@ -9,17 +11,27 @@
 <script>
 
 import cPath from 'Modules/path/c-path.vue';
+import cCursor from 'Modules/cursor/c-cursor.vue';
 
 export default {
+    inject: ['anime'],
     components:
     {
-        'c-path': cPath
+        'c-path': cPath,
+        'c-cursor': cCursor
     },
     props:
     {
         content:
         {
             default: null
+        }
+    },
+    data: function()
+    {
+        return {
+            path: null,
+            endpoints: null
         }
     },
     watch:
@@ -36,9 +48,16 @@ export default {
     {
         initialize: function()
         {
-            this.$refs.path.createPath(this.content, 0.5);
+            let pathDatas = this.$refs.path.createPath(this.content, 0.5);
+            this.path = pathDatas.path;
+            this.endpoints = pathDatas.endpoints;
+            this.$refs.cursor.moveToEndpoint();
         }
     },
+    provide: function()
+    {
+        anime: this.anime
+    }
 }
 
 </script>
