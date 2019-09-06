@@ -36,7 +36,7 @@ export default {
     {
         initialize: function()
         {
-            this.$refs.path.createPath(this.content);
+            this.$refs.path.createPath(this.content, 0.5);
         }
     },
 }

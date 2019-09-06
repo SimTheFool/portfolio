@@ -17,10 +17,29 @@ export default {
     },
     methods:
     {
-        createPath: function(data)
+        createPath: function(data, slope)
         {
-            data = [5, 6, 2, 1, 7];
-            this.clampAndBalance(data, 0.10, 0.25);
+            let sum = data.reduce((a, e) => {return a + e.duration}, 0);
+            let endpoints = data.map((e) => {return e.duration/sum*100});
+            this.clampAndBalance(endpoints, 10, 30);
+
+            let dir = -1
+            this.d = 'M 0 0';
+            endpoints = endpoints.map((y, i) => {
+                let x = y * slope;
+                dir *= -1;
+                x *= dir;
+                return {
+                    x : x,
+                    y: y
+                }
+            });
+
+            endpoints.forEach(e => {
+                this.d += ` l ${e.x} ${e.y}`;
+            });
+
+            return endpoints;
         },
         clampAndBalance: function(arr, min, max)
         {
@@ -32,10 +51,6 @@ export default {
                 if(arr[k] == min || arr[k] == max)
                 {
                     isClamped[k] = true;
-                }
-                else
-                {
-                    isClamped[k] = false;
                 }
             }
 
@@ -79,7 +94,13 @@ export default {
                     }
                 }
             }
+
+            return arr;
         }
+    },
+    mouted: function()
+    {
+
     }
 }
 </script>
