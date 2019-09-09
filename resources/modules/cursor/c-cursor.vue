@@ -4,7 +4,7 @@
                 xmlns="http://www.w3.org/2000/svg"
                 width="100%" height="100%" viewBox="-10 -10 120 120">
 
-        <circle v-bind:cx="point.x" v-bind:cy="point.y" r="10" fill="white" stroke="black"/>
+        <circle v-bind:cx="point.x" v-bind:cy="point.y" r="3" fill="transparent" stroke="black"/>
 
     </svg>
 </template>
@@ -52,11 +52,11 @@ export default {
     },
     methods:
     {
-        moveToEndpoint: function()
+        moveToEndpoint: function(y)
         {
             this.animation = this.anime({
                 targets: this,
-                progress: 100,
+                progress: y,
                 easing: 'easeInOutSine',
                 direction: 'alternate',
                 loop: true,

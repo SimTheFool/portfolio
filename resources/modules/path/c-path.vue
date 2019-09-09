@@ -3,7 +3,15 @@
                 baseProfile="full"
                 xmlns="http://www.w3.org/2000/svg"
                 width="100%" height="100%" viewBox="-10 -10 120 120">
-        <path ref="path" v-bind:d="d" fill="transparent" stroke="black"/>              
+        <path ref="path" v-bind:d="d" fill="transparent" stroke="black"/>
+        <line v-for="(point, index) in endpoints"
+            v-bind:x1="point.x"
+            v-bind:y1="point.y"
+            v-bind:x2="point.x - 5 * checkParity(index)"
+            v-bind:y2="point.y"
+            stroke="black"
+            v-bind:data-id="index"
+        />   
     </svg>
 </template>
 
@@ -12,7 +20,8 @@ export default {
     data: function()
     {
         return {
-            d: 'M 0 0'
+            d: '',
+            endpoints: [],
         }
     },
     methods:
@@ -21,28 +30,39 @@ export default {
         createPath: function(data, slope)
         {
             let sum = data.reduce((a, e) => {return a + e.duration}, 0);
-            let endpoints = data.map((e) => {return e.duration/sum*100});
-            this.clampAndBalance(endpoints, 10, 30);
+            this.endpoints = data.map((e) => {return e.duration/sum*100});
+            this.clampAndBalance(this.endpoints, 10, 30);
 
-            let dir = -1
-            this.d = 'M 0 0';
-            endpoints = endpoints.map((y, i) => {
-                let x = y * slope;
-                dir *= -1;
-                x *= dir;
-                return {
+            // Array of coordinates relative to previous point coordinates.
+            this.endpoints.forEach((y, i, a)=>{
+                let newSlope = (i === 0 || i === a.length - 1) ? slope/2 : slope;
+                let x = y * newSlope;
+                x *= this.checkParity(i);
+                a[i] = {
                     x : x,
                     y: y
                 }
             });
+            this.endpoints.unshift({x:0, y:0});
 
-            endpoints.forEach(e => {
-                this.d += ` l ${e.x} ${e.y}`;
+            // Array of absolute coordinates
+            this.endpoints.forEach(function(coord, i, a){
+                if(i === 0){return;}
+
+                a[i] = {
+                    x : a[i-1].x + a[i].x,
+                    y: a[i-1].y + a[i].y
+                }
+            });
+
+            // Drawing the path
+            this.endpoints.forEach( (coord, i) => {
+                this.d += (i === 0) ? 'M 0 0' : ` L ${coord.x} ${coord.y}`;
             });
 
             return {
                 path: this.$refs.path,
-                endpoints: endpoints
+                endpoints: this.endpoints
             };
         },
 
@@ -102,6 +122,10 @@ export default {
             }
 
             return arr;
+        },
+        checkParity: function(i)
+        {
+            return (i % 2 === 0) ? 1 : -1;
         }
     },
     mouted: function()

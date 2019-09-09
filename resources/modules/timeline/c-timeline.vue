@@ -51,7 +51,6 @@ export default {
             let pathDatas = this.$refs.path.createPath(this.content, 0.5);
             this.path = pathDatas.path;
             this.endpoints = pathDatas.endpoints;
-            this.$refs.cursor.moveToEndpoint();
         }
     },
     provide: function()
