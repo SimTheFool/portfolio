@@ -43,8 +43,9 @@
   height: 70vh;
   border: 1px dotted grey;
   margin: 0 auto 0 0; }
-  #timeline .cursor {
-    position: absolute;
-    top: 0;
-    left: 0; }
+  #timeline .viewer {
+    display: block;
+    width: 200px;
+    height: 200px;
+    background-color: grey; }
 

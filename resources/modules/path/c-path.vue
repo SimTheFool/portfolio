@@ -9,9 +9,12 @@
             v-bind:y1="point.y"
             v-bind:x2="point.x - 5 * checkParity(index)"
             v-bind:y2="point.y"
-            stroke="black"
             v-bind:data-id="index"
-        />   
+            v-on:click="$emit('clickEndpoint', $event.target.dataset.id)"
+            stroke="black"
+            stroke-width="2"
+        />
+        <slot></slot>
     </svg>
 </template>
 
@@ -36,7 +39,7 @@ export default {
             // Array of coordinates relative to previous point coordinates.
             this.endpoints.forEach((y, i, a)=>{
                 let newSlope = (i === 0 || i === a.length - 1) ? slope/2 : slope;
-                let x = y * newSlope;
+                let x = y * slope;
                 x *= this.checkParity(i);
                 a[i] = {
                     x : x,

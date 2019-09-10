@@ -26,6 +26,11 @@
             "year": 2018,
             "duration": 1.5,
             "description": "Formation"
+        },
+        {
+            "year": 2018,
+            "duration": 0,
+            "description": "Formation"
         }
     ]
 }

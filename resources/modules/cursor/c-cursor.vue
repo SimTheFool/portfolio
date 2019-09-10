@@ -1,12 +1,9 @@
 <template>
-    <svg class="cursor" version="1.1"
-                baseProfile="full"
-                xmlns="http://www.w3.org/2000/svg"
-                width="100%" height="100%" viewBox="-10 -10 120 120">
-
-        <circle v-bind:cx="point.x" v-bind:cy="point.y" r="3" fill="transparent" stroke="black"/>
-
-    </svg>
+    <circle v-bind:cx="point.x" 
+            v-bind:cy="point.y"
+            r="3"
+            fill="black"
+            stroke="black"/>
 </template>
 
 <script>
@@ -52,16 +49,17 @@ export default {
     },
     methods:
     {
-        moveToEndpoint: function(y)
+        moveToEndpoint: function(i)
         {
             this.animation = this.anime({
                 targets: this,
-                progress: y,
+                progress: this.endpoints[i].y,
                 easing: 'easeInOutSine',
-                direction: 'alternate',
-                loop: true,
                 autoplay: false,
-                duration: 2000,
+                duration: 1000,
+                complete: () => {
+                    this.$emit('reachEndpoint', i);
+                }
             });
         }
     },
