@@ -3,6 +3,7 @@ import VueResource from 'vue-resource';
 import VueRouter from 'vue-router';
 import anime from 'animejs';
 import random from 'random';
+import utils from 'Utils/utils.js';
 
 import cLogo from 'Modules/logo/c-logo.vue';
 import cFollow from 'Modules/follow/c-follow.vue';
@@ -35,11 +36,10 @@ new Vue({
             console.log('Erreur : Les données n\'ont pu être récupérées');
         })
     },
-    provide: function()
+    provide:
     {
-        return{
-            anime: anime,
-            random: random
-        }
+        anime: anime,
+        random: random,
+        utils: utils
     }
 });

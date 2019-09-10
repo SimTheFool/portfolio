@@ -1,6 +1,7 @@
 <template>
     <circle v-bind:cx="point.x" 
             v-bind:cy="point.y"
+            v-on:mousedown="$emit('mousedown')"
             r="3"
             fill="black"
             stroke="black"/>
@@ -12,12 +13,16 @@ export default {
     props:
     {
         path: null,
-        endpoints: null,
+        endpoints:
+        {
+            type: Array,
+            default: () => []
+        }
     },
     data: function()
     {
         return {
-            progress: 0,
+            pathLength: 0,
             animation: null,
         }
     },
@@ -30,8 +35,7 @@ export default {
                 return {x: 0, y: 0};
             }
 
-            let length = this.path.getTotalLength();
-            let point = this.path.getPointAtLength(length * this.progress / 100);
+            let point = this.path.getPointAtLength(this.pathLength);
             return point;
         }
     },
@@ -53,7 +57,7 @@ export default {
         {
             this.animation = this.anime({
                 targets: this,
-                progress: this.endpoints[i].y,
+                pathLength: this.endpoints[i].length,
                 easing: 'easeInOutSine',
                 autoplay: false,
                 duration: 1000,
@@ -61,6 +65,14 @@ export default {
                     this.$emit('reachEndpoint', i);
                 }
             });
+        },
+        move: function(l)
+        {
+            this.pathLength = l;
+        },
+        testb: function()
+        {
+            console.log('bbbbb');
         }
     },
 }
