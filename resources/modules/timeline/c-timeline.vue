@@ -118,7 +118,7 @@ export default {
         },
         animateCursor: function(i)
         {
-            this.$refs.cursor.moveToEndpoint(i);
+            this.$refs.cursor.moveToEndpoint(i, 1000);
         },
         moveCursor: function(l)
         {
@@ -171,6 +171,7 @@ export default {
         dragend: function()
         {
             this.$refs.drawing.$el.removeEventListener('mousemove', this.drag);
+            
         }
     },
 }

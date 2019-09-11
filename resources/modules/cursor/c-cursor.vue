@@ -22,7 +22,7 @@ export default {
     data: function()
     {
         return {
-            pathLength: 0,
+            lengthOnPath: 0,
             animation: null,
         }
     },
@@ -35,7 +35,7 @@ export default {
                 return {x: 0, y: 0};
             }
 
-            let point = this.path.getPointAtLength(this.pathLength);
+            let point = this.path.getPointAtLength(this.lengthOnPath);
             return point;
         }
     },
@@ -53,14 +53,14 @@ export default {
     },
     methods:
     {
-        moveToEndpoint: function(i)
+        moveToEndpoint: function(i, d)
         {
             this.animation = this.anime({
                 targets: this,
-                pathLength: this.endpoints[i].length,
+                lengthOnPath: this.endpoints[i].length,
                 easing: 'easeInOutSine',
                 autoplay: false,
-                duration: 1000,
+                duration: d,
                 complete: () => {
                     this.$emit('reachEndpoint', i);
                 }
@@ -68,7 +68,7 @@ export default {
         },
         move: function(l)
         {
-            this.pathLength = l;
+            this.lengthOnPath = l;
         },
         testb: function()
         {
