@@ -13,17 +13,12 @@ export default {
     props:
     {
         path: null,
-        endpoints:
-        {
-            type: Array,
-            default: () => []
-        }
     },
     data: function()
     {
         return {
-            lengthOnPath: 0,
             animation: null,
+            lengthOnPath: 0,
         }
     },
     computed:
@@ -39,40 +34,36 @@ export default {
             return point;
         }
     },
-    watch:
-    {
-        animation: function(anim, oldAnim)
-        {
-            if(oldAnim !== null)
-            {
-                oldAnim.pause();
-            }
-
-            anim.play();
-        }
-    },
     methods:
     {
-        moveToEndpoint: function(i, d)
+        transitToLength: function(l, i = null)
         {
+            if(this.animation !== null)
+            {
+                this.animation.pause();
+            }
+
+            let d = Math.abs(this.lengthOnPath - l) / 0.06;
+
             this.animation = this.anime({
                 targets: this,
-                lengthOnPath: this.endpoints[i].length,
-                easing: 'easeInOutSine',
+                lengthOnPath: l,
+                easing: 'easeOutSine',
                 autoplay: false,
                 duration: d,
                 complete: () => {
-                    this.$emit('reachEndpoint', i);
+                    if(i !== null)
+                    {
+                        this.$emit('reachEndpoint', i);
+                    }                    
                 }
             });
+
+            this.animation.play();
         },
-        move: function(l)
+        moveToLength: function(l)
         {
             this.lengthOnPath = l;
-        },
-        testb: function()
-        {
-            console.log('bbbbb');
         }
     },
 }

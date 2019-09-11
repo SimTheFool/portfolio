@@ -2,13 +2,12 @@
     <div id="timeline">
 
         <c-drawing ref="drawing"
-            v-bind:path="path"
+            v-bind:d="d"
             v-bind:endpoints="endpoints"
-            v-on:clickEndpoint="animateCursor"        
+            v-on:clickEndpoint="transitCursor"        
         >
             <c-cursor ref="cursor"
-                v-bind:path="pathRef"
-                v-bind:endpoints="endpoints"
+                v-bind:path="ePath"
                 v-on:reachEndpoint="displayData"
                 v-on:mousedown="dragstart"
             ></c-cursor>
@@ -44,10 +43,12 @@ export default {
     data: function()
     {
         return {
-            path: '',
-            pathRef: null,
+            d: '',
             endpoints: [],
             currentDatas: {},
+            ePath: null,
+            eDrawing: null,
+            nCursor: null
         }
     },
     watch:
@@ -68,10 +69,10 @@ export default {
             datas.pop();
             let pathDatas = this.createPath(datas, 0.5);
 
-            this.path = pathDatas.path;
+            this.d = pathDatas.d;
             this.endpoints = pathDatas.endpoints;
             this.currentDatas = this.content[this.content.length - 1];
-            this.pathRef = this.$refs.drawing.$refs.path;
+            this.ePath = this.$refs.drawing.$refs.path;
         },
         // Compute the path d attribute based on datas. Return an array of endpoints constituting the path.
         createPath: function(datas, slope)
@@ -112,17 +113,14 @@ export default {
             });
 
             return {
-                path: d,
+                d: d,
                 endpoints: endpoints
             };
         },
-        animateCursor: function(i)
+        transitCursor: function(i)
         {
-            this.$refs.cursor.moveToEndpoint(i, 1000);
-        },
-        moveCursor: function(l)
-        {
-            this.$refs.cursor.move(l);
+            this.nCursor.transitToLength(this.endpoints[i].length, i);
+            
         },
         displayData: function(i)
         {
@@ -130,13 +128,13 @@ export default {
         },
         dragstart: function()
         {
-            this.$refs.drawing.$el.addEventListener('mousemove', this.drag);
+            this.eDrawing.addEventListener('mousemove', this.drag);
             document.addEventListener('mouseup', this.dragend);
         },
         drag: function(e)
         {
             let y = this.utils.userToInitialCoordSys(
-                this.$refs.drawing.$el,
+                this.eDrawing,
                 {x: e.layerX, y: e.layerY}
             ).y;
             
@@ -146,19 +144,19 @@ export default {
 
             if(i === -1)
             {
-                this.moveCursor(this.endpoints[this.endpoints.length - 1].length);
+                this.nCursor.moveToLength(this.endpoints[this.endpoints.length - 1].length);
                 return;
             }
 
             if(i === 0)
             {
-                this.moveCursor(0);
+                this.nCursor.moveToLength(0);
                 return;
             }
 
             if(this.endpoints[i].y === y)
             {
-                this.moveCursor(this.endpoints[i].length);
+                this.nCursor.moveToLength(this.endpoints[i].length);
                 return;
             }
 
@@ -166,14 +164,39 @@ export default {
             let inf = this.endpoints[i-1];
             let ratio = (y - inf.y)/(sup.y - inf.y);
             let l = inf.length + (sup.length - inf.length) * ratio;
-            this.moveCursor(l);
+            this.nCursor.moveToLength(l);
         },
         dragend: function()
         {
-            this.$refs.drawing.$el.removeEventListener('mousemove', this.drag);
-            
+            this.eDrawing.removeEventListener('mousemove', this.drag);
+
+            let l = this.nCursor.lengthOnPath;
+            let i = this.endpoints.findIndex((elem) => {
+                return  l <= elem.length;
+            });
+
+            let sup = this.endpoints[i];
+            if(l === sup.length)
+            {
+                return;
+            }
+
+            let inf = this.endpoints[i-1];
+            if(l - inf.length < sup.length - l)
+            {
+                this.transitCursor(i-1);
+            }
+            else
+            {
+                this.transitCursor(i);
+            }
         }
     },
+    mounted: function()
+    {
+            this.eDrawing = this.$refs.drawing.$el;
+            this.nCursor = this.$refs.cursor;
+    }
 }
 
 </script>

@@ -3,7 +3,7 @@
                 baseProfile="full"
                 xmlns="http://www.w3.org/2000/svg"
                 width="100%" height="100%" viewBox="-10 -10 120 120">
-        <path ref="path" v-bind:d="path" fill="transparent" stroke="black"/>
+        <path ref="path" v-bind:d="d" fill="transparent" stroke="black"/>
         <line v-for="(point, index) in endpoints"
             v-bind:x1="point.x"
             v-bind:y1="point.y"
@@ -23,7 +23,7 @@ export default {
     inject: ['utils'],
     props:
     {
-        path:
+        d:
         {
             type: String,
             default: ''

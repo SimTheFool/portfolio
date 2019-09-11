@@ -37,10 +37,10 @@
 }
 */
 #timeline {
-  display: block;
+  display: inline-block;
   position: relative;
   width: 30vw;
-  height: 70vh;
+  height: auto;
   border: 1px dotted grey;
   margin: 0 auto 0 0; }
   #timeline .viewer {
@@ -48,4 +48,9 @@
     width: 200px;
     height: 200px;
     background-color: grey; }
+
+#skillwheel {
+  display: inline-block;
+  border: 1px dotted red;
+  vertical-align: top; }
 

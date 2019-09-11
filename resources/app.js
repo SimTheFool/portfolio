@@ -6,11 +6,11 @@ import random from 'random';
 import utils from 'Utils/utils.js';
 
 import cLogo from 'Modules/logo/c-logo.vue';
-import cFollow from 'Modules/follow/c-follow.vue';
 
 
 
 import cTimeline from 'Modules/timeline/c-timeline.vue';
+import cSkillwheel from 'Modules/skillwheel/c-skillwheel.vue';
 
 
 Vue.use(VueResource);
@@ -26,7 +26,7 @@ new Vue({
     {
         'c-logo': cLogo,
         'c-timeline': cTimeline,
-        'c-follow': cFollow
+        'c-skillwheel': cSkillwheel
     },
     beforeCreate: function()
     {
