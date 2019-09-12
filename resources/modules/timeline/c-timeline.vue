@@ -8,12 +8,14 @@
         >
             <c-cursor ref="cursor"
                 v-bind:path="ePath"
+                v-bind:content="currentDatas.year"
+                contentType="text"
                 v-on:reachEndpoint="displayData"
                 v-on:mousedown="dragstart"
             ></c-cursor>
         </c-drawing>
 
-        <c-viewer v-bind:content="currentDatas"></c-viewer>
+        <c-viewer v-bind:content="currentDatas.description"></c-viewer>
 
     </div>
 </template>
@@ -73,6 +75,7 @@ export default {
             this.endpoints = pathDatas.endpoints;
             this.currentDatas = this.content[this.content.length - 1];
             this.ePath = this.$refs.drawing.$refs.path;
+            this.transitCursor(this.endpoints.length - 1);
         },
         // Compute the path d attribute based on datas. Return an array of endpoints constituting the path.
         createPath: function(datas, slope)

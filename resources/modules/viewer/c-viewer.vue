@@ -1,7 +1,7 @@
 <template>
     <div class="viewer">
 
-        {{content.description}}
+        {{content}}
 
     </div>
 </template>
@@ -10,7 +10,7 @@ export default {
 
     props:
     {
-        content: {},
+        content: '',
     }
 }
 </script>

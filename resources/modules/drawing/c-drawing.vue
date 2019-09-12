@@ -31,7 +31,7 @@ export default {
         endpoints:
         {
             type: Array,
-            default: []
+            default: () => []
         },
     },
 }

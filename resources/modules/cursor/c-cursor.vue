@@ -1,10 +1,24 @@
 <template>
-    <circle v-bind:cx="point.x" 
-            v-bind:cy="point.y"
-            v-on:mousedown="$emit('mousedown')"
-            r="3"
-            fill="black"
-            stroke="black"/>
+    <g>
+
+        <circle v-bind:cx="point.x" 
+                v-bind:cy="point.y"
+                v-on:mousedown="$emit('mousedown')"
+                r="3"
+                fill="white"
+                stroke="black"/>
+        <text
+                v-bind:x="point.x"
+                v-bind:y="point.y"
+                text-anchor="middle"
+                font-size="5"
+                fill="red"
+                pointer-events="none"
+        >
+            {{content}}
+        </text>
+
+    </g>
 </template>
 
 <script>
@@ -13,6 +27,8 @@ export default {
     props:
     {
         path: null,
+        content: '',
+        contentType: ''
     },
     data: function()
     {
