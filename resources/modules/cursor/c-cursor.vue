@@ -1,24 +1,34 @@
 <template>
-    <g>
+    <svg v-bind:x="point.x" v-bind:y="point.y" width="20px" height="20px" viewBox="0 0 100 100" class="cursor">
 
-        <circle v-bind:cx="point.x" 
-                v-bind:cy="point.y"
+        <circle cx="50" 
+                cy="50"
                 v-on:mousedown="$emit('mousedown')"
-                r="3"
+                r="50"
                 fill="white"
                 stroke="black"/>
-        <text
-                v-bind:x="point.x"
-                v-bind:y="point.y"
-                text-anchor="middle"
-                font-size="5"
-                fill="red"
-                pointer-events="none"
-        >
-            {{content}}
-        </text>
 
-    </g>
+            <text
+                    v-if="contentType === 'text'"
+                    x="50"
+                    y="50"
+                    text-anchor="middle"
+                    font-size="20"
+                    fill="red"
+                    pointer-events="none"
+            >
+                {{content}}
+            </text>
+
+            <path
+                v-if="contentType === 'svg'"
+                v-bind:d="content"
+                fill="transparent"
+                stroke="black"
+                width="100px"
+            />
+
+    </svg>
 </template>
 
 <script>
@@ -33,6 +43,7 @@ export default {
     data: function()
     {
         return {
+            isMounted: false,
             animation: null,
             lengthOnPath: 0,
         }
@@ -41,12 +52,14 @@ export default {
     {
         point: function()
         {
-            if(this.path === null)
+            if(this.path === null || !this.isMounted)
             {
                 return {x: 0, y: 0};
             }
 
             let point = this.path.getPointAtLength(this.lengthOnPath);
+            point.x = point.x - this.$el.width.baseVal.value * 0.5;
+            point.y = point.y - this.$el.height.baseVal.value * 0.5;
             return point;
         }
     },
@@ -82,5 +95,9 @@ export default {
             this.lengthOnPath = l;
         }
     },
+    mounted: function()
+    {
+        this.isMounted = true;
+    }
 }
 </script>

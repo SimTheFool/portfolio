@@ -120,9 +120,9 @@ export default {
                 endpoints: endpoints
             };
         },
-        transitCursor: function(i)
+        transitCursor: function(index)
         {
-            this.nCursor.transitToLength(this.endpoints[i].length, i);
+            this.nCursor.transitToLength(this.endpoints[index].length, index);
             
         },
         displayData: function(i)
