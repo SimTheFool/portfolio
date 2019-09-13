@@ -11,8 +11,10 @@
     <div id="app">
 
         <!-- <c-logo></c-logo> -->
-        <c-timeline v-bind:content="websiteContent.timeline"></c-timeline>
-        <c-skillwheel v-bind:content="websiteContent.skillwheel"></c-skillwheel>
+        <!-- <c-timeline v-bind:content="websiteContent.timeline"></c-timeline>
+        <c-skillwheel v-bind:content="websiteContent.skillwheel"></c-skillwheel> -->
+
+        <router-view v-bind:content="content"></router-view>
 
     </div>
     <script src="/js/app.js"></script>

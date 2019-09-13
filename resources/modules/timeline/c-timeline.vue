@@ -57,7 +57,7 @@ export default {
     {
         content: function(val)
         {
-            if(val !== {})
+            if(val.length > 0)
             {
                 this.initialize();
             }

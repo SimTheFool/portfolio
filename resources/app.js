@@ -15,18 +15,37 @@ import cSkillwheel from 'Modules/skillwheel/c-skillwheel.vue';
 
 Vue.use(VueResource);
 Vue.use(VueRouter);
-
 new Vue({
     el: '#app',
-    data:
-    {
-        websiteContent: {},
-    },
     components:
     {
         'c-logo': cLogo,
         'c-timeline': cTimeline,
         'c-skillwheel': cSkillwheel
+    },
+    router: new VueRouter({
+        routes: [
+            { path: '/parcours', name: 'parcours', component: cTimeline},
+            { path: '/competences', name: 'competences', component: cSkillwheel }
+        ]
+    }),
+    data:
+    {
+        websiteContent: {},
+    },
+    computed:
+    {
+        content: function()
+        {
+            if(this.$route.name === 'parcours')
+            {
+                return this.websiteContent.timeline;
+            }
+            else if(this.$route.name === 'competences')
+            {
+                return this.websiteContent.skillwheel;
+            }
+        }
     },
     beforeCreate: function()
     {
