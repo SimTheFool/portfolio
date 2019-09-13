@@ -15,7 +15,7 @@
             ></c-cursor>
         </c-drawing>
 
-        <c-viewer v-bind:content="currentDatas.description"></c-viewer>
+        <c-viewer v-bind:content="currentDatas"></c-viewer>
 
     </div>
 </template>
@@ -75,7 +75,9 @@ export default {
             this.endpoints = pathDatas.endpoints;
             this.currentDatas = this.content[this.content.length - 1];
             this.ePath = this.$refs.drawing.$refs.path;
-            this.transitCursor(this.endpoints.length - 1);
+            this.$nextTick(() => {
+                this.transitCursor(this.endpoints.length - 1);
+            });
         },
         // Compute the path d attribute based on datas. Return an array of endpoints constituting the path.
         createPath: function(datas, slope)
@@ -122,7 +124,7 @@ export default {
         },
         transitCursor: function(index)
         {
-            this.nCursor.transitToLength(this.endpoints[index].length, index);
+            this.nCursor.transitToLength(this.endpoints[index].length, false, index);
             
         },
         displayData: function(i)

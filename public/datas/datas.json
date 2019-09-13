@@ -39,18 +39,24 @@
             "title": "Vue",
             "logo": "M 25 25 L 50 50 L 75 25 z",
             "maitrise": "4",
-            "description": "blablabla"
+            "description": "blablabla vuejs"
         },
         {
             "title": "Laravel",
             "logo": "M 75 75 L 50 50 L 25 75 z",
             "maitrise": "3",
-            "description": "blablabla"
+            "description": "blablabla laravel"
         },
         {
             "title": "Symfony",
             "logo": "M 50 25 L 75 50 L 50 75 z",
             "maitrise": "4.5",
+            "description": "blablabla symfony"
+        },
+        {
+            "title": "Laravel",
+            "logo": "M 75 75 L 50 50 L 25 75 z",
+            "maitrise": "3",
             "description": "blablabla"
         }
     ]

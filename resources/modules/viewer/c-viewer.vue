@@ -1,7 +1,7 @@
 <template>
     <div class="viewer">
 
-        {{content}}
+        {{content.description}}
 
     </div>
 </template>
