@@ -55,12 +55,16 @@ export default {
     },
     watch:
     {
-        content: function(val)
+        content: 
         {
-            if(val.length > 0)
+            handler: function(val)
             {
-                this.initialize();
-            }
+                if(val.length > 0)
+                {
+                    this.$nextTick(() => {this.initialize()});
+                }
+            },
+            immediate: true            
         }
     },
     methods:

@@ -24,6 +24,8 @@ new Vue({
         'c-skillwheel': cSkillwheel
     },
     router: new VueRouter({
+        base: '/',
+        mode: 'history',
         routes: [
             { path: '/parcours', name: 'parcours', component: cTimeline},
             { path: '/competences', name: 'competences', component: cSkillwheel }

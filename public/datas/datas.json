@@ -58,6 +58,12 @@
             "logo": "M 75 75 L 50 50 L 25 75 z",
             "maitrise": "3",
             "description": "blablabla"
+        },
+        {
+            "title": "Laravel",
+            "logo": "M 75 75 L 50 50 L 25 75 z",
+            "maitrise": "3",
+            "description": "blablabla"
         }
     ]
 }

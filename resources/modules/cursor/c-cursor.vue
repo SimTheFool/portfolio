@@ -58,20 +58,15 @@ export default {
             easings: [
                 'easeOutQuad',
                 'easeOutCubic',
-                'easeOutQuart',
-                'easeOutQuint',
                 'easeOutSine',
                 'easeOutExpo',
                 'easeOutCirc',
                 'easeOutBack',
                 'easeOutBounce',
-                'easeInOutQuad',
-                'easeInOutCubic',
                 'easeInOutQuart',
                 'easeInOutQuint',
                 'easeInOutSine',
                 'easeInOutExpo',
-                'easeInOutCirc',
                 'easeInOutBack',
                 'easeInOutBounce'
             ]
@@ -111,9 +106,9 @@ export default {
                 l = 0;
                 onComplete = () => {
                     this.moveToLength(totalLength);
-                    this.transitToLength(nextLength);
+                    this.transitToLength(nextLength, true);
                 };
-                //easing = "linear";
+                easing = "linear";
             }
 
             if(l > totalLength)
@@ -122,9 +117,9 @@ export default {
                 l = totalLength;
                 onComplete = () => {
                     this.moveToLength(0);
-                    this.transitToLength(nextLength);
+                    this.transitToLength(nextLength, true);
                 };
-                //easing = "linear";
+                easing = "linear";
             }
 
             this.animation = this.anime({
