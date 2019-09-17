@@ -27,8 +27,8 @@ new Vue({
         base: '/',
         mode: 'history',
         routes: [
-            { path: '/parcours', name: 'parcours', component: cTimeline},
-            { path: '/competences', name: 'competences', component: cSkillwheel }
+            { path: '/parcours/:slug?', name: 'parcours', component: cTimeline },
+            { path: '/competences/:slug?', name: 'competences', component: cSkillwheel }
         ]
     }),
     data:

@@ -8,26 +8,31 @@
     "timeline":
     [
         {
+            "slug": "EtudSup",
             "year": "2009",
             "duration": 5,
             "description": "Etud Sup S"
         },
         {
+            "slug": "LGBT",
             "year": "2015",
             "duration": 1,
             "description": "LGBT"
         },
         {
+            "slug": "Stage",
             "year": "2016",
             "duration": 1,
             "description": "Stage"
         },
         {
+            "slug": "Formation",
             "year": "2018",
             "duration": 1.5,
             "description": "Formation"
         },
         {
+            "slug": "Actuellement",
             "year": "2018",
             "duration": 0,
             "description": "Formation"
@@ -36,31 +41,36 @@
     "skillwheel":
     [
         {
+            "slug": "Vue",
             "title": "Vue",
             "logo": "M 25 25 L 50 50 L 75 25 z",
             "maitrise": "4",
             "description": "blablabla vuejs"
         },
         {
+            "slug": "Laravel",
             "title": "Laravel",
             "logo": "M 75 75 L 50 50 L 25 75 z",
             "maitrise": "3",
             "description": "blablabla laravel"
         },
         {
+            "slug": "Symfony",
             "title": "Symfony",
             "logo": "M 50 25 L 75 50 L 50 75 z",
             "maitrise": "4.5",
             "description": "blablabla symfony"
         },
         {
-            "title": "Laravel",
+            "slug": "CSS",
+            "title": "CSS",
             "logo": "M 75 75 L 50 50 L 25 75 z",
             "maitrise": "3",
             "description": "blablabla"
         },
         {
-            "title": "Laravel",
+            "slug": "Javascript",
+            "title": "Javascript",
             "logo": "M 75 75 L 50 50 L 25 75 z",
             "maitrise": "3",
             "description": "blablabla"
