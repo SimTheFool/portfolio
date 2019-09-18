@@ -4,7 +4,7 @@
         <c-drawing ref="drawing"
             v-bind:d="d"
             v-bind:endpoints="endpoints"
-            v-on:clickEndpoint="transitCursor"        
+            v-on:clickEndpoint="clickEndpoint"        
         >
             <c-cursor ref="cursor"
                 v-bind:path="ePath"
@@ -45,6 +45,7 @@ export default {
     data: function()
     {
         return {
+            initialized: false,
             d: '',
             endpoints: [],
             currentDatas: {},
@@ -65,12 +66,25 @@ export default {
                 }
             },
             immediate: true            
+        },
+        $route: 
+        {
+            handler: function(to, from)
+            {
+                if(to.name !== 'parcours' || to.params.slug === undefined)
+                {
+                    return;
+                }
+                this.computeRoute(to.params.slug);
+            }
         }
     },
     methods:
     {
         initialize: function()
         {
+            this.initialized = true;
+
             let datas = [...this.content];
             datas.pop();
             let pathDatas = this.createPath(datas, 0.5);
@@ -79,9 +93,19 @@ export default {
             this.endpoints = pathDatas.endpoints;
             this.currentDatas = this.content[this.content.length - 1];
             this.ePath = this.$refs.drawing.$refs.path;
+
             this.$nextTick(() => {
-                this.transitCursor(this.endpoints.length - 1);
+                if(this.$route.params.slug === undefined)
+                {
+                    this.$router.push({ name: 'parcours', params: { slug: this.content[this.content.length - 1].slug } });
+                }
+                this.computeRoute(this.$route.params.slug);
             });
+        },
+        computeRoute(slug)
+        {
+            let index = this.content.findIndex((elem) => { return slug === elem.slug});
+            this.transitCursor(index);
         },
         // Compute the path d attribute based on datas. Return an array of endpoints constituting the path.
         createPath: function(datas, slope)
@@ -103,12 +127,12 @@ export default {
             endpoints.unshift({x:0, y:0});
 
             // Array of absolute coordinates
-            endpoints.forEach(function(coord, i, a){
+            endpoints.forEach((coord, i, a) => {
                 if(i === 0){return;}
 
                 a[i] = {
                     x : a[i-1].x + a[i].x,
-                    y: a[i-1].y + a[i].y
+                    y: a[i-1].y + a[i].y,
                 }
             });
 
@@ -134,6 +158,10 @@ export default {
         displayData: function(i)
         {
             this.currentDatas = this.content[i];
+        },
+        clickEndpoint: function(index)
+        {
+            this.$router.push({ name: 'parcours', params: { slug: this.content[index].slug } });
         },
         dragstart: function()
         {

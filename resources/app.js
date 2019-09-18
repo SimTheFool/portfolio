@@ -51,7 +51,7 @@ new Vue({
     },
     beforeCreate: function()
     {
-        this.$http.get('./datas/datas.json').then(function(response){
+        this.$http.get('/datas/datas.json').then(function(response){
             this.websiteContent = response.data;
         }, function(error){
             console.log('Erreur : Les données n\'ont pu être récupérées');

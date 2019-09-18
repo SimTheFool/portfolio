@@ -11,7 +11,7 @@
                 v-bind:content="data.logo"
                 contentType="svg"
                 v-bind:data-id="index"
-                v-on:click="moveCursorToEndpoint"
+                v-on:click="click"
                 v-on:reachEndpoint="reachEndpoint"
             ></c-cursor>
             
@@ -65,6 +65,21 @@ export default {
                 }
             },
             immediate: true            
+        },
+        $route: 
+        {
+            handler: function(to, from)
+            {
+                if(to.name !== 'competences' || to.params.slug === undefined)
+                {
+                    return;
+                }
+  
+                if(!this.isSpinning)
+                {
+                    this.computeRoute(to.params.slug);
+                }
+            }
         }
     },
     methods:
@@ -76,20 +91,36 @@ export default {
 
             let totalLength = this.ePath.getTotalLength();
             let segmentLength = this.ePath.getTotalLength() / this.nCursors.length ;
+            this.isSpinning = true;
             this.nCursors.forEach((nCursor, i) => {
                 let length = segmentLength * i;
                 length = (length > totalLength * 0.5) ? length - totalLength : length;
-                nCursor.transitToLength(length, false);
+                if(i === Math.floor(this.nCursors.length / 2.0))
+                {
+                    nCursor.transitToLength(length, false, 'initialized');
+                }
+                else
+                {
+                    nCursor.transitToLength(length, false);
+                }
             });
+
+            this.$nextTick(() => {
+                if(this.$route.params.slug === undefined)
+                {
+                    this.$router.push({ name: 'competences', params: { slug: this.content[0].slug }});
+                }
+            });
+        },
+        computeRoute: function(slug)
+        {   
+            let index = this.content.findIndex((elem) => { return slug === elem.slug});
+            this.moveCursorToEndpoint(index);
         },
         moveCursorToEndpoint(cursorIndex)
         {
-            if(this.isSpinning)
-            {
-                return;
-            }
-
             this.isSpinning = true;
+
             let cursor = this.nCursors[cursorIndex];
             let totalLength = this.ePath.getTotalLength();
             let offset = 0;
@@ -117,7 +148,20 @@ export default {
         reachEndpoint: function(i)
         {
             this.isSpinning = false;
+            if(i === 'initialized')
+            {
+                this.computeRoute(this.$route.params.slug);
+                return;
+            }
             this.currentDatas = this.content[i];
+        },
+        click: function(index)
+        {
+            if(this.isSpinning)
+            {
+                return;
+            }
+            this.$router.push({ name: 'competences', params: { slug: this.content[index].slug }});
         }
     },
     mounted: function()
