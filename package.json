@@ -6,6 +6,7 @@
   "scripts": {
     "dev": "webpack",
     "prod": "webpack --env='prod'",
+    "prerender": "webpack --env='prerender'",
     "help": "webpack --help"
   },
   "author": "",
