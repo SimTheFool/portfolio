@@ -1,4 +1,13 @@
 RewriteEngine On
+
+RewriteCond %{HTTP_USER_AGENT} (aolbuild|baidu|bingbot|bingpreview|adidxbot|msnbot|duckduckgo|mediapartners-google|adsbot-google|adsBot-google-mobile-apps|googlebot|mediapartners-google|teoma|slurp|yandex) [NC]
+RewriteRule ^$ /prerender/index.html [L]
+
+RewriteCond %{HTTP_USER_AGENT} (aolbuild|baidu|bingbot|bingpreview|adidxbot|msnbot|duckduckgo|mediapartners-google|adsbot-google|adsBot-google-mobile-apps|googlebot|mediapartners-google|teoma|slurp|yandex) [NC]
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^(.*)$ /prerender/$1/index.html [L]
+
 RewriteCond %{REQUEST_URI} !^/$
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d

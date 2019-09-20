@@ -1,13 +1,15 @@
 const path = require('path');
 const webpack = require('webpack');
-
-const PrerenderSPAPlugin = require('prerender-spa-plugin');
+const env = require('./env.json');
 
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const FixStyleOnlyEntriesPlugin = require("webpack-fix-style-only-entries");
 const VueLoaderPlugin = require('vue-loader/lib/plugin');
 const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 
+const PrerenderSPAPlugin = require('prerender-spa-plugin');
+const Renderer = PrerenderSPAPlugin.PuppeteerRenderer;
+const SitemapPlugin = require('sitemap-webpack-plugin').default;
 
 var configDefault =
 {
@@ -65,15 +67,6 @@ var configDefault =
             filename: "css/style.css",
           }),
         new VueLoaderPlugin(),
-        /*
-        new PrerenderSPAPlugin({
-            // Required - The path to the webpack-outputted app to prerender.
-            staticDir: path.join(__dirname, 'public'),
-            outputDir: path.join(__dirname, 'public/prerender'),
-            // Required - Routes to render.
-            routes: [ '/' ],
-          })
-        */
     ],
     resolve:
     {
@@ -94,12 +87,43 @@ var configModifiers =
     "prod": function()
     {
         configDefault.mode = "production";
+        configDefault.watch = false;
         configDefault.resolve.alias.Vue = path.resolve('./node_modules/vue/dist/vue.min.js');
         configDefault.plugins.push(new OptimizeCssAssetsPlugin({assetNameRegExp: /\.css$/g }));
+    },
+    "prerender": function()
+    {
+        const datas = require(env.datas);
+
+        let routes = [];
+        routes.push('/');
+
+        for(let elem of datas.timeline)
+        {
+            routes.push('/parcours/' + elem.slug);
+        }
+
+        for(let elem of datas.skillwheel)
+        {
+            routes.push('/competences/' + elem.slug);
+        }
+
+        configModifiers.prod();
+        configDefault.plugins.push(new PrerenderSPAPlugin({
+            staticDir: path.join(__dirname, 'public'),
+            indexPath: path.join(__dirname, 'public/index.html'),
+            outputDir: path.join(__dirname, 'public/prerender'),
+            routes: routes,
+            renderer: new Renderer({
+                renderAfterTime: 5000
+            })
+        }));
+        configDefault.plugins.push(new SitemapPlugin(env.domain, routes, {
+            skipGzip: true,
+            fileName: 'sitemap.xml'
+        }));
     }
 };
-
-
 
 module.exports = function(e)
 {
