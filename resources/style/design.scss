@@ -7,9 +7,14 @@
 }
 
 nav{
+
     fill: transparent;
     stroke: $orange;
     stroke-width: 6px;
+
+    circle{
+        stroke: $white;
+    }
 }
 
 .section{

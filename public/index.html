@@ -12,11 +12,11 @@
 
         <c-header></c-header>
 
-        <c-nav></c-nav>
+        <c-nav v-bind="navProps"></c-nav>
         
         <main>
             <keep-alive>
-                <router-view v-bind="properties"></router-view>
+                <router-view v-bind="routedProps"></router-view>
             </keep-alive>
         </main>
     </div>
