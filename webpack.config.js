@@ -77,6 +77,12 @@ var configDefault =
             Modules: path.resolve('./resources/modules'),
             Utils: path.resolve('./resources/utils'),
         }
+    },
+    devServer:
+    {
+        contentBase: path.join(__dirname, 'public'),
+        hot: true,
+        historyApiFallback: true
     }
 };
 

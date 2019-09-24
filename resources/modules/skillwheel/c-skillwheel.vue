@@ -1,7 +1,8 @@
 <template>
-    <div id="skillwheel">
+    <div id="skillwheel" class="section">
         <c-drawing
             ref="drawing"
+            vbox="-10 -10 110 120"
             v-bind:d="d">
             
             <c-cursor 

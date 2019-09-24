@@ -1,7 +1,8 @@
 <template>
-    <div id="timeline">
+    <div id="timeline" class="section">
 
         <c-drawing ref="drawing"
+            vbox="-10 -10 30 120"
             v-bind:d="d"
             v-bind:endpoints="endpoints"
             v-on:clickEndpoint="clickEndpoint"        

@@ -1,20 +1,17 @@
 <template>
-    <svg
+    <svg class="cursor"
         v-bind:x="point.x"
         v-bind:y="point.y"
         v-on:mousedown="$emit('mousedown')"
         v-on:click="$emit('click', $event.currentTarget.dataset.id)"
-        width="20px"
-        height="20px"
+        width="15px"
+        height="15px"
         viewBox="0 0 100 100"
-        class="cursor"
     >
 
         <circle cx="50" 
                 cy="50"
-                r="50"
-                fill="white"
-                stroke="black"
+                r="40"
         />
 
         <text
@@ -22,8 +19,7 @@
                 x="50"
                 y="50"
                 text-anchor="middle"
-                font-size="20"
-                fill="red"
+                dominant-baseline="middle"
                 pointer-events="none"
         >
             {{content}}
@@ -32,9 +28,6 @@
         <path
             v-if="contentType === 'svg'"
             v-bind:d="content"
-            fill="transparent"
-            stroke="black"
-            width="100px"
         />
 
     </svg>

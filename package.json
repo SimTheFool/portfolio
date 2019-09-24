@@ -7,6 +7,7 @@
     "dev": "webpack",
     "prod": "webpack --env='prod'",
     "prerender": "webpack --env='prerender'",
+    "serve": "webpack-dev-server",
     "help": "webpack --help"
   },
   "author": "",
@@ -15,5 +16,8 @@
     "animejs": "^3.1.0",
     "responsive-animejs": "^3.0.1",
     "sitemap-webpack-plugin": "^0.6.0"
+  },
+  "devDependencies": {
+    "webpack-dev-server": "^3.8.1"
   }
 }

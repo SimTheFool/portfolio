@@ -5,13 +5,10 @@ import anime from 'animejs';
 import random from 'random';
 import utils from 'Utils/utils.js';
 
-import cLogo from 'Modules/logo/c-logo.vue';
-
-
-
 import cTimeline from 'Modules/timeline/c-timeline.vue';
 import cSkillwheel from 'Modules/skillwheel/c-skillwheel.vue';
-
+import cHeader from 'Modules/header/c-header.vue';
+import cNav from 'Modules/nav/c-nav.vue';
 
 Vue.use(VueResource);
 Vue.use(VueRouter);
@@ -19,9 +16,10 @@ new Vue({
     el: '#app',
     components:
     {
-        'c-logo': cLogo,
         'c-timeline': cTimeline,
-        'c-skillwheel': cSkillwheel
+        'c-skillwheel': cSkillwheel,
+        'c-header': cHeader,
+        'c-nav': cNav,
     },
     router: new VueRouter({
         base: '/',
@@ -37,15 +35,19 @@ new Vue({
     },
     computed:
     {
-        content: function()
+        properties: function()
         {
             if(this.$route.name === 'parcours')
             {
-                return this.websiteContent.timeline;
+                return {
+                    content : this.websiteContent.timeline
+                };
             }
             else if(this.$route.name === 'competences')
             {
-                return this.websiteContent.skillwheel;
+                return {
+                    content : this.websiteContent.skillwheel
+                };
             }
         }
     },

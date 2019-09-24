@@ -1,0 +1,44 @@
+
+#logo {
+    fill: $white;
+    .logo--symbol{
+        fill: $orange;
+    }
+}
+
+nav{
+    fill: transparent;
+    stroke: $orange;
+    stroke-width: 6px;
+}
+
+.section{
+    .line{
+        stroke: $white;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+    }
+
+    .endpoint{
+        stroke: $orange;
+        stroke-linecap: round;
+    }
+
+    .cursor{
+        stroke: $orange;
+        stroke-width: 4px;
+        fill: $black;
+
+        text{
+            stroke: transparent;
+            fill: $white;
+            font-size: $fontSize * 0.7;
+        }
+
+        path{
+            stroke: $white;
+            fill: $white;
+            stroke-width: 2px;
+        }
+    }
+}

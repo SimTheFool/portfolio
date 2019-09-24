@@ -1,0 +1,86 @@
+body {
+    color: $white;
+    background-color: $black;
+    font-family: $fontFam;
+    font-size: $fontSize;
+}
+
+#app{
+    overflow: auto;
+}
+
+.header--top{
+    @include headerDim;
+}
+
+#logo{
+    width: 100%;
+    height: 100%;
+}
+
+nav{
+    @include headerDim;
+    display: flex;
+    justify-content: space-between;
+    align-content: flex-end;
+    align-items: flex-end;
+
+    .navBtn{
+        width: 10%;
+        height: 40%;
+
+        .navBtn--symbol{
+            width: 100%;
+            height: 100%;
+        }
+    }
+}
+
+main{
+    margin-top: $headerH;
+    height: 100vh - $headerH;
+    padding: $mainPad;
+    box-sizing: border-box;
+}
+
+.section{
+    height: 100%;
+    width: 100%;
+}
+
+#timeline{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+
+    .drawing{
+        width: 35%;
+        height: 100%;
+    }
+
+    .viewer{
+        width: 45%;
+        max-height: 100%;
+    }
+}
+
+#skillwheel {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    position: relative;
+
+    .drawing{
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+    }
+
+    .viewer{
+        display: inline-block;
+        width: 100%;
+        height: 100%;
+    }
+}
