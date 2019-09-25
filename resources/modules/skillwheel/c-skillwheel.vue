@@ -2,7 +2,7 @@
     <div id="skillwheel" class="section">
         <c-drawing
             ref="drawing"
-            vbox="-10 -10 110 120"
+            vbox="0 -30 250 40"
             v-bind:d="d">
             
             <c-cursor 
@@ -46,10 +46,11 @@ export default {
     data: function()
     {
         return {
-            d: "M 50 12.2 L 88.8 40.4 L 74 86 L 26 86 L 11.2 40.4 z",
+            d: "M 125 0 L 250 0 M 0 0 L 125 0",
             endpoints: [{x: 50, y: 12.2, length: 0}],
             ePath: null,
             nCursors: [],
+            currentCursorId: 0,
             isSpinning: false,
             currentDatas: {}
         }
@@ -122,29 +123,26 @@ export default {
         {
             this.isSpinning = true;
 
-            let cursor = this.nCursors[cursorIndex];
+            let newCursor = this.nCursors[cursorIndex];
+            let currentCursor = this.nCursors[this.currentCursorId];
+            let newCursorLength = newCursor.lengthOnPath;
+
             let totalLength = this.ePath.getTotalLength();
             let offset = 0;
 
-            if(cursor.lengthOnPath >= totalLength * 0.5)
+            if(newCursorLength >= totalLength * 0.5)
             {
-                offset =  totalLength - cursor.lengthOnPath;
-                cursor.transitToLength(totalLength, true, cursorIndex);
+                newCursor.transitToLength(totalLength, false, cursorIndex);
+                currentCursor.moveToLength(totalLength); 
             }
             else
             {
-               offset =  0 - cursor.lengthOnPath;
-               cursor.transitToLength(0, true, cursorIndex);
+               newCursor.transitToLength(0, false, cursorIndex);
+               currentCursor.moveToLength(0); 
             }
 
-            this.nCursors.forEach((nCursor, index) => {
-                if(index == parseInt(cursorIndex))
-                {
-                    return;
-                }
-                let newLength = nCursor.lengthOnPath + offset;
-                nCursor.transitToLength(newLength, true);
-            });
+            currentCursor.transitToLength(newCursorLength);
+            this.currentCursorId = cursorIndex;
         },
         reachEndpoint: function(i)
         {

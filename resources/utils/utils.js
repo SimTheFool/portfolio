@@ -66,6 +66,10 @@ export default{
      {
         let vec2 = {...point};
         let rect = svg.getBoundingClientRect();
+
+        vec2.x -= rect.left;
+        vec2.y -= rect.top;
+
         let viewBox = svg.viewBox.baseVal;
 
         vec2.x *= viewBox.width / rect.width;

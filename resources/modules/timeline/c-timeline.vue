@@ -173,7 +173,7 @@ export default {
         {
             let y = this.utils.userToInitialCoordSys(
                 this.eDrawing,
-                {x: e.layerX, y: e.layerY}
+                {x: e.clientX, y: e.clientY}
             ).y;
             
             let i = this.endpoints.findIndex((elem) =>{

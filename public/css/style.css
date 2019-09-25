@@ -360,16 +360,10 @@ main {
     max-height: 100%; }
 
 #skillwheel {
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-  position: relative; }
+  display: block; }
   #skillwheel .drawing {
-    position: absolute;
-    top: 0;
-    left: 0;
     width: 100%;
-    height: 100%; }
+    height: 30%; }
   #skillwheel .viewer {
     display: inline-block;
     width: 100%;
@@ -388,13 +382,10 @@ nav {
     stroke: white; }
 
 .section .line {
-  stroke: white;
-  stroke-linecap: round;
-  stroke-linejoin: round; }
+  stroke: white; }
 
 .section .endpoint {
-  stroke: #f7931e;
-  stroke-linecap: round; }
+  stroke: #f7931e; }
 
 .section .cursor {
   stroke: #f7931e;
@@ -408,4 +399,7 @@ nav {
     stroke: white;
     fill: white;
     stroke-width: 2px; }
+
+#skillwheel path {
+  stroke: transparent; }
 

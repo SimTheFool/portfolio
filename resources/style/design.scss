@@ -20,13 +20,10 @@ nav{
 .section{
     .line{
         stroke: $white;
-        stroke-linecap: round;
-        stroke-linejoin: round;
     }
 
     .endpoint{
         stroke: $orange;
-        stroke-linecap: round;
     }
 
     .cursor{
@@ -45,5 +42,11 @@ nav{
             fill: $white;
             stroke-width: 2px;
         }
+    }
+}
+
+#skillwheel{
+    path{
+        stroke: transparent;
     }
 }
