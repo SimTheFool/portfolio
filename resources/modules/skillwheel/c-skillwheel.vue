@@ -5,7 +5,9 @@
             vbox="0 -30 250 40"
             v-bind:d="d">
             
-            <c-cursor 
+            <c-cursor
+                width="35px"
+                height="35px"
                 v-for="(data, index) in content"
                 v-bind:ref="'cursors'"
                 v-bind:path="ePath"
@@ -99,11 +101,11 @@ export default {
                 length = (length > totalLength * 0.5) ? length - totalLength : length;
                 if(i === Math.floor(this.nCursors.length / 2.0))
                 {
-                    nCursor.transitToLength(length, false, 'initialized');
+                    nCursor.transitToLength(length, 'initialized');
                 }
                 else
                 {
-                    nCursor.transitToLength(length, false);
+                    nCursor.transitToLength(length);
                 }
             });
 
@@ -117,6 +119,12 @@ export default {
         computeRoute: function(slug)
         {   
             let index = this.content.findIndex((elem) => { return slug === elem.slug});
+
+            if(index === this.currentCursorId)
+            {
+                return;
+            }
+
             this.moveCursorToEndpoint(index);
         },
         moveCursorToEndpoint(cursorIndex)
@@ -132,12 +140,12 @@ export default {
 
             if(newCursorLength >= totalLength * 0.5)
             {
-                newCursor.transitToLength(totalLength, false, cursorIndex);
+                newCursor.transitToLength(totalLength, cursorIndex, {end: newCursor.scaleUp});
                 currentCursor.moveToLength(totalLength); 
             }
             else
             {
-               newCursor.transitToLength(0, false, cursorIndex);
+               newCursor.transitToLength(0, cursorIndex, {end: newCursor.scale});
                currentCursor.moveToLength(0); 
             }
 

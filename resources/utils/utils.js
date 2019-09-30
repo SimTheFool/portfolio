@@ -79,5 +79,111 @@ export default{
         vec2.y += viewBox.y;
         
         return vec2;
-    }
+    },
+
+    /*
+    pathToArray: function(path)
+    {
+        let arr = [];
+        let virtPath = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+        virtPath.setAttribute('d', path);
+        let segments = [...virtPath.pathSegList];
+        console.log(segments);
+
+        virtPath.setAttribute('d', '');
+
+        for(let segment of segments)
+        {
+            let obj = {
+                command: segment.pathSegTypeAsLetter, 
+                rawX: segment.x,
+                rawY: segment.y
+            };
+
+            virtPath.setAttribute('d', virtPath.getAttribute('d') + ` ${obj.command} ${obj.rawX} ${obj.rawY} `);
+            let absCoord = virtPath.getPointAtLength(virtPath.getTotalLength());
+
+            obj.absX = absCoord.x;
+            obj.absY = absCoord.y;
+
+            arr.push(obj);
+        }
+
+        return arr;
+    },
+
+    arrayToPath:function(arr)
+    {
+        let d = '';
+
+        for(let segment of arr)
+        {
+            d += `${segment.command} ${segment.rawX} ${segment.rawY} `;
+        }
+
+        return d;
+    },
+
+    harmonizePath: function(path1, path2)
+    {
+        let segments1 = this.pathToArray(path1);
+        let segments2 = this.pathToArray(path2);
+
+        let bigPath;
+        let littlePath;
+
+        let done = false;
+        while(!done)
+        {
+            // Defining which path will receive new segments.
+            if(segments1.length === Math.max(segments1.length, segments2.length))
+            {
+                bigPath = segments1;
+                littlePath = segments2;
+            }
+            else
+            {
+                bigPath = segments2;
+                littlePath = segments1;
+            }
+
+            for(let k = 0; k < bigPath.length; k++)
+            {
+                let bigSeg = bigPath[k];
+                let littleSeg = littlePath[k];
+
+                // bigSeg and littleSeg are the same command, no need to step in.
+                if(littleSeg !== undefined && bigSeg.command === littleSeg.command)
+                {
+                    continue;
+                }
+
+                // @TODO manage path closing command
+                // @TODO manage c command
+                // bigSeg and littleSeg are different command, let's add a new command to littlePath in a way that doesn't change how it looks.
+                let newSeg = {
+                    command: bigSeg.command,
+                    rawX: (k !== 0) ? littlePath[k-1].absX : 0,
+                    rawY: (k !== 0) ? littlePath[k-1].absY : 0,
+                    absX: (k !== 0) ? littlePath[k-1].absX : 0,
+                    absY: (k !== 0) ? littlePath[k-1].absY : 0
+                };
+
+                if(newSeg.command === newSeg.command.toLowerCase())
+                {
+                    newSeg.rawX =  0;
+                    newSeg.rawY =  0;
+                }
+
+                littlePath.splice(k, 0, newSeg);
+            }
+
+            if(littlePath.length === bigPath.length)
+            {
+                done = true;
+            }
+        }
+
+        return [this.arrayToPath(segments1), this.arrayToPath(segments2)];
+    } */
 }

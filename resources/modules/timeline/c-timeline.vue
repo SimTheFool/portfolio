@@ -8,6 +8,8 @@
             v-on:clickEndpoint="clickEndpoint"        
         >
             <c-cursor ref="cursor"
+                width="15px"
+                height="15px"
                 v-bind:path="ePath"
                 v-bind:content="currentDatas.year"
                 contentType="text"
@@ -153,7 +155,7 @@ export default {
         },
         transitCursor: function(index)
         {
-            this.nCursor.transitToLength(this.endpoints[index].length, false, index);
+            this.nCursor.transitToLength(this.endpoints[index].length, index);
             
         },
         displayData: function(i)

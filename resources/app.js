@@ -10,6 +10,7 @@ import cSkillwheel from 'Modules/skillwheel/c-skillwheel.vue';
 import cPresentation from 'Modules/presentation/c-presentation.vue';
 import cHeader from 'Modules/header/c-header.vue';
 import cNav from 'Modules/nav/c-nav.vue';
+import cMorph from 'Modules/morph/c-morph.vue';
 
 Vue.use(VueResource);
 Vue.use(VueRouter);
@@ -22,6 +23,7 @@ new Vue({
         'c-presentation': cPresentation,
         'c-header': cHeader,
         'c-nav': cNav,
+        'c-morph': cMorph
     },
     router: new VueRouter({
         base: '/',

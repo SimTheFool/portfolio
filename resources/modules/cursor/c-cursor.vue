@@ -4,8 +4,6 @@
         v-bind:y="point.y"
         v-on:mousedown="$emit('mousedown')"
         v-on:click="$emit('click', $event.currentTarget.dataset.id)"
-        width="15px"
-        height="15px"
         viewBox="0 0 100 100"
     >
 
@@ -46,23 +44,12 @@ export default {
     {
         return {
             isMounted: false,
-            animation: null,
+            animations: {
+                transit: null,
+                scaleUp: null,
+                scaleDown: null
+            },
             lengthOnPath: 0,
-            easings: [
-                'easeOutQuad',
-                'easeOutCubic',
-                'easeOutSine',
-                'easeOutExpo',
-                'easeOutCirc',
-                'easeOutBack',
-                'easeOutBounce',
-                'easeInOutQuart',
-                'easeInOutQuint',
-                'easeInOutSine',
-                'easeInOutExpo',
-                'easeInOutBack',
-                'easeInOutBounce'
-            ]
         }
     },
     computed:
@@ -82,14 +69,14 @@ export default {
     },
     methods:
     {
-        transitToLength: function(l, randomEasing = false, i = null)
+        transitToLength: function(l, i = null, callbacks = {})
         {
-            if(this.animation !== null)
+            if(this.isAnimating())
             {
-                this.animation.pause();
+                this.pauseAnimations();
             }
 
-            let easing = randomEasing ? this.easings[this.anime.random(0, this.easings.length - 1)] : "easeOutSine";
+            let easing = "easeOutSine";
             let onComplete = () => {};
             let totalLength = this.path.getTotalLength();
 
@@ -115,26 +102,56 @@ export default {
                 easing = "linear";
             }
 
-            this.animation = this.anime({
+            this.animations.transit = this.anime({
                 targets: this,
                 lengthOnPath: l,
                 easing: easing,
                 autoplay: false,
                 duration: Math.abs(this.lengthOnPath - l) * 10,
+                begin: () => {
+                    if(callbacks.begin !== undefined)
+                    {
+                        callbacks.begin();
+                    }
+                },
                 complete: () => {
                     if(i !== null)
                     {
                         this.$emit('reachEndpoint', i);
-                    }       
-                    onComplete();             
+                    }  
+                    
+                    if(callbacks.end !== undefined)
+                    {
+                        callbacks.end();
+                    }
+                    
+                    onComplete();         
                 }
             });
-            this.animation.play();
+
+            this.animations.transit.play();
         },
         moveToLength: function(l)
         {
             this.lengthOnPath = l;
-        }
+        },
+        isAnimating: function()
+        {
+            let values = Object.values(this.animations);
+            let isAnimating = values.find((elem) => {return elem === null});
+
+            return (isAnimating === undefined) ? false : true;
+        },
+        pauseAnimations: function()
+        {
+            let values = Object.values(this.animations);
+            values.forEach((elem) => {
+                if(elem !== null)
+                {
+                    elem.pause();
+                }
+            });
+        },
     },
     mounted: function()
     {
