@@ -366,8 +366,7 @@ main {
     height: 30%; }
   #skillwheel .viewer {
     display: inline-block;
-    width: 100%;
-    height: 100%; }
+    width: 100%; }
 
 #logo {
   fill: white; }
@@ -397,9 +396,11 @@ nav {
     font-size: 21px; }
   .section .cursor path {
     stroke: white;
-    fill: white;
-    stroke-width: 2px; }
+    stroke-width: 1px; }
 
-#skillwheel path {
+#skillwheel .line {
   stroke: transparent; }
+
+#skillwheel .cursor path {
+  stroke: white; }
 

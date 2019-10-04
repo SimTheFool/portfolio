@@ -6,8 +6,8 @@
             v-bind:d="d">
             
             <c-cursor
-                width="35px"
-                height="35px"
+                width="30px"
+                height="30px"
                 v-for="(data, index) in content"
                 v-bind:ref="'cursors'"
                 v-bind:path="ePath"
@@ -17,6 +17,17 @@
                 v-on:click="click"
                 v-on:reachEndpoint="reachEndpoint"
             ></c-cursor>
+
+            <c-cursor
+                width="55px"
+                height="55px"
+                ref="cursorMorph"
+                v-bind:path="ePath"
+                v-bind:content="currentDatas.logo"
+                contentType="svg"
+            >
+
+            </c-cursor>
             
         </c-drawing>
 
@@ -31,6 +42,7 @@ import cCursor from 'Modules/cursor/c-cursor.vue';
 import cViewer from 'Modules/viewer/c-viewer.vue';
 
 export default {
+    inject: ['snap'],
     components:
     {
         'c-drawing': cDrawing,
@@ -52,6 +64,7 @@ export default {
             endpoints: [{x: 50, y: 12.2, length: 0}],
             ePath: null,
             nCursors: [],
+            nMorph: null,
             currentCursorId: 0,
             isSpinning: false,
             currentDatas: {}
@@ -91,6 +104,7 @@ export default {
         initialize: function()
         {
             this.nCursors = this.$refs.cursors;
+            this.nMorph = this.$refs.cursorMorph;
             this.currentDatas = this.content[0];
 
             let totalLength = this.ePath.getTotalLength();

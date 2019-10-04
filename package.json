@@ -14,10 +14,12 @@
   "license": "ISC",
   "dependencies": {
     "animejs": "^3.1.0",
+    "imports-loader": "^0.8.0",
     "responsive-animejs": "^3.0.1",
     "sitemap-webpack-plugin": "^0.6.0"
   },
   "devDependencies": {
+    "snapsvg": "^0.5.1",
     "webpack-dev-server": "^3.8.1"
   }
 }

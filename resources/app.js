@@ -2,6 +2,7 @@ import Vue from 'Vue';
 import VueResource from 'vue-resource';
 import VueRouter from 'vue-router';
 import anime from 'animejs';
+import snapsvg from 'Snapsvg';
 import random from 'random';
 import utils from 'Utils/utils.js';
 
@@ -10,7 +11,6 @@ import cSkillwheel from 'Modules/skillwheel/c-skillwheel.vue';
 import cPresentation from 'Modules/presentation/c-presentation.vue';
 import cHeader from 'Modules/header/c-header.vue';
 import cNav from 'Modules/nav/c-nav.vue';
-import cMorph from 'Modules/morph/c-morph.vue';
 
 Vue.use(VueResource);
 Vue.use(VueRouter);
@@ -22,8 +22,7 @@ new Vue({
         'c-skillwheel': cSkillwheel,
         'c-presentation': cPresentation,
         'c-header': cHeader,
-        'c-nav': cNav,
-        'c-morph': cMorph
+        'c-nav': cNav
     },
     router: new VueRouter({
         base: '/',
@@ -111,6 +110,7 @@ new Vue({
     provide:
     {
         anime: anime,
+        snap: snapsvg,
         random: random,
         utils: utils
     }

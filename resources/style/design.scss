@@ -39,14 +39,19 @@ nav{
 
         path{
             stroke: $white;
-            fill: $white;
-            stroke-width: 2px;
+            stroke-width: 1px;
         }
     }
 }
 
 #skillwheel{
-    path{
+    .line{
         stroke: transparent;
+    }
+
+    .cursor{
+        path{
+            stroke: $white;
+        }
     }
 }
