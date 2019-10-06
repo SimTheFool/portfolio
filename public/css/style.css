@@ -314,9 +314,11 @@ body {
 
 .header--top {
   position: absolute;
-  height: 15vh;
+  height: 20vh;
+  padding-bottom: 40px;
   width: 100vw;
-  max-width: 100%; }
+  max-width: 100%;
+  box-sizing: border-box; }
 
 #logo {
   width: 100%;
@@ -324,9 +326,11 @@ body {
 
 nav {
   position: absolute;
-  height: 15vh;
+  height: 20vh;
+  padding-bottom: 40px;
   width: 100vw;
   max-width: 100%;
+  box-sizing: border-box;
   display: flex;
   justify-content: space-between;
   align-content: flex-end;
@@ -339,8 +343,8 @@ nav {
       height: 100%; }
 
 main {
-  margin-top: 15vh;
-  height: 85vh;
+  margin-top: 20vh;
+  height: 80vh;
   padding: 10px;
   box-sizing: border-box; }
 
@@ -367,6 +371,9 @@ main {
   #skillwheel .viewer {
     display: inline-block;
     width: 100%; }
+
+svg {
+  fill: transparent; }
 
 #logo {
   fill: white; }
@@ -403,4 +410,21 @@ nav {
 
 #skillwheel .cursor path {
   stroke: white; }
+
+#filters {
+  width: 0px;
+  height: 0px; }
+
+#trans--main .flood--margin {
+  flood-color: #f7931e; }
+
+#trans--main .flood--noise {
+  flood-color: #f7931e; }
+
+#trans--main .flood--box {
+  flood-color: black; }
+
+main {
+  filter: url("#trans--main");
+  -webkit-filter: url("#trans--main"); }
 

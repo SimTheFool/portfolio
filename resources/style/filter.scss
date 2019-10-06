@@ -1,0 +1,23 @@
+#filters{
+    width: 0px;
+    height: 0px;
+}
+
+#trans--main {
+    .flood--margin{
+        flood-color: $orange;
+    }
+
+    .flood--noise{
+        flood-color: $orange;
+    }
+    
+    .flood--box{
+        flood-color: $black;
+    }
+}
+
+main{
+    filter: url("#trans--main");
+    -webkit-filter: url("#trans--main");
+}

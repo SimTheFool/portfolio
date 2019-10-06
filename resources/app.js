@@ -3,14 +3,15 @@ import VueResource from 'vue-resource';
 import VueRouter from 'vue-router';
 import anime from 'animejs';
 import snapsvg from 'Snapsvg';
-import random from 'random';
 import utils from 'Utils/utils.js';
+
+import cHeader from 'Modules/header/c-header.vue';
+import cNav from 'Modules/nav/c-nav.vue';
+import cFilters from 'Modules/filters/c-filters.vue';
 
 import cTimeline from 'Modules/timeline/c-timeline.vue';
 import cSkillwheel from 'Modules/skillwheel/c-skillwheel.vue';
 import cPresentation from 'Modules/presentation/c-presentation.vue';
-import cHeader from 'Modules/header/c-header.vue';
-import cNav from 'Modules/nav/c-nav.vue';
 
 Vue.use(VueResource);
 Vue.use(VueRouter);
@@ -18,11 +19,9 @@ new Vue({
     el: '#app',
     components:
     {
-        'c-timeline': cTimeline,
-        'c-skillwheel': cSkillwheel,
-        'c-presentation': cPresentation,
         'c-header': cHeader,
-        'c-nav': cNav
+        'c-nav': cNav,
+        'c-filters': cFilters,
     },
     router: new VueRouter({
         base: '/',
@@ -111,7 +110,6 @@ new Vue({
     {
         anime: anime,
         snap: snapsvg,
-        random: random,
         utils: utils
     }
 });

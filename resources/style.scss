@@ -5,12 +5,14 @@ $orange: #f7931e;
 $fontSize: 30px;
 $fontFam : 'Sans-serif';
 
-$headerH: 15vh;
+$headerH: 20vh;
 @mixin headerDim{
     position: absolute;
     height: $headerH;
+    padding-bottom: 40px;
     width: 100vw;
     max-width: 100%;
+    box-sizing: border-box;
 }
 
 $mainPad: 10px;
@@ -18,3 +20,4 @@ $mainPad: 10px;
 @import 'style/normalize.scss';
 @import 'style/layout.scss';
 @import 'style/design.scss';
+@import 'style/filter.scss';
