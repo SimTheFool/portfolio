@@ -9,7 +9,7 @@ body {
     overflow: auto;
 }
 
-.header--top{
+header{
     @include headerDim;
 }
 

@@ -312,7 +312,7 @@ body {
 #app {
   overflow: auto; }
 
-.header--top {
+header {
   position: absolute;
   height: 20vh;
   padding-bottom: 40px;
@@ -375,10 +375,12 @@ main {
 svg {
   fill: transparent; }
 
-#logo {
-  fill: white; }
-  #logo .logo--symbol {
-    fill: #f7931e; }
+header {
+  background-color: black; }
+  header #logo {
+    fill: white; }
+    header #logo .logo--symbol {
+      fill: #f7931e; }
 
 nav {
   fill: transparent;
@@ -415,16 +417,21 @@ nav {
   width: 0px;
   height: 0px; }
 
-#trans--main .flood--margin {
+#trans--loading .flood--edge {
   flood-color: #f7931e; }
 
-#trans--main .flood--noise {
+body {
+  filter: url("#trans--loading"); }
+
+#trans--section .flood--margin {
   flood-color: #f7931e; }
 
-#trans--main .flood--box {
+#trans--section .flood--noise {
+  flood-color: #f7931e; }
+
+#trans--section .flood--box {
   flood-color: black; }
 
 main {
-  filter: url("#trans--main");
-  -webkit-filter: url("#trans--main"); }
+  filter: url("#trans--section"); }
 

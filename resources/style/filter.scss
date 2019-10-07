@@ -3,7 +3,17 @@
     height: 0px;
 }
 
-#trans--main {
+#trans--loading{
+    .flood--edge{
+        flood-color: $orange;
+    }
+}
+
+body {
+    filter: url("#trans--loading");
+}
+
+#trans--section {
     .flood--margin{
         flood-color: $orange;
     }
@@ -18,6 +28,5 @@
 }
 
 main{
-    filter: url("#trans--main");
-    -webkit-filter: url("#trans--main");
+    filter: url("#trans--section");
 }

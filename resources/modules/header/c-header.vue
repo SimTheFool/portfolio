@@ -1,5 +1,5 @@
 <template>
-    <header class="header--top">
+    <header>
 
         <svg version="1.1"
                 id="logo"
@@ -75,6 +75,26 @@
 </template>
 <script>
 export default {
-    
+/*     inject: ['anime'],
+    data: function()
+    {
+        return {
+            initialHeight: ""
+        }
+    },
+    methods:
+    {
+        ascend: function()
+        {
+            this.$el.style.height = this.initialHeight;
+            this.style.zIndex = 0;
+        }
+    },
+    mounted: function()
+    {
+        this.initialHeight = this.$el.offsetHeight;
+        this.$el.style.height = " 100% ";
+        this.style.zIndex = 1;
+    } */
 }
 </script>
