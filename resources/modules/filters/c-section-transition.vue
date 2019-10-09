@@ -1,84 +1,28 @@
 <template>
     <filter primitiveUnits="objectBoundingBox">
-        <feFlood ref="flood--margin"
+        <feFlood
             class="flood--margin"
-            x="25%"
-            y="0%"
-            width="50%"
-            height="0.25%"
+            v-bind:x="marginX"
+            v-bind:y="marginY"
+            v-bind:width="marginWidth"
+            v-bind:height="marginHeight"
             flood-opacity="1"
             result="flood--margin"
         />
 
-        <feFlood ref="flood--box"
+        <feFlood
             class="flood--box"
             x="0%"
             y="0%"
             width="100%"
-            height="0%"
+            v-bind:height="boxHeight"
             flood-opacity="1"
             result="flood--box"
         />
 
-        <feFlood ref="flood--noise"
-            class="flood--noise"
-            x="0%"
-            y="0%"
-            width="100%"
-            height="0%"
-            flood-opacity="1"
-            result="flood--noise"
-        />
-
-        <feTurbulence type="fractalNoise" baseFrequency="0.01 0.8" numOctaves="10" seed="3" stitchTiles="stitch" result="noise"/>
-        <feComponentTransfer in="noise" result="noise">
-                        <feFuncR type="discrete" tableValues="1"/>
-                        <feFuncG type="discrete" tableValues="1"/>
-                        <feFuncB type="discrete" tableValues="1"/>
-                        <feFuncA type="discrete" tableValues="0 1"/>
-        </feComponentTransfer>
-
-        <feComposite in="SourceGraphic" in2="noise" operator="in" result="noise"/>
-        <feComposite in="SourceGraphic" in2="noise" operator="out" result="noise2"/>
-
-        <feComponentTransfer in="noise2" result="noise2">
-                        <feFuncR type="discrete" tableValues="0"/>
-                        <feFuncG type="discrete" tableValues="0"/>
-                        <feFuncB type="discrete" tableValues="0"/>
-                        <feFuncA type="discrete" tableValues="0 1"/>
-        </feComponentTransfer>
-
-        <feComponentTransfer in="noise" result="noise">
-                        <feFuncR type="discrete" tableValues="0 1"/>
-                        <feFuncG type="discrete" tableValues="0 1"/>
-                        <feFuncB type="discrete" tableValues="0 1"/>
-                        <feFuncA type="discrete" tableValues="0 1"/>
-        </feComponentTransfer>
-
-        <feColorMatrix type="matrix" in="noise" result="noise"
-           values="0 0 0 0 1
-                   0 0 0 0 1
-                   0 0 0 0 1
-                   10 10 10 0 0"
-        />
-
-        <feComposite in="noise2" in2="flood--noise" operator="in" result="flood--noise2"/>
-
-        <feComposite in="flood--noise" in2="noise" operator="in" result="flood--noise"/>
-
-        <feComposite in="flood--noise" in2="flood--noise2" operator="over" result="flood--noise"/>
-
-
-
-
-
-
         <feComposite in="flood--margin" in2="flood--box" operator="over" result="flood--box"/>
 
         <feComposite in="flood--box" in2="SourceGraphic" operator="over" result="source--clipped"/>
-
-        <feComposite in="flood--noise" in2="source--clipped" operator="over"/>
-
         
     </filter>
 </template>
@@ -89,60 +33,52 @@ export default {
     data: function()
     {
         return {
+            marginX: "30%",
+            marginY: "0%",
+            marginWidth: "40%",
+            marginHeight: "0.25%",
+            boxHeight: "0%"
         }
     },
     methods:
     {
         drop: function()
         {
-            this.anime.timeline({
+            return this.anime.timeline({
+                autoplay: false,
                 easing: "linear"
             }).add({
-                targets: this.$refs["flood--margin"],
-                x: "0%",
-                width: "100%",
-                height: '*=0.1',
+                targets: this,
+                marginX: "0%",
+                marginWidth: "100%",
                 duration: 300
             }).add({
-                targets: this.$refs["flood--margin"],
-                y:"98%",
+                targets: this,
+                marginY:"98%",
                 duration:1000,
             }, 300).add({
-                targets: this.$refs["flood--box"],
-                height:"98%",
+                targets: this,
+                boxHeight:"98%",
                 duration: 1000,
-            }, 300).add({
-                targets: this.$refs["flood--noise"],
-                height: "10%",
-                y: "100%",
-                duration: 0
-            }, 0);
+            }, 300);
         },
         ascend: function()
         {
-            this.anime.timeline({
+            return this.anime.timeline({
+                autoplay: false,
                 easing: "linear"
             }).add({
-                targets: this.$refs["flood--noise"],
-                y: "0%",
-                duration: 1000
-            }, 0).add({
-                targets: this.$refs["flood--margin"],
-                y:"0%",
+                targets: this,
+                marginY:"0%",
                 duration:1000,
             }, 0).add({
-                targets: this.$refs["flood--box"],
-                height:"0%",
+                targets: this,
+                boxHeight:"0%",
                 duration: 1000,
             }, 0).add({
-                targets: this.$refs["flood--noise"],
-                height: "0%",
-                duration: 100
-            }).add({
-                targets: this.$refs["flood--margin"],
-                x: "25%",
-                width: "50%",
-                height: '*=10',
+                targets: this,
+                marginX: "25%",
+                marginWidth: "50%",
                 duration: 300
             }, "-=300");
         }
@@ -152,14 +88,14 @@ export default {
         document.addEventListener('keydown', (e) => {
             if(e.keyCode === 80)
             {
-                this.drop();
+                this.drop().play();
             }
         });
 
         document.addEventListener('keydown', (e) => {
             if(e.keyCode === 79)
             {
-                this.ascend();
+                this.ascend().play();
             }
         });
     }

@@ -1,16 +1,16 @@
-#filters{
+#filters {
     width: 0px;
     height: 0px;
 }
 
-#trans--loading{
-    .flood--edge{
+#trans--loading {
+    .stick {
         flood-color: $orange;
     }
-}
 
-body {
-    filter: url("#trans--loading");
+    .box {
+        flood-color: $black;
+    }
 }
 
 #trans--section {
@@ -27,6 +27,6 @@ body {
     }
 }
 
-main{
+/* main{
     filter: url("#trans--section");
-}
+} */

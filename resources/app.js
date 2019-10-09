@@ -1,6 +1,7 @@
 import Vue from 'Vue';
 import VueResource from 'vue-resource';
 import VueRouter from 'vue-router';
+
 import anime from 'animejs';
 import snapsvg from 'Snapsvg';
 import utils from 'Utils/utils.js';
@@ -13,6 +14,7 @@ import cTimeline from 'Modules/timeline/c-timeline.vue';
 import cSkillwheel from 'Modules/skillwheel/c-skillwheel.vue';
 import cPresentation from 'Modules/presentation/c-presentation.vue';
 
+const EventBus = new Vue();
 Vue.use(VueResource);
 Vue.use(VueRouter);
 new Vue({
@@ -96,12 +98,14 @@ new Vue({
         this.$http.get('/datas/datas.json').then(function(response){
 
             this.websiteContent = response.data;
+            EventBus.$emit('datasInitialized');
 
             let parcoursSlug = response.data.timeline[response.data.timeline.length - 1].slug;
             let competencesSlug = response.data.skillwheel[0].slug;
             this.currentRoutes[1].params.slug = this.currentRoutes[1].params.slug || parcoursSlug;
             this.currentRoutes[2].params.slug = this.currentRoutes[2].params.slug || competencesSlug;
 
+            
         }, function(error){
             console.log('Erreur : Les données n\'ont pu être récupérées');
         })
@@ -110,6 +114,7 @@ new Vue({
     {
         anime: anime,
         snap: snapsvg,
-        utils: utils
+        utils: utils,
+        eventBus: EventBus
     }
 });

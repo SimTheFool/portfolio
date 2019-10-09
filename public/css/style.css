@@ -417,11 +417,11 @@ nav {
   width: 0px;
   height: 0px; }
 
-#trans--loading .flood--edge {
+#trans--loading .stick {
   flood-color: #f7931e; }
 
-body {
-  filter: url("#trans--loading"); }
+#trans--loading .box {
+  flood-color: black; }
 
 #trans--section .flood--margin {
   flood-color: #f7931e; }
@@ -432,6 +432,7 @@ body {
 #trans--section .flood--box {
   flood-color: black; }
 
-main {
-  filter: url("#trans--section"); }
+/* main{
+    filter: url("#trans--section");
+} */
 
