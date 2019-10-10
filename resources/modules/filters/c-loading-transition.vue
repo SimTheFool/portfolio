@@ -200,6 +200,7 @@ export default {
                 easing: "easeInExpo",
                 complete: () => {
                     document.querySelector('body').style.filter = "";
+                    this.eventBus.$emit('transitionEnd');
                 }
             }).add({
                 targets: this.$refs.stick1,
@@ -245,6 +246,7 @@ export default {
             }
         });
 
+        this.eventBus.$emit('transitionBegin');
         document.querySelector('body').style.filter = 'url("#trans--loading")';
         this.currentAnim = this.tictac("tic");
     }

@@ -110,6 +110,22 @@ new Vue({
             console.log('Erreur : Les données n\'ont pu être récupérées');
         })
     },
+    mounted: function()
+    {
+        let stopAppClick = function(e){
+            e.stopPropagation();
+            e.preventDefault();
+            e.stopImmediatePropagation();
+        };
+        
+        EventBus.$on('transitionBegin', () => {
+            this.$el.addEventListener('click', stopAppClick, true);
+        });
+
+        EventBus.$on('transitionEnd', () => {
+            this.$el.removeEventListener('click', stopAppClick, true);
+        });
+    },
     provide:
     {
         anime: anime,

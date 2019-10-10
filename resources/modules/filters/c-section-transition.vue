@@ -1,28 +1,5 @@
 <template>
     <filter primitiveUnits="objectBoundingBox">
-        <!-- <feFlood
-            class="flood--margin"
-            v-bind:x="marginX"
-            v-bind:y="marginY"
-            v-bind:width="marginWidth"
-            v-bind:height="marginHeight"
-            flood-opacity="1"
-            result="flood--margin"
-        />
-
-        <feFlood
-            class="flood--box"
-            x="0%"
-            y="0%"
-            width="100%"
-            v-bind:height="boxHeight"
-            flood-opacity="1"
-            result="flood--box"
-        />
-
-        <feComposite in="flood--margin" in2="flood--box" operator="over" result="flood--box"/>
-
-        <feComposite in="flood--box" in2="SourceGraphic" operator="over" result="source--clipped"/> -->
 
         <feFlood ref="box"
             class="box"
@@ -149,9 +126,9 @@ export default {
                     targets: this.$refs.box,
                     duration: 600,
                     width: "0%",
-                    complete: function()
-                    {
+                    complete: () => {
                         document.querySelector('main').style.filter = "";
+                        this.eventBus.$emit('transitionEnd');
                     }
                 });
             }
@@ -163,9 +140,9 @@ export default {
                     duration: 600,
                     width: "0%",
                     x: "100%",
-                    complete: function()
-                    {
+                    complete: () =>  {
                         document.querySelector('main').style.filter = "";
+                        this.eventBus.$emit('transitionEnd');
                     }
                 });
             }
@@ -221,6 +198,7 @@ export default {
     mounted: function()
     {
         this.eventBus.$on('navigate', (e) => {
+            this.eventBus.$emit('transitionBegin');
             document.querySelector('main').style.filter = 'url("#trans--section")';
             this.animDir = e;
             this.transitIn();
