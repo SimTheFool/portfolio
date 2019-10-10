@@ -1,6 +1,6 @@
 <template>
     <filter primitiveUnits="objectBoundingBox">
-        <feFlood
+        <!-- <feFlood
             class="flood--margin"
             v-bind:x="marginX"
             v-bind:y="marginY"
@@ -22,81 +22,208 @@
 
         <feComposite in="flood--margin" in2="flood--box" operator="over" result="flood--box"/>
 
-        <feComposite in="flood--box" in2="SourceGraphic" operator="over" result="source--clipped"/>
+        <feComposite in="flood--box" in2="SourceGraphic" operator="over" result="source--clipped"/> -->
+
+        <feFlood ref="box"
+            class="box"
+            x="0%"
+            y="0%"
+            width="0%"
+            height="100%"
+            flood-opacity="1"
+            result="box"
+        />
+
+        <feFlood v-for="i in stickNb"
+            ref="sticks"
+            class="stick"
+            x="0%"
+            y="0%"
+            width="0%"
+            height="0.05%"
+            flood-opacity="1"
+            v-bind:result="'stick' + i"
+        />
+
+        <feComposite v-for="i in stickNb" v-bind:in="'stick' + i" operator="over" in2="box" result="box"/>
+        <feComposite in="box" operator="over" in2="SourceGraphic"  result="source"/>
+
+
         
     </filter>
 </template>
 
 <script>
 export default {
-    inject: ['anime'],
+    inject: ['anime', 'eventBus'],
     data: function()
     {
         return {
-            marginX: "30%",
-            marginY: "0%",
-            marginWidth: "40%",
-            marginHeight: "0.25%",
-            boxHeight: "0%"
+            animDir: "right",
+            stickTransited: 0,
+            stickNb: 6
+        }
+    },
+    watch:
+    {
+        stickTransited: function(val)
+        {
+            if(val >= this.stickNb)
+            {
+                this.transitOut();
+            }
         }
     },
     methods:
     {
-        drop: function()
+        transitIn: function()
         {
-            return this.anime.timeline({
-                autoplay: false,
-                easing: "linear"
-            }).add({
-                targets: this,
-                marginX: "0%",
-                marginWidth: "100%",
-                duration: 300
-            }).add({
-                targets: this,
-                marginY:"98%",
-                duration:1000,
-            }, 300).add({
-                targets: this,
-                boxHeight:"98%",
-                duration: 1000,
-            }, 300);
+            this.stickTransited = 0;
+
+            this.$refs.sticks.forEach((el, i, arr) => {
+                let min = i*100/arr.length;
+                let max = min + 100/arr.length;
+                let y = this.anime.random(min, max);
+                el.setAttribute("y", `${y}%`);
+            });
+
+            if(this.animDir === "right")
+            {
+                this.$refs.box.setAttribute("x", "100%");
+                this.$refs.sticks.forEach((el, i, arr) => {
+                    el.setAttribute("x", "100%");
+                });
+
+                this.anime.timeline({
+                    easing: "linear"
+                }).add({
+                    targets: this.$refs.box,
+                    duration: 600,
+                    x: "0%",
+                    width: "100%",
+                    complete: () => {
+                        this.eventBus.$emit('transiting', this.animDir);
+                    }
+                }).add({
+                    duration: 300,
+                    complete: () => {
+                        this.$refs.sticks.forEach((el) => {
+                            this.transitStick(el);
+                        })
+                    }
+                }, 0);
+            }
+            else
+            {
+                this.$refs.box.setAttribute("x", "0%");
+                this.$refs.sticks.forEach((el, i, arr) => {
+                    el.setAttribute("x", "0%");
+                });
+
+                this.anime.timeline({
+                    easing: "linear"
+                }).add({
+                    targets: this.$refs.box,
+                    duration: 600,
+                    width: "100%",
+                    complete: () => {
+                        this.eventBus.$emit('transiting', this.animDir);
+                    }
+                }).add({
+                    duration: 300,
+                    complete: () => {
+                        this.$refs.sticks.forEach((el) => {
+                            this.transitStick(el);
+                        })
+                    }
+                }, 0);
+            }
+ 
         },
-        ascend: function()
+        transitOut: function()
         {
-            return this.anime.timeline({
-                autoplay: false,
-                easing: "linear"
-            }).add({
-                targets: this,
-                marginY:"0%",
-                duration:1000,
-            }, 0).add({
-                targets: this,
-                boxHeight:"0%",
-                duration: 1000,
-            }, 0).add({
-                targets: this,
-                marginX: "25%",
-                marginWidth: "50%",
-                duration: 300
-            }, "-=300");
+            if(this.animDir === "right")
+            {
+                this.anime({
+                    easing: "linear",
+                    targets: this.$refs.box,
+                    duration: 600,
+                    width: "0%",
+                    complete: function()
+                    {
+                        document.querySelector('main').style.filter = "";
+                    }
+                });
+            }
+            else
+            {
+                this.anime({
+                    easing: "linear",
+                    targets: this.$refs.box,
+                    duration: 600,
+                    width: "0%",
+                    x: "100%",
+                    complete: function()
+                    {
+                        document.querySelector('main').style.filter = "";
+                    }
+                });
+            }
+        },
+        transitStick(target)
+        {
+            let w = this.anime.random(50, 100);
+
+            if(this.animDir === "right")
+            {
+                this.anime.timeline({
+                    targets: target,
+                    easing: "linear"
+                }).add({
+                    width: `${w}%`,
+                    x: `${100-w}%`,
+                    delay: this.anime.random(0, 300),
+                    duration: w * 600 / 100,
+                    complete: () => {
+                        this.stickTransited += 1;
+                    }
+                }).add({
+                    x: "0%",
+                    duration: (100 - w) * 600 / 100
+                }).add({
+                    width: "0%",
+                    duration: w * 600 / 100
+                });
+            }
+            else
+            {
+                this.anime.timeline({
+                    targets: target,
+                    easing: "linear"
+                }).add({
+                    width: `${w}%`,
+                    delay: this.anime.random(0, 300),
+                    duration: w * 600 / 100,
+                    complete: () => {
+                        this.stickTransited += 1;
+                    }
+                }).add({
+                    x: `${100-w}%`,
+                    duration: (100 - w) * 600 / 100
+                }).add({
+                    x: "100%",
+                    width: "0%",
+                    duration: w * 600 / 100
+                });
+            }
         }
     },
     mounted: function()
     {
-        document.addEventListener('keydown', (e) => {
-            if(e.keyCode === 80)
-            {
-                this.drop().play();
-            }
-        });
-
-        document.addEventListener('keydown', (e) => {
-            if(e.keyCode === 79)
-            {
-                this.ascend().play();
-            }
+        this.eventBus.$on('navigate', (e) => {
+            document.querySelector('main').style.filter = 'url("#trans--section")';
+            this.animDir = e;
+            this.transitIn();
         });
     }
 }

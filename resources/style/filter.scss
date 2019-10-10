@@ -14,19 +14,11 @@
 }
 
 #trans--section {
-    .flood--margin{
-        flood-color: $orange;
-    }
-
-    .flood--noise{
+    .stick{
         flood-color: $orange;
     }
     
-    .flood--box{
+    .box{
         flood-color: $black;
     }
 }
-
-/* main{
-    filter: url("#trans--section");
-} */

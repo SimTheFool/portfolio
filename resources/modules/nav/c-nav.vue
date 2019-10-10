@@ -31,6 +31,7 @@
 </template>
 <script>
 export default {
+    inject: ['eventBus'],
     props:
     {
         left:
@@ -48,12 +49,19 @@ export default {
     {
         clickLeft: function()
         {
-            this.$router.push(this.left);
+            this.eventBus.$emit('navigate', 'left');
         },
         clickRight: function()
         {
-            this.$router.push(this.right);
+            this.eventBus.$emit('navigate', 'right');
         }
+    },
+    mounted: function()
+    {
+        this.eventBus.$on('transiting', (e) => {
+            let route = (e === 'right') ? this.right : this.left;
+            this.$router.push(route);
+        })
     }
 }
 </script>

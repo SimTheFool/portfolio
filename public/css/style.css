@@ -423,16 +423,9 @@ nav {
 #trans--loading .box {
   flood-color: black; }
 
-#trans--section .flood--margin {
+#trans--section .stick {
   flood-color: #f7931e; }
 
-#trans--section .flood--noise {
-  flood-color: #f7931e; }
-
-#trans--section .flood--box {
+#trans--section .box {
   flood-color: black; }
-
-/* main{
-    filter: url("#trans--section");
-} */
 
