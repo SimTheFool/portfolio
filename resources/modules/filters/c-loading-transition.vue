@@ -7,7 +7,7 @@
             class="stick"
             x="40%"
             y="0%"
-            width="0.3%"
+            width="0.05%"
             height="100%"
             flood-opacity="1"
             result="stick1"
@@ -18,7 +18,7 @@
             x="0%"
             y="25%"
             width="100%"
-            height="0.3%"
+            height="0.05%"
             flood-opacity="1"
             result="stick2"
         />
@@ -27,7 +27,7 @@
             class="stick"
             x="60%"
             y="0%"
-            width="0.3%"
+            width="0.05%"
             height="100%"
             flood-opacity="1"
             result="stick3"
@@ -38,7 +38,7 @@
             x="0%"
             y="75%"
             width="100%"
-            height="0.3%"
+            height="0.05%"
             flood-opacity="1"
             result="stick4"
         />
@@ -58,7 +58,7 @@
         <feComposite in="stick3" operator="over" in2="box" result="box" />
         <feComposite in="stick4" operator="over" in2="box" result="box" />
 
-        <feComposite in="logo" operator="over" in2="box" result="box" />
+        <feComposite in="logo" operator="atop" in2="box" result="box" />
 
         <feComposite in="box" operator="over" in2="SourceGraphic"/>
 
@@ -149,87 +149,51 @@ export default {
         reduceSticks: function()
         {
             this.anime.timeline({
-                easing: 'linear',
+                easing: 'easeInQuad',
                 complete: () => {
-                    this.stickAscend(this.$refs.stick1);
-                    this.stickAscend(this.$refs.stick2);
-                    this.stickAscend(this.$refs.stick3);
-                    this.stickAscend(this.$refs.stick4);
+                    this.drop();
                 }
             }).add({
                 targets: this.$refs.stick1,
-                width: "0.3%",
-                height: "0.3%",
+                height: "60%",
+                x: "0%",
                 y: "20%",
-                duration: 600
+                "flood-opacity": 0,
+                duration: 700
             }, 0).add({
                 targets: this.$refs.stick2,
-                width: "0.3%",
-                height: "0.3%",
-                x: "80%",
-                duration: 600
+                width: "100%",
+                y: "0%",
+                x: "0%",
+                duration: 700
             }, 0).add({
                 targets: this.$refs.stick3,
-                width: "0.3%",
-                height: "0.3%",
-                y: "73%",
-                duration: 600
+                height: "60%",
+                y: "20%",
+                x: "100%",
+                "flood-opacity": 0,
+                duration: 700
             }, 0).add({
                 targets: this.$refs.stick4,
-                width: "0.3%",
-                height: "0.3%",
+                width: "60%",
+                y: "100%",
                 x: "20%",
-                duration: 600
+                "flood-opacity": 0,
+                duration: 700
             }, 0);
-        },
-        stickAscend: function(target)
-        {
-            this.anime({
-                targets: target,
-                easing: "easeInExpo",
-                y: "0%",
-                duration: parseInt(target.y.baseVal.valueAsString) / 100 * 1000,
-                complete: () => {
-                    this.stickAscended += 1;
-                }
-            });
         },
         drop: function()
         {
             this.anime.timeline({
-                easing: "easeInExpo",
+                easing: "easeInQuad",
                 complete: () => {
                     document.querySelector('body').style.filter = "";
                     this.eventBus.$emit('transitionEnd');
                 }
             }).add({
-                targets: this.$refs.stick1,
-                width: "25%",
-                height: "1%",
-                x: "25%",
-                duration: 500,
-            }, 0).add({
-                targets: this.$refs.stick2,
-                width: "25%",
-                height: "1%",
-                x: "75%",
-                duration: 500,
-            }, 0).add({
-                targets: this.$refs.stick3,
-                width: "25%",
-                height: "1%",
-                x: "50%",
-                duration: 500,
-            }, 0).add({
-                targets: this.$refs.stick4,
-                width: "25%",
-                height: "1%",
-                x: "0%",
-                duration: 500,
-            }, 0).add({
-                targets: Object.values(this.$refs),
+                targets: [this.$refs.stick2, this.$refs.box],
                 y: "+=100%",
-                duration: 600,
+                duration: 900,
             });
         }
     },

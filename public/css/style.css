@@ -417,15 +417,9 @@ nav {
   width: 0px;
   height: 0px; }
 
-#trans--loading .stick {
+.trans .stick {
   flood-color: #f7931e; }
 
-#trans--loading .box {
-  flood-color: black; }
-
-#trans--section .stick {
-  flood-color: #f7931e; }
-
-#trans--section .box {
+.trans .box {
   flood-color: black; }
 
