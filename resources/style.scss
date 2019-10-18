@@ -2,8 +2,23 @@ $white: white;
 $black: black;
 $orange: #f7931e;
 
+@font-face {
+    font-family: "Chub Gothic";
+    src: url("/fonts/chubgothic_1.ttf");
+}
+
+@font-face {
+    font-family: "LemonMilk";
+    src: url("/fonts/LemonMilk/LemonMilklight.otf");
+}
+
+@font-face {
+    font-family: "Giorgio";
+    src: url("/fonts/Giogio/Giorgio.ttf");
+}
+
 $fontSize: 20px;
-$fontFam : 'Sans-serif';
+$fontFam : 'Giorgio';
 
 $maxHeaderH : 150px;
 @function headerH($orientation)
@@ -17,8 +32,6 @@ $maxHeaderH : 150px;
         @return 17vh;
     }
 }
-
-
 @mixin headerDim($orientation)
 {
     position: absolute;
