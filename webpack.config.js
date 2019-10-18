@@ -41,6 +41,9 @@ var configDefault =
                 }
             },
             {
+                loader: 'postcss-loader',
+            },
+            {
                 loader: 'sass-loader',
             }
             ]

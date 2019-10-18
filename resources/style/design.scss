@@ -27,12 +27,21 @@ nav{
 }
 
 .section{
+
+    stroke-width: 0.5px;
+
     .line{
         stroke: $white;
+        
     }
 
     .endpoint{
         stroke: $orange;
+    }
+
+    .endpoint--clicker{
+        stroke: transparent;
+        stroke-width: 3px;
     }
 
     .cursor{
@@ -43,12 +52,22 @@ nav{
         text{
             stroke: transparent;
             fill: $white;
-            font-size: $fontSize * 0.7;
+            font-size: $fontSize * 0.65;
         }
 
         path{
             stroke: $white;
             stroke-width: 1px;
+        }
+    }
+
+    .viewer{
+        .white{
+            color: $white;
+        }
+
+        .orange{
+            color: $orange;
         }
     }
 }
@@ -61,6 +80,19 @@ nav{
     .cursor{
         path{
             stroke: $white;
+        }
+    }
+}
+
+
+@media (orientation: landscape)
+{
+    .section {
+        stroke-width: 1px;
+        .cursor{
+            text{
+                font-size: $fontSize*0.8;
+            }
         }
     }
 }

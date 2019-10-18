@@ -2,14 +2,14 @@
     <div id="timeline" class="section">
 
         <c-drawing ref="drawing"
-            vbox="-10 -10 30 120"
+            vbox="-10 -5 30 110"
             v-bind:d="d"
             v-bind:endpoints="endpoints"
             v-on:clickEndpoint="clickEndpoint"        
         >
             <c-cursor ref="cursor"
-                width="15px"
-                height="15px"
+                width="40px"
+                height="40px"
                 v-bind:path="ePath"
                 v-bind:content="currentDatas.year"
                 contentType="text"
@@ -90,7 +90,7 @@ export default {
 
             let datas = [...this.content];
             datas.pop();
-            let pathDatas = this.createPath(datas, 0.5);
+            let pathDatas = this.createPath(datas, 0.4);
 
             this.d = pathDatas.d;
             this.endpoints = pathDatas.endpoints;

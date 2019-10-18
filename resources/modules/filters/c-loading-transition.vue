@@ -1,8 +1,6 @@
 <template>
     <filter primitiveUnits="objectBoundingBox" color-interpolation-filters="sRGB">
 
-         <feImage ref="logo" x="37.5%" y="37.5%" width="25%" height="25%"  xlink:href="/media/oz.svg" result="logo"></feImage>
-
          <feFlood ref="stick1"
             class="stick"
             x="40%"
@@ -199,7 +197,7 @@ export default {
     },
     mounted: function()
     {
-        this.eventBus.$on('datasInitialized', () => {
+        /* this.eventBus.$on('datasInitialized', () => {
             this.datasInitialized = true;
         });
 
@@ -212,7 +210,7 @@ export default {
 
         this.eventBus.$emit('transitionBegin');
         document.querySelector('body').style.filter = 'url("#trans--loading")';
-        this.currentAnim = this.tictac("tic");
+        this.currentAnim = this.tictac("tic"); */
     }
 }
 </script>

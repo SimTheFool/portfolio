@@ -1,7 +1,6 @@
 <template>
     <div class="viewer">
         
-        {{effectiveContent.description}}
 
     </div>
 </template>
@@ -16,12 +15,6 @@ export default {
             default: () => {}
         }
     },
-    data: function ()
-    {
-        return {
-            effectiveContent: {}
-        }
-    },
     watch:
     {
         content: function(val, oldVal)
@@ -32,14 +25,14 @@ export default {
             }
             else
             {
-                this.effectiveContent = this.content;
+                this.$el.innerHTML = this.content.description;
             }
         }
     },
     mounted: function()
     {
         this.eventBus.$on('viewerHidden', () => {
-            this.effectiveContent = this.content;
+            this.$el.innerHTML = this.content.description;
         });
     }
 }

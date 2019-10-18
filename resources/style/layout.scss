@@ -10,7 +10,7 @@ body {
 }
 
 header{
-    @include headerDim;
+    @include headerDim('portrait');
 }
 
 #logo{
@@ -19,7 +19,7 @@ header{
 }
 
 nav{
-    @include headerDim;
+    @include headerDim('portrait');
     display: flex;
     justify-content: space-between;
     align-content: flex-end;
@@ -37,15 +37,53 @@ nav{
 }
 
 main{
-    margin-top: $headerH;
-    height: 100vh - $headerH;
+    margin-top: headerH('portrait');
+    height: 100vh - headerH('portrait');
     padding: $mainPad;
     box-sizing: border-box;
 }
 
 .section{
+    box-sizing: border-box;
+    padding: 0;
     height: 100%;
     width: 100%;
+
+    .viewer{
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+        height: 100%;
+
+        .viewer--header{
+            width: 100%;
+
+            .viewer--title{
+                font-size: 1.2em;
+                margin: 0 0 0.35em 0;
+            }
+
+            .viewer--corpo{
+                font-size: 0.7em;
+            }
+
+            .viewer--place{
+                font-size: 0.7em;
+            }
+        }
+
+        .viewer--list{
+            align-items: flex-start;
+            list-style: none;
+            padding: 0 0 0 0;
+            margin: 0 0 0 0;
+        }
+
+        .viewer--item{
+            font-size: 0.7em;
+            margin-bottom: 1.5em;
+        }
+    }
 }
 
 #timeline{
@@ -59,8 +97,8 @@ main{
     }
 
     .viewer{
-        width: 45%;
-        max-height: 100%;
+        width: 50%;
+        height: 80%
     }
 }
 
@@ -75,5 +113,21 @@ main{
     .viewer{
         display: inline-block;
         width: 100%;
+    }
+}
+
+@media(orientation: landscape)
+{
+    header{
+        @include headerDim('landscape');
+    }
+
+    nav {
+        @include headerDim('landscape');
+    }
+
+    main {
+        margin-top: headerH('landscape');
+        height: 100vh - headerH('landscape');
     }
 }

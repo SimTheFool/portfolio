@@ -1,22 +1,16 @@
 <template>
     <svg class="cursor"
-        v-bind:x="point.x"
+        v-bind:x="point.x + 3"
         v-bind:y="point.y"
         v-on:mousedown="$emit('mousedown')"
         v-on:click="$emit('click', $event.currentTarget.dataset.id)"
-        viewBox="0 0 100 100"
+        viewBox="-15 0 130 110"
     >
-
-        <circle cx="50" 
-                cy="50"
-                r="40"
-        />
 
         <text
                 v-if="contentType === 'text'"
                 x="50"
                 y="50"
-                text-anchor="middle"
                 dominant-baseline="middle"
                 pointer-events="none"
         >

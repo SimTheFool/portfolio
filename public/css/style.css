@@ -74,7 +74,8 @@ abbr[title] {
   /* 1 */
   text-decoration: underline;
   /* 2 */
-  text-decoration: underline dotted;
+  -webkit-text-decoration: underline dotted;
+          text-decoration: underline dotted;
   /* 2 */ }
 
 /**
@@ -307,15 +308,16 @@ body {
   color: white;
   background-color: black;
   font-family: "Sans-serif";
-  font-size: 30px; }
+  font-size: 20px; }
 
 #app {
   overflow: auto; }
 
 header {
   position: absolute;
-  height: 20vh;
-  padding-bottom: 40px;
+  height: 17vh;
+  max-height: 150px;
+  padding-bottom: 20px;
   width: 100vw;
   max-width: 100%;
   box-sizing: border-box; }
@@ -326,8 +328,9 @@ header {
 
 nav {
   position: absolute;
-  height: 20vh;
-  padding-bottom: 40px;
+  height: 17vh;
+  max-height: 150px;
+  padding-bottom: 20px;
   width: 100vw;
   max-width: 100%;
   box-sizing: border-box;
@@ -343,14 +346,38 @@ nav {
       height: 100%; }
 
 main {
-  margin-top: 20vh;
-  height: 80vh;
+  margin-top: 17vh;
+  height: 83vh;
   padding: 10px;
   box-sizing: border-box; }
 
 .section {
+  box-sizing: border-box;
+  padding: 0;
   height: 100%;
   width: 100%; }
+  .section .viewer {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    height: 100%; }
+    .section .viewer .viewer--header {
+      width: 100%; }
+      .section .viewer .viewer--header .viewer--title {
+        font-size: 1.2em;
+        margin: 0 0 0.35em 0; }
+      .section .viewer .viewer--header .viewer--corpo {
+        font-size: 0.7em; }
+      .section .viewer .viewer--header .viewer--place {
+        font-size: 0.7em; }
+    .section .viewer .viewer--list {
+      align-items: flex-start;
+      list-style: none;
+      padding: 0 0 0 0;
+      margin: 0 0 0 0; }
+    .section .viewer .viewer--item {
+      font-size: 0.7em;
+      margin-bottom: 1.5em; }
 
 #timeline {
   display: flex;
@@ -360,8 +387,8 @@ main {
     width: 35%;
     height: 100%; }
   #timeline .viewer {
-    width: 45%;
-    max-height: 100%; }
+    width: 50%;
+    height: 80%; }
 
 #skillwheel {
   display: block; }
@@ -371,6 +398,27 @@ main {
   #skillwheel .viewer {
     display: inline-block;
     width: 100%; }
+
+@media (orientation: landscape) {
+  header {
+    position: absolute;
+    height: 25vh;
+    max-height: 150px;
+    padding-bottom: 20px;
+    width: 100vw;
+    max-width: 100%;
+    box-sizing: border-box; }
+  nav {
+    position: absolute;
+    height: 25vh;
+    max-height: 150px;
+    padding-bottom: 20px;
+    width: 100vw;
+    max-width: 100%;
+    box-sizing: border-box; }
+  main {
+    margin-top: 25vh;
+    height: 75vh; } }
 
 svg {
   fill: transparent; }
@@ -389,29 +437,42 @@ nav {
   nav circle {
     stroke: white; }
 
-.section .line {
-  stroke: white; }
-
-.section .endpoint {
-  stroke: #f7931e; }
-
-.section .cursor {
-  stroke: #f7931e;
-  stroke-width: 4px;
-  fill: black; }
-  .section .cursor text {
+.section {
+  stroke-width: 0.5px; }
+  .section .line {
+    stroke: white; }
+  .section .endpoint {
+    stroke: #f7931e; }
+  .section .endpoint--clicker {
     stroke: transparent;
-    fill: white;
-    font-size: 21px; }
-  .section .cursor path {
-    stroke: white;
-    stroke-width: 1px; }
+    stroke-width: 3px; }
+  .section .cursor {
+    stroke: #f7931e;
+    stroke-width: 4px;
+    fill: black; }
+    .section .cursor text {
+      stroke: transparent;
+      fill: white;
+      font-size: 13px; }
+    .section .cursor path {
+      stroke: white;
+      stroke-width: 1px; }
+  .section .viewer .white {
+    color: white; }
+  .section .viewer .orange {
+    color: #f7931e; }
 
 #skillwheel .line {
   stroke: transparent; }
 
 #skillwheel .cursor path {
   stroke: white; }
+
+@media (orientation: landscape) {
+  .section {
+    stroke-width: 1px; }
+    .section .cursor text {
+      font-size: 16px; } }
 
 #filters {
   width: 0px;

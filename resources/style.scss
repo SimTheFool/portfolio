@@ -2,14 +2,29 @@ $white: white;
 $black: black;
 $orange: #f7931e;
 
-$fontSize: 30px;
+$fontSize: 20px;
 $fontFam : 'Sans-serif';
 
-$headerH: 20vh;
-@mixin headerDim{
+$maxHeaderH : 150px;
+@function headerH($orientation)
+{
+    @if $orientation == 'landscape'
+    {
+        @return 25vh;
+    }
+    @else if $orientation == 'portrait'
+    {
+        @return 17vh;
+    }
+}
+
+
+@mixin headerDim($orientation)
+{
     position: absolute;
-    height: $headerH;
-    padding-bottom: 40px;
+    height: headerH($orientation);
+    max-height: $maxHeaderH;
+    padding-bottom: 20px;
     width: 100vw;
     max-width: 100%;
     box-sizing: border-box;
