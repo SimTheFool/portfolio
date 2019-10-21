@@ -1,24 +1,16 @@
 <template>
     <div id="skillwheel" class="section">
-        <c-drawing
-            ref="drawing"
-            vbox="0 -30 250 40"
-            v-bind:d="d">
-            
-            <c-cursor
-                width="30px"
-                height="30px"
-                v-for="(data, index) in content"
-                v-bind:ref="'cursors'"
-                v-bind:path="ePath"
-                v-bind:content="data.logo"
-                contentType="svg"
+        
+        <div class="drawing">
+            <c-icon
+                v-for="(elem, index) in content"
                 v-bind:data-id="index"
+                v-bind:iconData="elem.logo"
                 v-on:click="click"
-                v-on:reachEndpoint="reachEndpoint"
-            ></c-cursor>
-            
-        </c-drawing>
+            >
+            </c-icon>
+
+        </div>
 
         <c-viewer v-bind:content="currentDatas"></c-viewer>
         
@@ -26,16 +18,15 @@
 </template>
 <script>
 
-import cDrawing from 'Modules/drawing/c-drawing.vue';
-import cCursor from 'Modules/cursor/c-cursor.vue';
+import cIcon from 'Modules/icon/c-icon.vue';
 import cViewer from 'Modules/viewer/c-viewer.vue';
 
 export default {
     components:
     {
-        'c-drawing': cDrawing,
-        'c-cursor': cCursor,
-        'c-viewer': cViewer
+        'c-viewer': cViewer,
+        'c-icon': cIcon
+
     },
     props:
     {
@@ -48,12 +39,6 @@ export default {
     data: function()
     {
         return {
-            d: "M 125 0 L 250 0 M 0 0 L 125 0",
-            endpoints: [{x: 50, y: 12.2, length: 0}],
-            ePath: null,
-            nCursors: [],
-            currentCursorId: 0,
-            isSpinning: false,
             currentDatas: {}
         }
     },
@@ -61,7 +46,7 @@ export default {
     {
         content:
         {
-            handler: function(val)
+            handler: function(val, oldVal)
             {
                 if(val.length > 0)
                 {
@@ -78,11 +63,7 @@ export default {
                 {
                     return;
                 }
-  
-                if(!this.isSpinning)
-                {
-                    this.computeRoute(to.params.slug);
-                }
+                this.computeRoute(to.params.slug);
             }
         }
     },
@@ -90,90 +71,29 @@ export default {
     {
         initialize: function()
         {
-            this.nCursors = this.$refs.cursors;
-            this.currentDatas = this.content[0];
-
-            let totalLength = this.ePath.getTotalLength();
-            let segmentLength = this.ePath.getTotalLength() / this.nCursors.length ;
-            this.isSpinning = true;
-            this.nCursors.forEach((nCursor, i) => {
-                let length = segmentLength * i;
-                length = (length > totalLength * 0.5) ? length - totalLength : length;
-                if(i === Math.floor(this.nCursors.length / 2.0))
-                {
-                    nCursor.transitToLength(length, 'initialized');
-                }
-                else
-                {
-                    nCursor.transitToLength(length);
-                }
-            });
-
             this.$nextTick(() => {
                 if(this.$route.params.slug === undefined)
                 {
                     this.$router.push({ name: 'competences', params: { slug: this.content[0].slug }});
                 }
+                else
+                {
+                    this.computeRoute(this.$route.params.slug);
+                }
             });
         },
         computeRoute: function(slug)
         {   
-            let index = this.content.findIndex((elem) => { return slug === elem.slug});
-
-            if(index === this.currentCursorId)
-            {
-                return;
-            }
-
-            this.moveCursorToEndpoint(index);
+            this.currentDatas = this.content.find((elem) => { return slug === elem.slug});
         },
-        moveCursorToEndpoint(cursorIndex)
+        click: function(e)
         {
-            this.isSpinning = true;
-
-            let newCursor = this.nCursors[cursorIndex];
-            let currentCursor = this.nCursors[this.currentCursorId];
-            let newCursorLength = newCursor.lengthOnPath;
-
-            let totalLength = this.ePath.getTotalLength();
-            let offset = 0;
-
-            if(newCursorLength >= totalLength * 0.5)
-            {
-                newCursor.transitToLength(totalLength, cursorIndex, {end: newCursor.scaleUp});
-                currentCursor.moveToLength(totalLength); 
-            }
-            else
-            {
-               newCursor.transitToLength(0, cursorIndex, {end: newCursor.scale});
-               currentCursor.moveToLength(0); 
-            }
-
-            currentCursor.transitToLength(newCursorLength);
-            this.currentCursorId = cursorIndex;
-        },
-        reachEndpoint: function(i)
-        {
-            this.isSpinning = false;
-            if(i === 'initialized')
-            {
-                this.computeRoute(this.$route.params.slug);
-                return;
-            }
-            this.currentDatas = this.content[i];
-        },
-        click: function(index)
-        {
-            if(this.isSpinning)
-            {
-                return;
-            }
-            this.$router.push({ name: 'competences', params: { slug: this.content[index].slug }});
+            this.$router.push({ name: 'competences', params: { slug: this.content[e].slug } });
         }
     },
     mounted: function()
     {
-        this.ePath = this.$refs.drawing.$refs.path;
+
     }
 }
 </script>

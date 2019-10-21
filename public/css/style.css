@@ -373,16 +373,14 @@ main {
     flex-direction: column;
     justify-content: space-around;
     height: 100%; }
-    .section .viewer .viewer--header {
-      width: 100%; }
-      .section .viewer .viewer--header .viewer--title {
-        font-size: 1.2em;
-        margin: 0 0 0.35em 0; }
-      .section .viewer .viewer--header .viewer--corpo {
-        font-size: 0.7em;
-        margin: 0 0 0.35em 0; }
-      .section .viewer .viewer--header .viewer--place {
-        font-size: 0.7em; }
+    .section .viewer .viewer--header .viewer--title {
+      font-size: 1.2em;
+      margin: 0 0 0.5em 0; }
+    .section .viewer .viewer--header .viewer--corpo {
+      font-size: 0.7em;
+      margin: 0 0 0.5em 0; }
+    .section .viewer .viewer--header .viewer--place {
+      font-size: 0.7em; }
     .section .viewer .viewer--list {
       align-items: flex-start;
       list-style: none;
@@ -401,16 +399,32 @@ main {
     height: 100%; }
   #timeline .viewer {
     width: 50%;
-    height: 80%; }
+    height: 80%;
+    text-align: center;
+    padding-right: 1em; }
+    #timeline .viewer .viewer--list {
+      text-align: left; }
 
 #skillwheel {
   display: block; }
   #skillwheel .drawing {
+    display: flex;
+    justify-content: space-around;
     width: 100%;
-    height: 30%; }
+    height: 20%; }
+    #skillwheel .drawing .icon {
+      display: block;
+      max-height: 100%;
+      max-width: 17%; }
   #skillwheel .viewer {
-    display: inline-block;
+    align-content: center;
+    align-items: center;
+    height: 80%;
     width: 100%; }
+    #skillwheel .viewer .viewer--header {
+      max-width: 60%; }
+    #skillwheel .viewer .viewer--list {
+      max-width: 60%; }
 
 @media (orientation: landscape) {
   header {
@@ -475,11 +489,8 @@ nav {
   .section .viewer .orange {
     color: #f7931e; }
 
-#skillwheel .line {
-  stroke: transparent; }
-
-#skillwheel .cursor path {
-  stroke: white; }
+#skillwheel .icon path {
+  fill: white; }
 
 @media (orientation: landscape) {
   .section {

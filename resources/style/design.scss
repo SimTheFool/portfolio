@@ -73,13 +73,9 @@ nav{
 }
 
 #skillwheel{
-    .line{
-        stroke: transparent;
-    }
-
-    .cursor{
+    .icon{
         path{
-            stroke: $white;
+            fill: $white;
         }
     }
 }

@@ -56,16 +56,15 @@ main{
         height: 100%;
 
         .viewer--header{
-            width: 100%;
 
             .viewer--title{
                 font-size: 1.2em;
-                margin: 0 0 0.35em 0;
+                margin: 0 0 0.5em 0;
             }
 
             .viewer--corpo{
                 font-size: 0.7em;
-                margin: 0 0 0.35em 0;
+                margin: 0 0 0.5em 0;
             }
 
             .viewer--place{
@@ -99,7 +98,13 @@ main{
 
     .viewer{
         width: 50%;
-        height: 80%
+        height: 80%;
+        text-align: center;
+        padding-right: 1em;
+
+        .viewer--list{
+            text-align: left;
+        }
     }
 }
 
@@ -107,13 +112,31 @@ main{
     display: block;
 
     .drawing{
+        display: flex;
+        justify-content: space-around;
         width: 100%;
-        height: 30%;
+        height: 20%;
+
+        .icon{
+            display: block;
+            max-height: 100%;
+            max-width: 17%;
+        }
     }
 
     .viewer{
-        display: inline-block;
+        align-content: center;
+        align-items: center;
+        height: 80%;
         width: 100%;
+
+        .viewer--header{
+            max-width: 60%;
+        }
+
+        .viewer--list{
+            max-width: 60%;
+        }
     }
 }
 
