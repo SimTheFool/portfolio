@@ -71,6 +71,7 @@ export default {
                 easing: "linear",
                 complete: () => {
                     this.eventBus.$emit('transitionEnd');
+                    document.querySelector('.viewer').style.filter = '';
                 }
             }).add({
                 targets: this.$refs.stick,

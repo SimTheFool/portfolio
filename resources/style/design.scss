@@ -16,13 +16,16 @@ header{
 }
 
 nav{
-
-    fill: transparent;
     stroke: $orange;
-    stroke-width: 6px;
+    stroke-width: 7px;
 
-    circle{
-        stroke: $white;
+    .navBtn{
+        transition: transform 0.5s;
+        @include clickable(1.3);
+
+        &--active{
+            @include active(1.5);
+        }
     }
 }
 
@@ -41,7 +44,7 @@ nav{
 
     .endpoint--clicker{
         stroke: transparent;
-        stroke-width: 3px;
+        stroke-width: 4px;
     }
 
     .cursor{
@@ -74,8 +77,17 @@ nav{
 
 #skillwheel{
     .icon{
-        path{
-            fill: $white;
+        fill: transparent;
+        stroke: $white;
+        stroke-width: 2px;
+        transition: transform 0.3s, fill 0.5s;
+
+        &--clickable{
+            @include clickable(1.3);
+        }
+
+        &--active{
+            @include active(1.7);
         }
     }
 }

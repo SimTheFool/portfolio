@@ -43,6 +43,19 @@ $maxHeaderH : 150px;
     box-sizing: border-box;
 }
 
+@mixin clickable($scale)
+{
+    &:hover{
+        transform: scale($scale);
+    }    
+}
+
+@mixin active($scale)
+{
+    transform: scale($scale);
+    stroke: $orange;
+}
+
 $mainPad: 10px;
 
 @import 'style/normalize.scss';

@@ -410,12 +410,14 @@ main {
   #skillwheel .drawing {
     display: flex;
     justify-content: space-around;
+    align-content: center;
+    align-items: center;
     width: 100%;
     height: 20%; }
     #skillwheel .drawing .icon {
       display: block;
-      max-height: 100%;
-      max-width: 17%; }
+      max-height: 50%;
+      max-width: 15%; }
   #skillwheel .viewer {
     align-content: center;
     align-items: center;
@@ -458,11 +460,15 @@ header {
       fill: #f7931e; }
 
 nav {
-  fill: transparent;
   stroke: #f7931e;
-  stroke-width: 6px; }
-  nav circle {
-    stroke: white; }
+  stroke-width: 7px; }
+  nav .navBtn {
+    transition: transform 0.5s; }
+    nav .navBtn:hover {
+      transform: scale(1.3); }
+    nav .navBtn--active {
+      transform: scale(1.5);
+      stroke: #f7931e; }
 
 .section {
   stroke-width: 0.5px; }
@@ -472,7 +478,7 @@ nav {
     stroke: #f7931e; }
   .section .endpoint--clicker {
     stroke: transparent;
-    stroke-width: 3px; }
+    stroke-width: 4px; }
   .section .cursor {
     stroke: #f7931e;
     stroke-width: 4px;
@@ -489,8 +495,16 @@ nav {
   .section .viewer .orange {
     color: #f7931e; }
 
-#skillwheel .icon path {
-  fill: white; }
+#skillwheel .icon {
+  fill: transparent;
+  stroke: white;
+  stroke-width: 2px;
+  transition: transform 0.3s, fill 0.5s; }
+  #skillwheel .icon--clickable:hover {
+    transform: scale(1.3); }
+  #skillwheel .icon--active {
+    transform: scale(1.7);
+    stroke: #f7931e; }
 
 @media (orientation: landscape) {
   .section {

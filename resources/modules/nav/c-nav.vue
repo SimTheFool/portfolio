@@ -1,6 +1,6 @@
 <template>
     <nav>
-        <span class="navBtn--left navBtn" v-on:click="clickLeft">
+        <span class="navBtn--left navBtn" v-on:click="clickLeft" ref="btnLeft">
             <svg class="navBtn--symbol"
                 version="1.1"
                 baseProfile="full"
@@ -9,7 +9,7 @@
                 <polyline class="st0" points="75.4,98 4.1,50 75.4,2"/>
             </svg>  
         </span>
-        <span class="navBtn--right navBtn" v-on:click="clickRight">
+        <span class="navBtn--right navBtn" v-on:click="clickRight" ref="btnRight">
             <svg class="navBtn--symbol"
                 version="1.1"
                 baseProfile="full"
@@ -39,20 +39,30 @@ export default {
     },
     methods:
     {
-        clickLeft: function()
+        clickLeft: function(e)
         {
+            this.$refs.btnLeft.classList.add("navBtn--active");
             this.eventBus.$emit('navigate', 'left');
         },
-        clickRight: function()
+        clickRight: function(e)
         {
+            this.$refs.btnRight.classList.add("navBtn--active");
             this.eventBus.$emit('navigate', 'right');
         }
     },
     mounted: function()
     {
         this.eventBus.$on('transiting', (e) => {
-            let route = (e === 'right') ? this.right : this.left;
-            this.$router.push(route);
+            if(e == 'right')
+            {
+                this.$refs.btnRight.classList.remove("navBtn--active");
+                this.$router.push(this.right);
+            }
+            else
+            {
+                this.$refs.btnLeft.classList.remove("navBtn--active");
+                this.$router.push(this.left);
+            }
         })
     }
 }

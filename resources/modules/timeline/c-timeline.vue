@@ -102,6 +102,9 @@ export default {
                 {
                     this.$router.push({ name: 'parcours', params: { slug: this.content[this.content.length - 1].slug } });
                 }
+
+                let index = this.content.findIndex((elem) => {return elem.slug === this.$route.params.slug});
+                this.$refs.drawing.click(index);
                 this.computeRoute(this.$route.params.slug);
             });
         },

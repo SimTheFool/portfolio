@@ -3,6 +3,7 @@
         
         <div class="drawing">
             <c-icon
+                ref="icons"
                 v-for="(elem, index) in content"
                 v-bind:data-id="index"
                 v-bind:iconData="elem.logo"
@@ -74,10 +75,13 @@ export default {
             this.$nextTick(() => {
                 if(this.$route.params.slug === undefined)
                 {
+                    this.$refs.icons[0].setActive(true);
                     this.$router.push({ name: 'competences', params: { slug: this.content[0].slug }});
                 }
                 else
                 {
+                    let currentIndex = this.content.findIndex((elem) => { return this.$route.params.slug === elem.slug});
+                    this.$refs.icons[currentIndex].setActive(true);
                     this.computeRoute(this.$route.params.slug);
                 }
             });
@@ -88,7 +92,17 @@ export default {
         },
         click: function(e)
         {
-            this.$router.push({ name: 'competences', params: { slug: this.content[e].slug } });
+            let currentIndex = this.content.findIndex((elem) => { return this.$route.params.slug === elem.slug});
+            let newIndex = e.dataset.id;
+
+            if(currentIndex == newIndex)
+            {
+                return;
+            }
+
+            this.$refs.icons[currentIndex].setActive(false);
+            this.$refs.icons[newIndex].setActive(true);
+            this.$router.push({ name: 'competences', params: { slug: this.content[e.dataset.id].slug } });
         }
     },
     mounted: function()
