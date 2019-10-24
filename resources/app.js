@@ -60,6 +60,12 @@ new Vue({
                     content : this.websiteContent.skillwheel
                 };
             }
+            else if(this.$route.name === 'presentation')
+            {
+                return {
+                    content : this.websiteContent.general
+                };
+            }
         },
         navProps:function()
         {

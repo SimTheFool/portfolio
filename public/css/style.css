@@ -1,12 +1,4 @@
 @font-face {
-  font-family: "Chub Gothic";
-  src: url("/fonts/chubgothic_1.ttf"); }
-
-@font-face {
-  font-family: "LemonMilk";
-  src: url("/fonts/LemonMilk/LemonMilklight.otf"); }
-
-@font-face {
   font-family: "Giorgio";
   src: url("/fonts/Giogio/Giorgio.ttf"); }
 
@@ -52,7 +44,8 @@ h1 {
    * 2. Show the overflow in Edge and IE.
    */
 hr {
-  box-sizing: content-box;
+  -webkit-box-sizing: content-box;
+          box-sizing: content-box;
   /* 1 */
   height: 0;
   /* 1 */
@@ -219,7 +212,8 @@ fieldset {
    *    `fieldset` elements in all browsers.
    */
 legend {
-  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
   /* 1 */
   color: inherit;
   /* 2 */
@@ -250,7 +244,8 @@ textarea {
    */
 [type="checkbox"],
 [type="radio"] {
-  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
   /* 1 */
   padding: 0;
   /* 2 */ }
@@ -317,8 +312,6 @@ template {
   display: none; }
 
 body {
-  color: white;
-  background-color: black;
   font-family: "Giorgio";
   font-size: 20px; }
 
@@ -332,7 +325,8 @@ header {
   padding-bottom: 20px;
   width: 100vw;
   max-width: 100%;
-  box-sizing: border-box; }
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box; }
 
 #logo {
   width: 100%;
@@ -345,11 +339,19 @@ nav {
   padding-bottom: 20px;
   width: 100vw;
   max-width: 100%;
-  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  justify-content: space-between;
-  align-content: flex-end;
-  align-items: flex-end; }
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -ms-flex-line-pack: end;
+      align-content: flex-end;
+  -webkit-box-align: end;
+      -ms-flex-align: end;
+          align-items: flex-end; }
   nav .navBtn {
     width: 10%;
     height: 30%; }
@@ -361,17 +363,25 @@ main {
   margin-top: 17vh;
   height: 83vh;
   padding: 10px;
-  box-sizing: border-box; }
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box; }
 
 .section {
-  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
   padding: 0;
   height: 100%;
   width: 100%; }
   .section .viewer {
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
-    flex-direction: column;
-    justify-content: space-around;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+    -ms-flex-pack: distribute;
+        justify-content: space-around;
     height: 100%; }
     .section .viewer .viewer--header .viewer--title {
       font-size: 1.2em;
@@ -382,7 +392,9 @@ main {
     .section .viewer .viewer--header .viewer--place {
       font-size: 0.7em; }
     .section .viewer .viewer--list {
-      align-items: flex-start;
+      -webkit-box-align: start;
+          -ms-flex-align: start;
+              align-items: flex-start;
       list-style: none;
       padding: 0 0 0 0;
       margin: 0 0 0 0; }
@@ -390,10 +402,35 @@ main {
       font-size: 0.85em;
       margin-bottom: 1em; }
 
+#presentation {
+  font-size: 0.7em;
+  text-align: center;
+  padding: 1px 1.5em 0 1.5em; }
+  #presentation p {
+    padding: 0.4em 0 0.4em 0em; }
+    #presentation p a {
+      -webkit-transition: -webkit-transform 0.4s;
+      transition: -webkit-transform 0.4s;
+      -o-transition: transform 0.4s;
+      transition: transform 0.4s;
+      transition: transform 0.4s, -webkit-transform 0.4s;
+      display: inline-block;
+      padding: 0 0.2em 0.2em 0.2em;
+      font-size: 3em; }
+      #presentation p a:hover {
+        -webkit-transform: scale(1.3);
+            -ms-transform: scale(1.3);
+                transform: scale(1.3); }
+
 #timeline {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  justify-content: space-around;
-  align-items: center; }
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center; }
   #timeline .drawing {
     width: 35%;
     height: 100%; }
@@ -408,10 +445,16 @@ main {
 #skillwheel {
   display: block; }
   #skillwheel .drawing {
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
-    justify-content: space-around;
-    align-content: center;
-    align-items: center;
+    -ms-flex-pack: distribute;
+        justify-content: space-around;
+    -ms-flex-line-pack: center;
+        align-content: center;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
     width: 100%;
     height: 20%; }
     #skillwheel .drawing .icon {
@@ -419,8 +462,11 @@ main {
       max-height: 50%;
       max-width: 15%; }
   #skillwheel .viewer {
-    align-content: center;
-    align-items: center;
+    -ms-flex-line-pack: center;
+        align-content: center;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
     height: 80%;
     width: 100%; }
     #skillwheel .viewer .viewer--header {
@@ -436,7 +482,8 @@ main {
     padding-bottom: 20px;
     width: 100vw;
     max-width: 100%;
-    box-sizing: border-box; }
+    -webkit-box-sizing: border-box;
+            box-sizing: border-box; }
   nav {
     position: absolute;
     height: 25vh;
@@ -444,13 +491,18 @@ main {
     padding-bottom: 20px;
     width: 100vw;
     max-width: 100%;
-    box-sizing: border-box; }
+    -webkit-box-sizing: border-box;
+            box-sizing: border-box; }
   main {
     margin-top: 25vh;
     height: 75vh; } }
 
 svg {
   fill: transparent; }
+
+body {
+  color: white;
+  background-color: black; }
 
 header {
   background-color: black; }
@@ -463,12 +515,32 @@ nav {
   stroke: #f7931e;
   stroke-width: 7px; }
   nav .navBtn {
-    transition: transform 0.5s; }
+    -webkit-transition: -webkit-transform 0.5s;
+    transition: -webkit-transform 0.5s;
+    -o-transition: transform 0.5s;
+    transition: transform 0.5s;
+    transition: transform 0.5s, -webkit-transform 0.5s; }
     nav .navBtn:hover {
-      transform: scale(1.3); }
+      -webkit-transform: scale(1.3);
+          -ms-transform: scale(1.3);
+              transform: scale(1.3); }
     nav .navBtn--active {
-      transform: scale(1.5);
+      -webkit-transform: scale(1.5);
+          -ms-transform: scale(1.5);
+              transform: scale(1.5);
       stroke: #f7931e; }
+
+.white {
+  color: white; }
+
+.orange {
+  color: #f7931e; }
+
+.dash {
+  display: block;
+  width: 40%;
+  border-bottom: #f7931e 1px solid;
+  margin: auto; }
 
 .section {
   stroke-width: 0.5px; }
@@ -490,20 +562,24 @@ nav {
     .section .cursor path {
       stroke: white;
       stroke-width: 1px; }
-  .section .viewer .white {
-    color: white; }
-  .section .viewer .orange {
-    color: #f7931e; }
 
 #skillwheel .icon {
   fill: transparent;
   stroke: white;
   stroke-width: 2px;
-  transition: transform 0.3s, fill 0.5s; }
+  -webkit-transition: fill 0.5s, -webkit-transform 0.3s;
+  transition: fill 0.5s, -webkit-transform 0.3s;
+  -o-transition: transform 0.3s, fill 0.5s;
+  transition: transform 0.3s, fill 0.5s;
+  transition: transform 0.3s, fill 0.5s, -webkit-transform 0.3s; }
   #skillwheel .icon--clickable:hover {
-    transform: scale(1.3); }
+    -webkit-transform: scale(1.3);
+        -ms-transform: scale(1.3);
+            transform: scale(1.3); }
   #skillwheel .icon--active {
-    transform: scale(1.7);
+    -webkit-transform: scale(1.7);
+        -ms-transform: scale(1.7);
+            transform: scale(1.7);
     stroke: #f7931e; }
 
 @media (orientation: landscape) {

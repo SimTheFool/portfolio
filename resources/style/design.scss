@@ -2,6 +2,11 @@ svg{
     fill: transparent;
 }
 
+body{
+    color: $white;
+    background-color: $black;
+}
+
 header{
 
     background-color: $black;
@@ -27,6 +32,21 @@ nav{
             @include active(1.5);
         }
     }
+}
+
+.white{
+    color: $white;
+}
+
+.orange{
+    color: $orange;
+}
+
+.dash{
+    display: block;
+    width: 40%;
+    border-bottom: $orange 1px solid;
+    margin: auto;
 }
 
 .section{
@@ -61,16 +81,6 @@ nav{
         path{
             stroke: $white;
             stroke-width: 1px;
-        }
-    }
-
-    .viewer{
-        .white{
-            color: $white;
-        }
-
-        .orange{
-            color: $orange;
         }
     }
 }

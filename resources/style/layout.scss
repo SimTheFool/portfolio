@@ -1,6 +1,4 @@
 body {
-    color: $white;
-    background-color: $black;
     font-family: $fontFam;
     font-size: $fontSize;
 }
@@ -48,6 +46,7 @@ main{
     padding: 0;
     height: 100%;
     width: 100%;
+    //overflow: auto;
 
     .viewer{
         display: flex;
@@ -82,6 +81,24 @@ main{
         .viewer--item{
             font-size: 0.85em;
             margin-bottom: 1em;
+        }
+    }
+}
+
+#presentation{
+    font-size: 0.7em;
+    text-align: center;
+    padding: 1px 1.5em 0 1.5em;
+
+    p{
+        padding: 0.4em 0 0.4em 0em;
+
+        a{
+            @include clickable(1.3);
+            transition: transform 0.4s;
+            display: inline-block;
+            padding: 0 0.2em 0.2em 0.2em;
+            font-size: 3em;
         }
     }
 }
