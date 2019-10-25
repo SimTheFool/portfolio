@@ -118,7 +118,6 @@ export default {
                     this.moveToLength(totalLength);
                     this.transitToLength(nextLength, true);
                 };
-                easing = "linear";
             }
 
             if(l > totalLength)
@@ -129,7 +128,6 @@ export default {
                     this.moveToLength(0);
                     this.transitToLength(nextLength, true);
                 };
-                easing = "linear";
             }
 
             this.animations.transit = this.anime({

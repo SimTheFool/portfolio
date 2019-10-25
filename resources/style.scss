@@ -6,16 +6,15 @@ $orange: #f7931e;
     font-family: "Giorgio";
     src: url("/fonts/Giogio/Giorgio.ttf");
 }
-
 $fontSize: 20px;
 $fontFam : 'Giorgio';
 
-$maxHeaderH : 150px;
+$maxHeaderH : 200px;
 @function headerH($orientation)
 {
     @if $orientation == 'landscape'
     {
-        @return 25vh;
+        @return 23vh;
     }
     @else if $orientation == 'portrait'
     {
@@ -27,7 +26,7 @@ $maxHeaderH : 150px;
     position: absolute;
     height: headerH($orientation);
     max-height: $maxHeaderH;
-    padding-bottom: 20px;
+    padding-bottom: 2vh;
     width: 100vw;
     max-width: 100%;
     box-sizing: border-box;
@@ -47,6 +46,7 @@ $maxHeaderH : 150px;
 }
 
 $mainPad: 10px;
+$strokeW: 1px;
 
 @import 'style/normalize.scss';
 @import 'style/layout.scss';
