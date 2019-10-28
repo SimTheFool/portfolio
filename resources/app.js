@@ -115,7 +115,7 @@ new Vue({
             meta.content = this.websiteContent.general.meta;            
         }, function(error){
             console.log('Erreur : Les données n\'ont pu être récupérées');
-        })
+        });
     },
     mounted: function()
     {
