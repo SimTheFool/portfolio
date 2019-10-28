@@ -111,7 +111,8 @@ new Vue({
             this.currentRoutes[1].params.slug = this.currentRoutes[1].params.slug || parcoursSlug;
             this.currentRoutes[2].params.slug = this.currentRoutes[2].params.slug || competencesSlug;
 
-            
+            let meta = document.querySelector('meta[name="description"]');
+            meta.content = this.websiteContent.general.meta;            
         }, function(error){
             console.log('Erreur : Les données n\'ont pu être récupérées');
         })
