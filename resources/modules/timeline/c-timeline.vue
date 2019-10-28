@@ -116,7 +116,7 @@ export default {
         // Compute the path d attribute based on datas. Return an array of endpoints constituting the path.
         createPath: function(datas, slope)
         {
-            let sum = datas.reduce((a, e) => {return a + e.duration}, 0);
+            let sum = datas.reduce((acc, e) => {return acc + parseFloat(e.duration)}, 0);
             let endpoints = datas.map((e) => {return e.duration/sum*100});
             this.utils.clampAndBalance(endpoints, 10, 30);
 

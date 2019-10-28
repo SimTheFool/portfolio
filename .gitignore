@@ -1,3 +1,4 @@
 node_modules/
 env.json
 public/datas/datas.json
+public/datas/datas.xml

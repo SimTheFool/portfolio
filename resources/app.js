@@ -99,20 +99,76 @@ new Vue({
             immediate: true
         }
     },
-    beforeCreate: function()
+    methods:
     {
-        this.$http.get('/datas/datas.json').then(function(response){
+        initNavigation: function()
+        {
+            let parcoursSlug = this.websiteContent.timeline.slice(-1)[0].slug;
+            let competencesSlug = this.websiteContent.skillwheel[0].slug;
 
-            this.websiteContent = response.data;
-            EventBus.$emit('datasInitialized');
-
-            let parcoursSlug = response.data.timeline[response.data.timeline.length - 1].slug;
-            let competencesSlug = response.data.skillwheel[0].slug;
             this.currentRoutes[1].params.slug = this.currentRoutes[1].params.slug || parcoursSlug;
             this.currentRoutes[2].params.slug = this.currentRoutes[2].params.slug || competencesSlug;
-
+        },
+        setMetaDescription: function()
+        {
             let meta = document.querySelector('meta[name="description"]');
-            meta.content = this.websiteContent.general.meta;            
+            meta.content = this.websiteContent.general.meta; 
+        },
+        parseXmltoObj: function(xml)
+        {
+            let obj = {};
+
+            let general = [...xml.querySelector('general').children];
+            obj.general = {};
+            general.forEach((e) => {
+                obj.general[e.tagName] = e.innerHTML.replace(/\n/g, '');
+            });
+
+            let timeline = [...xml.querySelector('timeline').children];
+            obj.timeline = [];
+            timeline.forEach((e) => {
+                let attributes = [...e.attributes];
+                let newObj = {}
+
+                attributes.forEach((e) => {
+                    newObj[e.name] = e.value;
+                });
+                newObj.description = e.innerHTML.replace(/\n/g, '');
+
+                obj.timeline.push(newObj);
+            });
+
+            let skillwheel = [...xml.querySelector('skillwheel').children];
+            obj.skillwheel = [];
+            skillwheel.forEach((e) => {
+                let attributes = [...e.attributes];
+                let newObj = {}
+
+                attributes.forEach((e) => {
+                    newObj[e.name] = e.value;
+                });
+                newObj.description = e.innerHTML.replace(/\n/g, '');
+
+                obj.skillwheel.push(newObj);
+            });
+            
+            return obj;
+        }
+    },
+    beforeCreate: function()
+    {
+        this.$http.get('/datas/datas.xml').then(function(response){
+
+            let parser = new DOMParser();
+            let xml = parser.parseFromString(response.data, "text/xml");
+            let datas = this.parseXmltoObj(xml);
+
+            this.websiteContent = datas;
+            EventBus.$emit('datasInitialized');
+
+            this.initNavigation();
+            this.setMetaDescription();
+                 
         }, function(error){
             console.log('Erreur : Les données n\'ont pu être récupérées');
         });
