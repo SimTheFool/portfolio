@@ -164,7 +164,7 @@ new Vue({
             let datas = this.parseXmltoObj(xml);
 
             this.websiteContent = datas;
-            EventBus.$emit('datasInitialized');
+            //EventBus.$emit('datasInitialized');
 
             this.initNavigation();
             this.setMetaDescription();

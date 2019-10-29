@@ -72,7 +72,7 @@ export default {
                     targets: [this.$refs.stick1, this.$refs.stick2],
                     height: "100%",
                     y: "0%",
-                    duration: 300,
+                    duration: 100,
                 }).add({
                     targets: this.$refs.stick1,
                     x: "0%",
@@ -106,7 +106,7 @@ export default {
                     targets: [this.$refs.stick1, this.$refs.stick2],
                     height: "100%",
                     y: "0%",
-                    duration: 300,
+                    duration: 100,
                 }).add({
                     targets: this.$refs.stick1,
                     x: "99.9%",
@@ -133,7 +133,7 @@ export default {
                     targets: this.$refs.stick1,
                     height: "0%",
                     y: "50%",
-                    duration: 300
+                    duration: 100
                 }).add({
                     targets: this.$refs.stick1,
                     "flood-opacity": 0,
@@ -150,7 +150,7 @@ export default {
                     targets: this.$refs.stick2,
                     y: "50%",
                     height: "0%",
-                    duration: 300
+                    duration: 100
                 }).add({
                     targets: this.$refs.stick2,
                     "flood-opacity": 0,
@@ -169,7 +169,7 @@ export default {
                     targets: this.$refs.stick1,
                     height: "0%",
                     y: "50%",
-                    duration: 300
+                    duration: 100
                 }).add({
                     targets: this.$refs.stick1,
                     "flood-opacity": 0,
@@ -186,7 +186,7 @@ export default {
                     targets: this.$refs.stick2,
                     y: "50%",
                     height: "0%",
-                    duration: 300
+                    duration: 100
                 }).add({
                     targets: this.$refs.stick2,
                     "flood-opacity": 0,

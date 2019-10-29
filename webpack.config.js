@@ -11,6 +11,9 @@ const PrerenderSPAPlugin = require('prerender-spa-plugin');
 const Renderer = PrerenderSPAPlugin.PuppeteerRenderer;
 const SitemapPlugin = require('sitemap-webpack-plugin').default;
 
+const fs = require('fs');
+const parseString = require('xml2js').parseString;
+
 var configDefault =
 {
     mode: 'development',
@@ -98,44 +101,60 @@ var configDefault =
 
 var configModifiers = 
 {
-    "prod": function()
+    "prod": function(resolve = null)
     {
         configDefault.mode = "production";
         configDefault.watch = false;
         configDefault.resolve.alias.Vue = path.resolve('./node_modules/vue/dist/vue.min.js');
         configDefault.plugins.push(new OptimizeCssAssetsPlugin({assetNameRegExp: /\.css$/g }));
-    },
-    "prerender": function()
-    {
-        const datas = require(env.datas);
 
+        if(resolve !== null)
+        {
+            resolve(configDefault);
+        }
+    },
+    "prerender": function(resolve = null)
+    {
         let routes = [];
         routes.push('/');
 
-        for(let elem of datas.timeline)
-        {
-            routes.push('/parcours/' + elem.slug);
-        }
+        fs.readFile(env.datas, (err, data) => {
+            if (err) {
+                throw err;
+            }
 
-        for(let elem of datas.skillwheel)
-        {
-            routes.push('/competences/' + elem.slug);
-        }
+            parseString(data, (err, result) => {
+                let timelineElements = result.root.timeline[0].element;
+                timelineElements.forEach((e) => {
 
-        configModifiers.prod();
-        configDefault.plugins.push(new PrerenderSPAPlugin({
-            staticDir: path.join(__dirname, 'public'),
-            indexPath: path.join(__dirname, 'public/index.html'),
-            outputDir: path.join(__dirname, 'public/prerender'),
-            routes: routes,
-            renderer: new Renderer({
-                renderAfterTime: 5000
-            })
-        }));
-        configDefault.plugins.push(new SitemapPlugin(env.domain, routes, {
-            skipGzip: true,
-            fileName: 'sitemap.xml'
-        }));
+                    routes.push('/parcours/' + e.$.slug);
+                });
+
+                let skillwheelElements = result.root.skillwheel[0].element;
+                skillwheelElements.forEach((e) => {
+
+                    routes.push('/competences/' + e.$.slug);
+                });
+
+                configDefault.plugins.push(new PrerenderSPAPlugin({
+                    staticDir: path.join(__dirname, 'public'),
+                    indexPath: path.join(__dirname, 'public/index.html'),
+                    outputDir: path.join(__dirname, 'public/prerender'),
+                    routes: routes,
+                    renderer: new Renderer({
+                        renderAfterTime: 5000
+                    })
+                }));
+                configDefault.plugins.push(new SitemapPlugin(env.domain, routes, {
+                    skipGzip: true,
+                    fileName: 'sitemap.xml'
+                }));
+
+                configModifiers.prod();
+
+                resolve(configDefault);
+            });
+        });
     }
 };
 
@@ -143,7 +162,10 @@ module.exports = function(e)
 {
     if(e !== null && e !== undefined)
     {
-        configModifiers[e]();
+        return new Promise((resolve, reject) => {
+            configModifiers[e](resolve);
+        });
     }
+
     return configDefault;
 }
