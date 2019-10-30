@@ -2,128 +2,172 @@ const path = require('path');
 const webpack = require('webpack');
 const env = require('./env.json');
 
-const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-const FixStyleOnlyEntriesPlugin = require("webpack-fix-style-only-entries");
-const VueLoaderPlugin = require('vue-loader/lib/plugin');
-const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
+var imports = {};
 
-const PrerenderSPAPlugin = require('prerender-spa-plugin');
-const Renderer = PrerenderSPAPlugin.PuppeteerRenderer;
-const SitemapPlugin = require('sitemap-webpack-plugin').default;
-
-const fs = require('fs');
-const parseString = require('xml2js').parseString;
-
-var configDefault =
+var resolveImports = function(e = "")
 {
-    mode: 'development',
-    entry: 
+    if(e === "prerender")
     {
-        "css/style": './resources/style.scss',
-        "js/app": './resources/app.js'
-    },
-    output: 
+        imports = {
+            PrerenderSPAPlugin: require('prerender-spa-plugin'),
+            Renderer: require('prerender-spa-plugin').PuppeteerRenderer,
+            SitemapPlugin: require('sitemap-webpack-plugin').default,
+
+            fs: require('fs'),
+            rimraf: require('rimraf'),
+            parseString: require('xml2js').parseString
+        }
+    }
+    else
     {
-        path: path.resolve('./public/'),
-        filename: '[name].js'
-    },
-    watch: true,
-    module: 
+        imports = {
+            FixStyleOnlyEntriesPlugin: require("webpack-fix-style-only-entries"),
+            MiniCssExtractPlugin: require('mini-css-extract-plugin'),
+            VueLoaderPlugin: require('vue-loader/lib/plugin'),
+            OptimizeCssAssetsPlugin: require('optimize-css-assets-webpack-plugin')
+        };
+    }
+}
+
+var resolveConfig = 
+{
+    "default": function(resolve = null)
     {
-        rules: [
-        { 
-            test: /\.scss$/, 
-            use: [
+        let config = {
+            mode: 'development',
+            entry: 
             {
-                loader: MiniCssExtractPlugin.loader,
+                "css/style": './resources/style.scss',
+                "js/app": './resources/app.js'
             },
+            output: 
             {
-                loader: 'css-loader',
-                options: {
-                    url: false,
+                path: path.resolve('./public/'),
+                filename: '[name].js'
+            },
+            watch: true,
+            module: 
+            {
+                rules: [
+                { 
+                    test: /\.scss$/, 
+                    use: [
+                    {
+                        loader: imports.MiniCssExtractPlugin.loader,
+                    },
+                    {
+                        loader: 'css-loader',
+                        options: {
+                            url: false,
+                        }
+                    },
+                    {
+                        loader: 'postcss-loader',
+                    },
+                    {
+                        loader: 'sass-loader',
+                    }
+                    ]
+                },
+                {
+                    test: /\.vue$/,
+                    loader: 'vue-loader'
+                },
+                {
+                    test: /\.js$/,
+                    exclude: /(node_modules|bower_components)/,
+                    use: {
+                      loader: 'babel-loader',
+                      options: {
+                        presets: ['@babel/preset-env']
+                      }
+                    }
+                  }
+                ]
+            },
+            plugins: [
+                new imports.FixStyleOnlyEntriesPlugin(),
+                new imports.MiniCssExtractPlugin({
+                    filename: "css/style.css",
+                  }),
+                new imports.VueLoaderPlugin(),
+            ],
+            resolve:
+            {
+                alias:
+                {
+                    Vue: path.resolve('./node_modules/vue/dist/vue.js'),
+                    Config: path.resolve('./resources/config.js'),
+                    Modules: path.resolve('./resources/modules'),
+                    Utils: path.resolve('./resources/utils'),
                 }
             },
+            devServer:
             {
-                loader: 'postcss-loader',
-            },
-            {
-                loader: 'sass-loader',
+                contentBase: path.join(__dirname, 'public'),
+                hot: true,
+                historyApiFallback: true
             }
-            ]
-        },
-        {
-            test: /\.vue$/,
-            loader: 'vue-loader'
-        },
-        {
-            test: /\.js$/,
-            exclude: /(node_modules|bower_components)/,
-            use: {
-              loader: 'babel-loader',
-              options: {
-                presets: ['@babel/preset-env']
-              }
-            }
-          },
-          {
-            test: require.resolve('snapsvg/dist/snap.svg.js'),
-            use: 'imports-loader?this=>window,fix=>module.exports=0',
-          }
-        ]
-    },
-    plugins: [
-        new FixStyleOnlyEntriesPlugin(),
-        new MiniCssExtractPlugin({
-            filename: "css/style.css",
-          }),
-        new VueLoaderPlugin(),
-    ],
-    resolve:
-    {
-        alias:
-        {
-            Vue: path.resolve('./node_modules/vue/dist/vue.js'),
-            Snapsvg: 'snapsvg/dist/snap.svg.js',
-            Config: path.resolve('./resources/config.js'),
-            Modules: path.resolve('./resources/modules'),
-            Utils: path.resolve('./resources/utils'),
         }
-    },
-    devServer:
-    {
-        contentBase: path.join(__dirname, 'public'),
-        hot: true,
-        historyApiFallback: true
-    }
-};
-
-
-
-var configModifiers = 
-{
-    "prod": function(resolve = null)
-    {
-        configDefault.mode = "production";
-        configDefault.watch = false;
-        configDefault.resolve.alias.Vue = path.resolve('./node_modules/vue/dist/vue.min.js');
-        configDefault.plugins.push(new OptimizeCssAssetsPlugin({assetNameRegExp: /\.css$/g }));
 
         if(resolve !== null)
         {
-            resolve(configDefault);
+            resolve(config);
+        }
+        else
+        {
+            return config;
+        }
+    },
+    "prod": function(resolve = null)
+    {
+        let config = resolveConfig["default"]();
+
+        config.mode = "production";
+        config.watch = false;
+        config.resolve.alias.Vue = path.resolve('./node_modules/vue/dist/vue.min.js');
+        config.plugins.push(new imports.OptimizeCssAssetsPlugin({assetNameRegExp: /\.css$/g }));
+
+        if(resolve !== null)
+        {
+            resolve(config);
+        }
+        else
+        {
+            return config;
         }
     },
     "prerender": function(resolve = null)
     {
+
+        let config = {
+            mode: "production",
+            watch: false,
+            entry:
+            {
+                "phantomOutput": './resources/phantomEntry.js'
+            },
+            output:
+            {
+                path: path.resolve('./resources/'),
+                filename: '[name].js'
+            },
+            plugins: []
+        };
+
+        imports.rimraf('./public/prerender', imports.fs, (error) => {
+            if(error){console.log(error);}
+        });
+
         let routes = [];
         routes.push('/');
 
-        fs.readFile(env.datas, (err, data) => {
+        imports.fs.readFile(env.datas, (err, data) => {
             if (err) {
                 throw err;
             }
 
-            parseString(data, (err, result) => {
+            imports.parseString(data, (err, result) => {
                 let timelineElements = result.root.timeline[0].element;
                 timelineElements.forEach((e) => {
 
@@ -136,23 +180,22 @@ var configModifiers =
                     routes.push('/competences/' + e.$.slug);
                 });
 
-                configDefault.plugins.push(new PrerenderSPAPlugin({
+                config.plugins.push(new imports.PrerenderSPAPlugin({
                     staticDir: path.join(__dirname, 'public'),
                     indexPath: path.join(__dirname, 'public/index.html'),
                     outputDir: path.join(__dirname, 'public/prerender'),
                     routes: routes,
-                    renderer: new Renderer({
+                    renderer: new imports.Renderer({
                         renderAfterTime: 5000
                     })
                 }));
-                configDefault.plugins.push(new SitemapPlugin(env.domain, routes, {
+
+                config.plugins.push(new imports.SitemapPlugin(env.domain, routes, {
                     skipGzip: true,
                     fileName: 'sitemap.xml'
                 }));
 
-                configModifiers.prod();
-
-                resolve(configDefault);
+                resolve(config);
             });
         });
     }
@@ -160,12 +203,17 @@ var configModifiers =
 
 module.exports = function(e)
 {
-    if(e !== null && e !== undefined)
-    {
-        return new Promise((resolve, reject) => {
-            configModifiers[e](resolve);
-        });
-    }
+    resolveImports(e);
 
-    return configDefault;
+    return new Promise((resolve, reject) => {
+        if(e !== null && e !== undefined)
+        {
+            resolveConfig[e](resolve);
+        }
+        else
+        {
+            resolveConfig["default"](resolve);
+        }
+        
+    });
 }

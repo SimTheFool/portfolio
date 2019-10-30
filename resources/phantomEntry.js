@@ -1,0 +1,1 @@
+// Only use to give a phantom entry to wenpack during the prerender pipeline.

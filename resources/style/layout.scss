@@ -201,7 +201,7 @@ main{
     #skillwheel{
         .drawing{
             margin: auto;
-            width: 600px;
+            width: 700px;
             max-width: 100%;
 
             .icon{
@@ -212,7 +212,8 @@ main{
         .viewer{
             padding: 0.5em 0 0.5em 0;
             margin: 0 auto 0 auto;
-            width: 65%;
+            width: 700px;
+            max-width: 100%;
             .viewer--header{
                 max-width: 100%;
             }

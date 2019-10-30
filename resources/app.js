@@ -3,7 +3,6 @@ import VueResource from 'vue-resource';
 import VueRouter from 'vue-router';
 
 import anime from 'animejs';
-import snapsvg from 'Snapsvg';
 import utils from 'Utils/utils.js';
 
 import cHeader from 'Modules/header/c-header.vue';
@@ -192,7 +191,6 @@ new Vue({
     provide:
     {
         anime: anime,
-        snap: snapsvg,
         utils: utils,
         eventBus: EventBus
     }

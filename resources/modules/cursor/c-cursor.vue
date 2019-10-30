@@ -28,7 +28,7 @@
 
 <script>
 export default {
-    inject: ['anime', 'snap'],
+    inject: ['anime'],
     props:
     {
         path: null,
@@ -60,41 +60,6 @@ export default {
             point.x = point.x - this.$el.width.baseVal.value * 0.5;
             point.y = point.y - this.$el.height.baseVal.value * 0.5;
             return point;
-        }
-    },
-    watch:
-    {
-        content:
-        {
-            handler : function(newContent, oldContent)
-            {
-                if(this.contentType !== 'svg')
-                {
-                    return;
-                }
-
-                if(!newContent)
-                {
-                    return;
-                }
-
-                this.$nextTick(() => {
-
-                    let logo = this.snap(this.$refs.path);
-
-                    if(!oldContent)
-                    {
-                        logo.attr({
-                            d: newContent
-                        });
-
-                        return;
-                    }
-
-                    logo.animate({d: newContent}, 1000, mina['linear']);
-                })
-            },
-            immediate: true 
         }
     },
     methods:
