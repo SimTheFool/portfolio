@@ -224,6 +224,18 @@ main{
     }
 }
 
+#notfound{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-content: center;
+    align-items: center;
+
+    span {
+        margin: 1em 0 1em 0;
+    }
+}
+
 
 @media(min-device-width: 576px)
 {

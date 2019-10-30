@@ -12,6 +12,7 @@ import cFilters from 'Modules/filters/c-filters.vue';
 import cTimeline from 'Modules/timeline/c-timeline.vue';
 import cSkillwheel from 'Modules/skillwheel/c-skillwheel.vue';
 import cPresentation from 'Modules/presentation/c-presentation.vue';
+import cNotFound from 'Modules/notfound/c-notfound.vue';
 
 const EventBus = new Vue();
 Vue.use(VueResource);
@@ -28,9 +29,11 @@ new Vue({
         base: '/',
         mode: 'history',
         routes: [
+            { path: '/404', name: 'notfound', component: cNotFound},
             { path: '/', name: 'presentation', component: cPresentation},
             { path: '/parcours/:slug?', name: 'parcours', component: cTimeline },
-            { path: '/competences/:slug?', name: 'competences', component: cSkillwheel }
+            { path: '/competences/:slug?', name: 'competences', component: cSkillwheel },
+            { path: '*', redirect: '/404'},
         ]
     }),
     data:
@@ -102,11 +105,38 @@ new Vue({
     {
         initNavigation: function()
         {
-            let parcoursSlug = this.websiteContent.timeline.slice(-1)[0].slug;
-            let competencesSlug = this.websiteContent.skillwheel[0].slug;
+            let timelineSlug = this.websiteContent.timeline.slice(-1)[0].slug;
+            let skillwheelSlug = this.websiteContent.skillwheel[0].slug;
 
-            this.currentRoutes[1].params.slug = this.currentRoutes[1].params.slug || parcoursSlug;
-            this.currentRoutes[2].params.slug = this.currentRoutes[2].params.slug || competencesSlug;
+            if(this.currentRouteId === 1)
+            {
+                let elem = this.websiteContent.timeline.find((elem) => {
+                    return elem.slug === this.$route.params.slug;
+                });
+
+                if(elem === undefined) 
+                {
+                    this.$router.push({name : 'notfound'});
+                    this.currentRoutes[1].params.slug = timelineSlug;
+                }
+            }
+
+            if(this.currentRouteId === 2)
+            {
+                console.log('abc' + this.$route.params.slug);
+                let elem = this.websiteContent.skillwheel.find((elem) => {
+                    return elem.slug === this.$route.params.slug;
+                });
+
+                if(elem === undefined) 
+                {
+                    this.$router.push({name : 'notfound'});
+                    this.currentRoutes[2].params.slug = skillwheelSlug;
+                }
+            }
+
+            this.currentRoutes[1].params.slug = this.currentRoutes[1].params.slug || timelineSlug;
+            this.currentRoutes[2].params.slug = this.currentRoutes[2].params.slug || skillwheelSlug;
         },
         setMetaDescription: function()
         {
