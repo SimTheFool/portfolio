@@ -35,7 +35,8 @@ export default {
             innerRadius: 20,
             angles: [Math.PI / 2, 7 * Math.PI / 6, 11 * Math.PI / 6],
             angleOffset: 0,
-            currentAnim: null
+            currentAnim: null,
+            canFocus: true
         }
     },
     computed:
@@ -80,12 +81,21 @@ export default {
             {
                 oldAnim.pause();
             }
+        },
+        canFocus: function(val, oldVal)
+        {
+            if(val === false)
+            {
+                this.unfocus();
+            }
         }
     },
     methods:
     {
         focus: function()
         {
+            if(!this.canFocus){return;}
+
             this.currentAnim = this.anime({
                 targets: this,
                 outerRadius: 35,
@@ -120,6 +130,14 @@ export default {
 
         this.eventBus.$on('unfocus', (e) => {
             this.unfocus();
+        });
+
+        this.eventBus.$on('transitionBegin', () => {
+            this.canFocus = false;
+        });
+
+        this.eventBus.$on('transitionEnd', () => {
+            this.canFocus = true;
         });
     }
 }

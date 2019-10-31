@@ -101,8 +101,9 @@ export default {
                 if(this.$route.params.slug === undefined)
                 {
                     this.$router.push({ name: 'parcours', params: { slug: this.content[this.content.length - 1].slug } });
+                    return;
                 }
-
+                
                 let index = this.content.findIndex((elem) => {return elem.slug === this.$route.params.slug});
                 this.$refs.drawing.click(index);
                 this.computeRoute(this.$route.params.slug);
@@ -167,6 +168,10 @@ export default {
         },
         clickEndpoint: function(index)
         {
+            if(this.content[index].slug === this.$route.params.slug)
+            {
+                return;
+            }
             this.$router.push({ name: 'parcours', params: { slug: this.content[index].slug } });
         },
         dragstart: function()

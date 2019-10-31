@@ -75,7 +75,7 @@ var resolveConfig =
                 },
                 {
                     test: /\.js$/,
-                    exclude: /(node_modules|bower_components)/,
+                    exclude: /(node_modules)/,
                     use: {
                       loader: 'babel-loader',
                       options: {
@@ -97,7 +97,6 @@ var resolveConfig =
                 alias:
                 {
                     Vue: path.resolve('./node_modules/vue/dist/vue.js'),
-                    Config: path.resolve('./resources/config.js'),
                     Modules: path.resolve('./resources/modules'),
                     Utils: path.resolve('./resources/utils'),
                 }
