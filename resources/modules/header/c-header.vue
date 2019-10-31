@@ -5,7 +5,8 @@
                 id="logo"
                 baseProfile="full"
                 xmlns="http://www.w3.org/2000/svg"
-                viewBox="-10 10 120 80">
+                viewBox="-10 10 120 80"
+                >
 
             <path class="logo--text" d="M12.3,37.7c0.6,0.9,0.9,1.8,0.9,2.8c0,1.3-0.5,2.5-1.5,3.5c-1,1-2.2,1.5-3.7,1.5
                 c-1.1,0-2.1-0.3-3-0.9C4,43.9,3.2,43,2.5,41.6l-0.2-0.3L4.4,40l0.2,0.4c0.5,0.9,1,1.5,1.5,2c0.5,0.4,1,0.6,1.6,0.6
@@ -75,26 +76,6 @@
 </template>
 <script>
 export default {
-/*     inject: ['anime'],
-    data: function()
-    {
-        return {
-            initialHeight: ""
-        }
-    },
-    methods:
-    {
-        ascend: function()
-        {
-            this.$el.style.height = this.initialHeight;
-            this.style.zIndex = 0;
-        }
-    },
-    mounted: function()
-    {
-        this.initialHeight = this.$el.offsetHeight;
-        this.$el.style.height = " 100% ";
-        this.style.zIndex = 1;
-    } */
+
 }
 </script>

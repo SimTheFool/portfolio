@@ -1,6 +1,6 @@
 <template>
     <nav>
-        <span class="navBtn--left navBtn" v-on:click="clickLeft" ref="btnLeft">
+        <span class="navBtn--left navBtn" v-on:click="clickLeft" v-on:mouseenter="mouseenter" v-on:mouseleave="mouseleave" ref="btnLeft">
             <svg class="navBtn--symbol"
                 version="1.1"
                 baseProfile="full"
@@ -9,7 +9,7 @@
                 <polyline class="st0" points="75.4,98 4.1,50 75.4,2"/>
             </svg>  
         </span>
-        <span class="navBtn--right navBtn" v-on:click="clickRight" ref="btnRight">
+        <span class="navBtn--right navBtn" v-on:click="clickRight" v-on:mouseenter="mouseenter" v-on:mouseleave="mouseleave" ref="btnRight">
             <svg class="navBtn--symbol"
                 version="1.1"
                 baseProfile="full"
@@ -48,7 +48,15 @@ export default {
         {
             this.$refs.btnRight.classList.add("navBtn--active");
             this.eventBus.$emit('navigate', 'right');
-        }
+        },
+        mouseenter: function()
+        {
+            this.eventBus.$emit('focus');
+        },
+        mouseleave: function()
+        {
+            this.eventBus.$emit('unfocus');
+        },
     },
     mounted: function()
     {

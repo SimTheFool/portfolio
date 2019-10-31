@@ -30,7 +30,7 @@
 
 <script>
 export default {
-    inject: ['anime'],
+    inject: ['anime', 'eventBus'],
     props:
     {
         vbox: "",
@@ -80,53 +80,58 @@ export default {
     },
     methods:
     {
-       click: function(id)
-       {
-           if(this.movingTo === id)
-           {
-               return;
-           }
-
-           this.anime({
-               targets: this.endpointsOffset,
-               easing: 'linear',
-               [id]: 5,
-               duration: 500,
-               begin: () => {
-                   this.movingTo = id;
-               }
-           });
-
-           this.$emit('clickEndpoint', id);
-       },
-       mouseover: function(id)
-       {
+        click: function(id)
+        {
             if(this.movingTo === id)
             {
                 return;
             }
 
-           this.anime({
-               targets: this.endpointsOffset,
-               easing: 'linear',
-               [id]: 2,
-               duration: 300,
-           });
-       },
-       mouseout: function(id)
-       {
-            if(this.movingTo === id)
-            {
-                return;
-            }
+            this.anime({
+                targets: this.endpointsOffset,
+                easing: 'linear',
+                [id]: 5,
+                duration: 500,
+                begin: () => {
+                    this.movingTo = id;
+                }
+            });
 
-           this.anime({
-               targets: this.endpointsOffset,
-               easing: 'linear',
-               [id]: 0,
-               duration: 300,
-           });
-       }
+            this.$emit('clickEndpoint', id);
+        },
+        mouseover: function(id)
+        {
+            this.eventBus.$emit('focus');
+            
+                if(this.movingTo === id)
+                {
+                    return;
+                }
+
+            this.anime({
+                targets: this.endpointsOffset,
+                easing: 'linear',
+                [id]: 2,
+                duration: 300,
+            });
+        },
+        mouseout: function(id)
+        {
+                this.eventBus.$emit('unfocus');
+
+                if(this.movingTo === id)
+                {
+                    return;
+                }
+
+            this.anime({
+                targets: this.endpointsOffset,
+                easing: 'linear',
+                [id]: 0,
+                duration: 300,
+            });
+            
+        },
     }
 }
 </script>

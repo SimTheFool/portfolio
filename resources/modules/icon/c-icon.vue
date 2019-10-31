@@ -4,7 +4,9 @@
                 xmlns="http://www.w3.org/2000/svg"
                 viewBox="0 0 100 100"
                 preserveAspectRatio="xMidYMid meet"
-                v-on:click="$emit('click', $event.currentTarget)">
+                v-on:click="$emit('click', $event.currentTarget)"
+                v-on:mouseenter="mouseenter"
+                v-on:mouseleave="mouseleave">
 
         <path v-bind:d="iconData"/>
 
@@ -13,6 +15,7 @@
 
 <script>
     export default  {
+        inject: ['eventBus'],
         props:
         {
             iconData: ""
@@ -31,6 +34,17 @@
 
                 this.$el.classList.add('icon--clickable');
                 this.$el.classList.remove('icon--active');
+            },
+            mouseenter: function()
+            {
+                if(!this.$el.classList.contains('icon--active'))
+                {
+                    this.eventBus.$emit('focus');
+                }
+            },
+            mouseleave: function()
+            {
+                this.eventBus.$emit('unfocus');
             }
         }
     }

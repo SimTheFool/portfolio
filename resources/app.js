@@ -13,6 +13,7 @@ import cTimeline from 'Modules/timeline/c-timeline.vue';
 import cSkillwheel from 'Modules/skillwheel/c-skillwheel.vue';
 import cPresentation from 'Modules/presentation/c-presentation.vue';
 import cNotFound from 'Modules/notfound/c-notfound.vue';
+import cPointer from 'Modules/pointer/c-pointer.vue';
 
 const EventBus = new Vue();
 Vue.use(VueResource);
@@ -24,6 +25,7 @@ new Vue({
         'c-header': cHeader,
         'c-nav': cNav,
         'c-filters': cFilters,
+        'c-pointer': cPointer
     },
     router: new VueRouter({
         base: '/',
@@ -123,7 +125,6 @@ new Vue({
 
             if(this.currentRouteId === 2)
             {
-                console.log('abc' + this.$route.params.slug);
                 let elem = this.websiteContent.skillwheel.find((elem) => {
                     return elem.slug === this.$route.params.slug;
                 });

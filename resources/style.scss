@@ -1,4 +1,4 @@
-$white: white;
+$white: rgb(236, 227, 223);
 $black: black;
 $orange: #f7931e;
 
@@ -36,6 +36,7 @@ $maxHeaderH : 200px;
 {
     &:hover{
         transform: scale($scale);
+        cursor: none;
     }    
 }
 

@@ -313,10 +313,23 @@ template {
 
 body {
   font-family: "Giorgio";
-  font-size: 19px; }
+  font-size: 19px;
+  cursor: none;
+  overflow: hidden; }
 
 #app {
   overflow: auto; }
+
+#pointer {
+  position: absolute;
+  z-index: 4;
+  display: block;
+  width: 47px;
+  height: 47px;
+  -webkit-transform: translate(-50%, -50%);
+      -ms-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+  pointer-events: none; }
 
 header {
   position: absolute;
@@ -438,7 +451,8 @@ main {
       #presentation p a:hover {
         -webkit-transform: scale(1.3);
             -ms-transform: scale(1.3);
-                transform: scale(1.3); }
+                transform: scale(1.3);
+        cursor: none; }
 
 #timeline {
   display: -webkit-box;
@@ -567,13 +581,21 @@ svg {
   fill: transparent; }
 
 body {
-  color: white;
+  color: #ece3df;
   background-color: black; }
+
+#pointer .pointer--lines {
+  stroke: #f7931e;
+  stroke-width: 6px; }
+
+#pointer .pointer--outlines {
+  stroke: black;
+  stroke-width: 15px; }
 
 header {
   background-color: black; }
   header #logo {
-    fill: white; }
+    fill: #ece3df; }
     header #logo .logo--symbol {
       fill: #f7931e; }
 
@@ -589,7 +611,8 @@ nav {
     nav .navBtn:hover {
       -webkit-transform: scale(1.3);
           -ms-transform: scale(1.3);
-              transform: scale(1.3); }
+              transform: scale(1.3);
+      cursor: none; }
     nav .navBtn--active {
       -webkit-transform: scale(1.5);
           -ms-transform: scale(1.5);
@@ -597,7 +620,7 @@ nav {
       stroke: #f7931e; }
 
 .white {
-  color: white; }
+  color: #ece3df; }
 
 .orange {
   color: #f7931e; }
@@ -609,7 +632,7 @@ nav {
   margin: auto; }
 
 .section .line {
-  stroke: white;
+  stroke: #ece3df;
   stroke-width: 0.5px; }
 
 .section .endpoint {
@@ -622,16 +645,16 @@ nav {
 
 .section .cursor text {
   stroke: transparent;
-  fill: white;
+  fill: #ece3df;
   font-size: 13px; }
 
 .section .cursor path {
-  stroke: white;
+  stroke: #ece3df;
   stroke-width: 1px; }
 
 #skillwheel .icon {
   fill: transparent;
-  stroke: white;
+  stroke: #ece3df;
   stroke-width: 2px;
   -webkit-transition: fill 0.5s, -webkit-transform 0.3s;
   transition: fill 0.5s, -webkit-transform 0.3s;
@@ -641,7 +664,8 @@ nav {
   #skillwheel .icon--clickable:hover {
     -webkit-transform: scale(1.3);
         -ms-transform: scale(1.3);
-            transform: scale(1.3); }
+            transform: scale(1.3);
+    cursor: none; }
   #skillwheel .icon--active {
     -webkit-transform: scale(1.7);
         -ms-transform: scale(1.7);

@@ -7,6 +7,19 @@ body{
     background-color: $black;
 }
 
+#pointer{
+
+    .pointer--lines{
+        stroke: $orange;
+        stroke-width: 6px;
+    }
+
+    .pointer--outlines{
+        stroke: $black;
+        stroke-width: 15px;
+    }
+}
+
 header{
 
     background-color: $black;

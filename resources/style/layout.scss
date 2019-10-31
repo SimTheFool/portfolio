@@ -1,10 +1,22 @@
 body {
     font-family: $fontFam;
     font-size: $fontSize * 0.95;
+    cursor: none;
+    overflow: hidden;
 }
 
 #app{
     overflow: auto;
+}
+
+#pointer{
+    position: absolute;
+    z-index: 4;
+    display: block;
+    width: 47px;
+    height: 47px;
+    transform: translate(-50%, -50%);
+    pointer-events: none;
 }
 
 header{
@@ -187,12 +199,6 @@ main{
             .viewer--header{
                 .viewer--corpo{
                     margin-bottom: 0em;
-                }
-            }
-
-            .viewer--list{
-                .viewer--item{
-
                 }
             }
         }
