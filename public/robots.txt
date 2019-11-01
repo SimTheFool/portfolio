@@ -1,1 +1,2 @@
-Sitemap: http://www.simonsauzede.fr/sitemap.xml
+User-agent: *
+Disallow: /
