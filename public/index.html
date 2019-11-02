@@ -12,8 +12,6 @@
 </head>
 <body>
     <div id="app">
-        
-        <c-filters></c-filters>
 
         <c-pointer></c-pointer>
 
@@ -25,6 +23,7 @@
             <keep-alive>
                 <router-view v-bind="routedProps"></router-view>
             </keep-alive>
+            <c-main-transition></c-main-transition>
         </main>
 
     </div>

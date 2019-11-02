@@ -381,7 +381,8 @@ main {
   height: 83vh;
   padding: 10px;
   -webkit-box-sizing: border-box;
-          box-sizing: border-box; }
+          box-sizing: border-box;
+  position: relative; }
 
 .section {
   -webkit-box-sizing: border-box;
@@ -505,6 +506,20 @@ main {
       max-width: 60%; }
     #skillwheel .viewer .viewer--list {
       max-width: 60%; }
+
+.transition {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  padding-top: inherit;
+  padding-bottom: inherit;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box; }
+  .transition svg {
+    width: 100%;
+    height: 100%; }
 
 @media (orientation: landscape) {
   header {
@@ -674,6 +689,14 @@ nav {
         -ms-transform: scale(1.7);
             transform: scale(1.7);
     stroke: #f7931e; }
+
+.transition svg line {
+  stroke: #f7931e;
+  stroke-width: 0.3%; }
+
+.transition svg rect {
+  fill: black;
+  stroke: transparent; }
 
 @media (orientation: landscape) {
   .section {

@@ -116,6 +116,20 @@ nav{
     }
 }
 
+.transition{
+    svg{
+        line{
+            stroke: $orange;
+            stroke-width: 0.3%;
+        }
+
+        rect{
+            fill: $black;
+            stroke: transparent;
+        }
+    }
+}
+
 
 @media (orientation: landscape)
 {

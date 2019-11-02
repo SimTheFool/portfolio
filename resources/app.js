@@ -7,13 +7,13 @@ import utils from 'Utils/utils.js';
 
 import cHeader from 'Modules/header/c-header.vue';
 import cNav from 'Modules/nav/c-nav.vue';
-import cFilters from 'Modules/filters/c-filters.vue';
+import cPointer from 'Modules/pointer/c-pointer.vue';
+import cMainTransition from 'Modules/transition/c-mainTransition.vue';
 
 import cTimeline from 'Modules/timeline/c-timeline.vue';
 import cSkillwheel from 'Modules/skillwheel/c-skillwheel.vue';
 import cPresentation from 'Modules/presentation/c-presentation.vue';
 import cNotFound from 'Modules/notfound/c-notfound.vue';
-import cPointer from 'Modules/pointer/c-pointer.vue';
 
 const EventBus = new Vue();
 Vue.use(VueResource);
@@ -24,8 +24,8 @@ new Vue({
     {
         'c-header': cHeader,
         'c-nav': cNav,
-        'c-filters': cFilters,
-        'c-pointer': cPointer
+        'c-pointer': cPointer,
+        'c-main-transition': cMainTransition,
     },
     router: new VueRouter({
         base: '/',
