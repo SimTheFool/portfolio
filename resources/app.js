@@ -207,8 +207,6 @@ new Vue({
     },
     mounted: function()
     {
-        console.log(isMobile);
-
         let stopAppClick = function(e){
             e.stopPropagation();
             e.preventDefault();

@@ -82,7 +82,6 @@ export default {
     mounted: function()
     {
         this.eventBus.$on('viewerNewContent', () => {
-            console.log('sdf')
             this.eventBus.$emit('transitionBegin');
             this.drop();
         });
