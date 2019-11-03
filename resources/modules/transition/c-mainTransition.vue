@@ -1,5 +1,5 @@
 <template>
-    <div class="transition">
+    <div class="transition" id="transition--main">
         <svg version="1.1"
             baseProfile="full"
             xmlns="http://www.w3.org/2000/svg"
@@ -52,7 +52,7 @@ export default {
                 targets: this,
                 offset: 0,
                 easing: "linear",
-                duration: 800,
+                duration: 600,
                 complete: () => {
                     this.eventBus.$emit('transiting', this.animDir);
                     this.transitOut();
@@ -77,7 +77,7 @@ export default {
                 targets: this,
                 offset: finalOffset,
                 easing: "linear",
-                duration: 800,
+                duration: 600,
                 complete: () => {
                     this.eventBus.$emit('transitionEnd');
                 }

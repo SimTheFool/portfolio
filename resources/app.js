@@ -4,6 +4,7 @@ import VueRouter from 'vue-router';
 
 import anime from 'animejs';
 import utils from 'Utils/utils.js';
+import {isMobile} from 'mobile-device-detect';
 
 import cHeader from 'Modules/header/c-header.vue';
 import cNav from 'Modules/nav/c-nav.vue';
@@ -40,6 +41,7 @@ new Vue({
     }),
     data:
     {
+        isMobile: isMobile,
         websiteContent: {},
         currentRoutes: [
             {name : 'presentation'}, 
@@ -205,6 +207,8 @@ new Vue({
     },
     mounted: function()
     {
+        console.log(isMobile);
+
         let stopAppClick = function(e){
             e.stopPropagation();
             e.preventDefault();

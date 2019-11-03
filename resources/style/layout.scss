@@ -70,6 +70,7 @@ main{
         flex-direction: column;
         justify-content: space-around;
         height: 100%;
+        position: relative;
 
         .viewer--header{
 
@@ -189,6 +190,7 @@ main{
     padding-top: inherit;
     padding-bottom: inherit;
     box-sizing: border-box;
+    pointer-events: none;
 
     svg{
         width: 100%;

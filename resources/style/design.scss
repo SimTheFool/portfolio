@@ -120,12 +120,20 @@ nav{
     svg{
         line{
             stroke: $orange;
-            stroke-width: 0.3%;
+            stroke-width: 0.2%;
         }
 
         rect{
             fill: $black;
             stroke: transparent;
+        }
+    }
+}
+
+#transition--viewer{
+    svg{
+        line{
+            stroke-width: 0.4%;
         }
     }
 }

@@ -36,7 +36,8 @@ export default {
             angles: [Math.PI / 2, 7 * Math.PI / 6, 11 * Math.PI / 6],
             angleOffset: 0,
             currentAnim: null,
-            canFocus: true
+            canFocus: true,
+            mustFocus: false
         }
     },
     computed:
@@ -67,7 +68,7 @@ export default {
                 points.push({
                     x: Math.cos(angle + this.angleOffset) * this.innerRadius + 50,
                     y: Math.sin(angle + this.angleOffset) * this.innerRadius + 50
-                })
+                });
             });
 
             return points;
@@ -88,12 +89,20 @@ export default {
             {
                 this.unfocus();
             }
+            else
+            {
+                if(this.mustFocus === true)
+                {
+                    this.focus();
+                }
+            }
         }
     },
     methods:
     {
         focus: function()
         {
+            this.mustFocus = true;
             if(!this.canFocus){return;}
 
             this.currentAnim = this.anime({
@@ -107,6 +116,7 @@ export default {
         },
         unfocus: function()
         {
+            this.mustFocus = false;
             this.currentAnim = this.anime({
                 targets: this,
                 outerRadius: 50,
