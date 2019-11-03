@@ -1,0 +1,4 @@
+{
+    "domain": "http://mydomain.ext",
+    "datas": "./path/to/datas.xml"
+}
