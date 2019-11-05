@@ -164,7 +164,7 @@ main{
         .icon{
             display: block;
             height: 45%;
-            max-width: 15%;
+            min-width: 15%;
         }
     }
 
@@ -234,6 +234,7 @@ main{
 
             .icon{
                 height: 80%;
+                min-width: 15%;
             }
         }
 
