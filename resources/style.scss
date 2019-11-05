@@ -14,11 +14,11 @@ $maxHeaderH : 200px;
 {
     @if $orientation == 'landscape'
     {
-        @return 23vh;
+        @return 18vh;
     }
     @else if $orientation == 'portrait'
     {
-        @return 17vh;
+        @return 13vh;
     }
 }
 @mixin headerDim($orientation)
