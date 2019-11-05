@@ -197,10 +197,14 @@ new Vue({
             
             EventBus.$on('transitionBegin', () => {
                 this.$el.addEventListener('click', stopAppClick, true);
+                document.addEventListener('touchstart', stopAppClick, true);
+                document.addEventListener('touchend', stopAppClick, true);
             });
     
             EventBus.$on('transitionEnd', () => {
                 this.$el.removeEventListener('click', stopAppClick, true);
+                document.removeEventListener('touchstart', stopAppClick, true);
+                document.removeEventListener('touchend', stopAppClick, true);
             });
         },
         triggerTouchEvents: function()
