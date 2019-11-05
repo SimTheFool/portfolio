@@ -191,7 +191,6 @@ new Vue({
         {
             let stopAppClick = function(e){
                 e.stopPropagation();
-                e.preventDefault();
                 e.stopImmediatePropagation();
             };
             
@@ -214,11 +213,11 @@ new Vue({
             });
 
             document.addEventListener('touchend', (e) => {
-                if(e.changedTouches[0].clientX < this.touchpoint - 20)
+                if(e.changedTouches[0].clientX < this.touchpoint - 80)
                 {
                     EventBus.$emit('slideleft');
                 }
-                else if(e.changedTouches[0].clientX > this.touchpoint + 20)
+                else if(e.changedTouches[0].clientX > this.touchpoint + 80)
                 {
                     EventBus.$emit('slideright');
                 }
