@@ -101,7 +101,8 @@ main{
             max-height: 50%;
             list-style: none;
             padding: 0 0 0 0;
-            margin: 1em auto 0 auto;
+            margin: 0 auto 0 auto;
+            padding-top: 0.5em;
 
             .viewer--item{
                 font-size: 0.7em;
@@ -163,8 +164,9 @@ main{
 
         .icon{
             display: block;
-            height: 45%;
+            height: 40%;
             min-width: 15%;
+            max-height: 100px;
         }
     }
 
@@ -229,7 +231,7 @@ main{
     #skillwheel{
         .drawing{
             margin: auto;
-            width: 700px;
+            width: 600px;
             max-width: 100%;
 
             .icon{
@@ -239,7 +241,7 @@ main{
         }
 
         .viewer{
-            padding: 0.5em 0 0.5em 0;
+            padding: 0 0 0.5em 0;
             margin: 0 auto 0 auto;
             width: 700px;
             max-width: 100%;
