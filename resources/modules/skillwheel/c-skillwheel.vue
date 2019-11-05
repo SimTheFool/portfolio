@@ -40,7 +40,8 @@ export default {
     data: function()
     {
         return {
-            currentDatas: {}
+            currentDatas: {},
+            route: this.$route,
         }
     },
     watch:
@@ -59,18 +60,26 @@ export default {
         $route: 
         {
             handler: function(to, from)
-            {
+            {   
                 if(to.name !== 'competences' || to.params.slug === undefined)
                 {
                     return;
                 }
-                
-                let oldIndex = this.content.findIndex((elem) => { return elem.slug === from.params.slug});
+
                 let newIndex = this.content.findIndex((elem) => { return elem.slug === to.params.slug});
-                this.$refs.icons[oldIndex].setActive(false);
-                this.$refs.icons[newIndex].setActive(true);
+                this.content.forEach((elem, index) => {
+                    if(index === newIndex)
+                    {
+                        this.$refs.icons[index].setActive(true);
+                    }
+                    else
+                    {
+                        this.$refs.icons[index].setActive(false);
+                    }
+                });
                 this.computeRoute(to.params.slug);
-            }
+            },
+            deep: true
         }
     },
     methods:

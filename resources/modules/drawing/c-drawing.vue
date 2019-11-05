@@ -66,20 +66,32 @@ export default {
                 }
             }
         },
-        movingTo: function(val, oldVal)
-        {
-            let id = oldVal;
-
-            this.anime({
-                targets: this.endpointsOffset,
-                easing: 'linear',
-                [id]: 0,
-                duration: 500,
-           });
-        }
     },
     methods:
     {
+        setActive: function(id, boolean)
+        {
+            if(boolean)
+            {
+                this.movingTo = id;
+
+                this.anime({
+                    targets: this.endpointsOffset,
+                    easing: 'linear',
+                    [id]: 5,
+                    duration: 500
+                });
+            }
+            else
+            {
+                this.anime({
+                    targets: this.endpointsOffset,
+                    easing: 'linear',
+                    [id]: 0,
+                    duration: 500,
+                });
+            }
+        },
         click: function(id)
         {
             if(this.movingTo === id)
@@ -87,51 +99,16 @@ export default {
                 return;
             }
 
-            this.anime({
-                targets: this.endpointsOffset,
-                easing: 'linear',
-                [id]: 5,
-                duration: 500,
-                begin: () => {
-                    this.movingTo = id;
-                }
-            });
-
             this.$emit('clickEndpoint', id);
         },
         mouseover: function(id)
         {
             this.eventBus.$emit('focus');
-            
-                if(this.movingTo === id)
-                {
-                    return;
-                }
-
-            this.anime({
-                targets: this.endpointsOffset,
-                easing: 'linear',
-                [id]: 2,
-                duration: 300,
-            });
         },
         mouseout: function(id)
         {
                 this.eventBus.$emit('unfocus');
-
-                if(this.movingTo === id)
-                {
-                    return;
-                }
-
-            this.anime({
-                targets: this.endpointsOffset,
-                easing: 'linear',
-                [id]: 0,
-                duration: 300,
-            });
-            
-        },
+        }
     }
 }
 </script>
