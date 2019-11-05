@@ -130,8 +130,13 @@ export default {
     mounted: function()
     {
         document.addEventListener('mousemove', (e) => {
-            this.pointerX = e.clientX;
-            this.pointerY = e.clientY;
+            let bodyRect = document.querySelector('body').getBoundingClientRect();
+            let pointerRect = this.$el.getBoundingClientRect();
+            let limitRight = bodyRect.width - pointerRect.width / 2;
+            let limitBottom = bodyRect.height - pointerRect.height / 2;
+
+            this.pointerX = (e.clientX < limitRight) ? e.clientX : limitRight;
+            this.pointerY = (e.clientY < limitBottom) ? e.clientY : limitBottom;
         });
 
         this.eventBus.$on('focus', (e) => {

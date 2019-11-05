@@ -23,7 +23,7 @@ $maxHeaderH : 200px;
 }
 @mixin headerDim($orientation)
 {
-    position: absolute;
+    position: fixed;
     height: headerH($orientation);
     max-height: $maxHeaderH;
     padding-bottom: 2vh;
