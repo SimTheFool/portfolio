@@ -78,6 +78,17 @@ export default {
                 {
                     return;
                 }
+                let newIndex = this.content.findIndex((elem) => { return elem.slug === to.params.slug});
+                this.content.forEach((elem, index) => {
+                    if(index === newIndex)
+                    {
+                        this.$refs.drawing.setActive(index, true);
+                    }
+                    else
+                    {
+                        this.$refs.drawing.setActive(index, false);
+                    }
+                });
                 this.computeRoute(to.params.slug);
             }
         }
@@ -105,7 +116,7 @@ export default {
                 }
                 
                 let index = this.content.findIndex((elem) => {return elem.slug === this.$route.params.slug});
-                this.$refs.drawing.click(index);
+                this.$refs.drawing.setActive(index, true);
                 this.computeRoute(this.$route.params.slug);
             });
         },

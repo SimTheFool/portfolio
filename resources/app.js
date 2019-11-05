@@ -48,7 +48,8 @@ new Vue({
             {name : 'parcours', params: {slug: ''}}, 
             {name : 'competences', params: {slug: ''}}, 
         ],
-        currentRouteId: 0
+        currentRouteId: 0,
+        touchpoint: null
     },
     computed:
     {
@@ -185,6 +186,39 @@ new Vue({
             });
             
             return obj;
+        },
+        handleTransitions: function()
+        {
+            let stopAppClick = function(e){
+                e.stopPropagation();
+                e.preventDefault();
+                e.stopImmediatePropagation();
+            };
+            
+            EventBus.$on('transitionBegin', () => {
+                this.$el.addEventListener('click', stopAppClick, true);
+            });
+    
+            EventBus.$on('transitionEnd', () => {
+                this.$el.removeEventListener('click', stopAppClick, true);
+            });
+        },
+        triggerTouchEvents: function()
+        {
+            document.addEventListener('touchstart', (e) => {
+                this.touchpoint = e.touches[0].clientX;
+            });
+
+            document.addEventListener('touchend', (e) => {
+                if(e.changedTouches[0].clientX < this.touchpoint - 20)
+                {
+                    EventBus.$emit('slideleft');
+                }
+                else if(e.changedTouches[0].clientX > this.touchpoint + 20)
+                {
+                    EventBus.$emit('slideright');
+                }
+            });
         }
     },
     beforeCreate: function()
@@ -196,7 +230,7 @@ new Vue({
             let datas = this.parseXmltoObj(xml);
 
             this.websiteContent = datas;
-            //EventBus.$emit('datasInitialized');
+            EventBus.$emit('datasInitialized');
 
             this.initNavigation();
             this.setMetaDescription();
@@ -207,19 +241,8 @@ new Vue({
     },
     mounted: function()
     {
-        let stopAppClick = function(e){
-            e.stopPropagation();
-            e.preventDefault();
-            e.stopImmediatePropagation();
-        };
-        
-        EventBus.$on('transitionBegin', () => {
-            this.$el.addEventListener('click', stopAppClick, true);
-        });
-
-        EventBus.$on('transitionEnd', () => {
-            this.$el.removeEventListener('click', stopAppClick, true);
-        });
+        this.handleTransitions();
+        this.triggerTouchEvents();
     },
     provide:
     {

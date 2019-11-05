@@ -39,12 +39,12 @@ export default {
     },
     methods:
     {
-        clickLeft: function(e)
+        clickLeft: function()
         {
             this.$refs.btnLeft.classList.add("navBtn--active");
             this.eventBus.$emit('navigate', 'left');
         },
-        clickRight: function(e)
+        clickRight: function()
         {
             this.$refs.btnRight.classList.add("navBtn--active");
             this.eventBus.$emit('navigate', 'right');
@@ -60,6 +60,14 @@ export default {
     },
     mounted: function()
     {
+        this.eventBus.$on('slideleft', () => {
+            this.clickRight();
+        });
+
+        this.eventBus.$on('slideright', () => {
+            this.clickLeft();
+        });
+
         this.eventBus.$on('transiting', (e) => {
             if(e == 'right')
             {
@@ -71,7 +79,7 @@ export default {
                 this.$refs.btnLeft.classList.remove("navBtn--active");
                 this.$router.push(this.left);
             }
-        })
+        });
     }
 }
 </script>

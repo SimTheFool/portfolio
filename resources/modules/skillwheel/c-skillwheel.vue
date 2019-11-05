@@ -40,7 +40,8 @@ export default {
     data: function()
     {
         return {
-            currentDatas: {}
+            currentDatas: {},
+            route: this.$route,
         }
     },
     watch:
@@ -59,13 +60,26 @@ export default {
         $route: 
         {
             handler: function(to, from)
-            {
+            {   
                 if(to.name !== 'competences' || to.params.slug === undefined)
                 {
                     return;
                 }
+
+                let newIndex = this.content.findIndex((elem) => { return elem.slug === to.params.slug});
+                this.content.forEach((elem, index) => {
+                    if(index === newIndex)
+                    {
+                        this.$refs.icons[index].setActive(true);
+                    }
+                    else
+                    {
+                        this.$refs.icons[index].setActive(false);
+                    }
+                });
                 this.computeRoute(to.params.slug);
-            }
+            },
+            deep: true
         }
     },
     methods:
@@ -87,7 +101,7 @@ export default {
             });
         },
         computeRoute: function(slug)
-        {   
+        {
             this.currentDatas = this.content.find((elem) => { return slug === elem.slug});
         },
         click: function(e)
@@ -100,8 +114,6 @@ export default {
                 return;
             }
 
-            this.$refs.icons[currentIndex].setActive(false);
-            this.$refs.icons[newIndex].setActive(true);
             this.$router.push({ name: 'competences', params: { slug: this.content[e.dataset.id].slug } });
         }
     },
