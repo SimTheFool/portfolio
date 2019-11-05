@@ -64,6 +64,11 @@ export default {
                 {
                     return;
                 }
+                
+                let oldIndex = this.content.findIndex((elem) => { return elem.slug === from.params.slug});
+                let newIndex = this.content.findIndex((elem) => { return elem.slug === to.params.slug});
+                this.$refs.icons[oldIndex].setActive(false);
+                this.$refs.icons[newIndex].setActive(true);
                 this.computeRoute(to.params.slug);
             }
         }
@@ -87,7 +92,7 @@ export default {
             });
         },
         computeRoute: function(slug)
-        {   
+        {
             this.currentDatas = this.content.find((elem) => { return slug === elem.slug});
         },
         click: function(e)
@@ -100,8 +105,6 @@ export default {
                 return;
             }
 
-            this.$refs.icons[currentIndex].setActive(false);
-            this.$refs.icons[newIndex].setActive(true);
             this.$router.push({ name: 'competences', params: { slug: this.content[e.dataset.id].slug } });
         }
     },
