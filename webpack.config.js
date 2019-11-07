@@ -185,7 +185,7 @@ var resolveConfig =
 
                 config.plugins.push(new imports.SitemapPlugin(env.domain, routes, {
                     skipGzip: true,
-                    fileName: 'sitemap.xml'
+                    fileName: '../public/sitemap.xml'
                 }));
 
                 resolve(config);
