@@ -183,7 +183,19 @@ var resolveConfig =
                     })
                 }));
 
-                config.plugins.push(new imports.SitemapPlugin(env.domain, routes, {
+                let pathes = routes.map((route) => {
+                    let priority = (route === '/') ? 1 : 0.5;
+                    let date = new Date();
+                    date = `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`;
+
+                    return {
+                        path: route,
+                        lastMod: date,
+                        priority: priority
+                    }
+                })
+
+                config.plugins.push(new imports.SitemapPlugin(env.domain, pathes, {
                     skipGzip: true,
                     fileName: '../public/sitemap.xml'
                 }));
