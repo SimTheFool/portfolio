@@ -125,7 +125,6 @@
                 <li class='viewer--item'>MySql</li>
                 <li class='viewer--item'>Websockets</li>
                 <li class='viewer--item'><span class='orange'>Apache</span> et paramétrage htaccess</li>
-                <li class='viewer--item'>Prérendu</li>
             </ul>
         </element>
 
@@ -167,6 +166,7 @@
             <ul class='viewer--list'>
                 <li class='viewer--item'><span class='orange'>Unity3D</span></li>
                 <li class='viewer--item'>Bases du C#</li>
+                <li class='viewer--item'>Bases de Docker</li>
                 <li class='viewer--item'>Intérêt pour les shaders</li>
                 <li class='viewer--item'>Intérêt pour les design patterns</li>
                 <li class='viewer--item'>Bonne maîtrise des expressions régulières</li>
