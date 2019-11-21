@@ -1,6 +1,6 @@
 # Portfolio - CV en ligne
 
-Ce site vitrine a été développé afin de servir de CV en ligne. Celui-ci m'a permis de tester le fonctionnement des routeurs front-end, des SVG, des filtres et du morphing, même si ces deux derniers ne sont pas présent dans la version actuelle. Voir [ici](https://github.com/SimTheFool/svg-filters) pour mes test sur les filtres SVG.
+Ce site vitrine a été développé afin de servir de CV en ligne. Celui-ci m'a permis de tester le fonctionnement des routeurs front-end, des SVG, des filtres et du morphing, même si ces deux derniers ne sont pas présents dans la version actuelle. Voir [ici](https://github.com/SimTheFool/svg-filters) pour mes tests sur les filtres SVG.
 
 ### Technologies
 
