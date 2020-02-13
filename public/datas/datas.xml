@@ -81,20 +81,6 @@
             </ul>
         </element>
 
-        <element slug="lafringale" year="2019" duration="0.2">
-            <div class='viewer--header'>
-                <div class='viewer--title'>Dévelo<span class='orange'>p</span>peur <span class='orange'>w</span>eb</div>
-                <div class='viewer--corpo'>La Fringale de Trad' - Stage</div>
-                <div class='viewer--place'>Clermont-Ferrand - Télétravail</div>
-            </div>
-            
-            <ul class='viewer--list'>
-                <li class='viewer--item'>Site <span class='orange'>vitrine</span></li>
-                <li class='viewer--item'>Interface d'<span class='orange'>administration</span></li>
-                <li class='viewer--item'>Interface de <span class='orange'>lecture audio</span></li>
-            </ul>
-        </element>
-
         <element slug="titreprofessionnel" year="2019" duration="0.1">
             <div class='viewer--header'>
                 <div class='viewer--title'>Tit<span class='orange'>r</span>e <span class='orange'>P</span>rofessionnel</div>
